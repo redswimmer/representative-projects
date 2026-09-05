@@ -1,6 +1,6 @@
-id: 'openai:chat:{{env.PF_MODEL}}'
-label: target-model
+id: openai:chat:gpt-5.6-luna
+label: gpt-5.6-luna
 config:
-  apiBaseUrl: '{{env.PF_BASE_URL}}'
-  apiKey: '{{env.PF_API_KEY}}'
   temperature: 0
+# To target a local OpenAI-compatible server instead, add under config:
+#   apiBaseUrl: http://localhost:8000/v1   # vLLM (llama.cpp: :8080/v1)

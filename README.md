@@ -21,21 +21,17 @@ Requirements: [uv](https://docs.astral.sh/uv/), Node.js (the promptfoo PyPI
 wrapper shells out to it), and any OpenAI-compatible endpoint — a local server (vLLM, llama.cpp) or the OpenAI API itself.
 
 ```bash
-# 1. serve a model, e.g.:
-#    vllm serve <model> --served-model-name my-model            (:8000)
-#    llama-server -m model.gguf                                  (:8080)
-#    ...or skip the server and use OpenAI's cloud API directly:
-#    PF_MODEL=gpt-5.6-luna PF_BASE_URL=https://api.openai.com/v1 PF_API_KEY=<your key>
+# 1. put your key in .env (promptfoo loads it automatically)
+echo 'OPENAI_API_KEY=sk-...' > .env
 
-# 2. point the eval at it
-export PF_MODEL=my-model
-export PF_BASE_URL=http://localhost:8000/v1
-export PF_API_KEY=dummy
+#    ...or serve locally and point shared/provider.yaml at it by adding
+#    `apiBaseUrl: http://localhost:8000/v1` (vLLM) / :8080/v1 (llama.cpp)
+#    under config: — model and endpoint live in that file, not in env vars.
 
-# 3. run phase 1 over the corpus
+# 2. run phase 1 over the corpus
 uvx promptfoo@0.1.4 eval -c evals/extract-problems/promptfooconfig.yaml --no-cache --no-share
 
-# 4. read traces in the browser
+# 3. read traces in the browser
 uvx promptfoo@0.1.4 view
 
 # unit tests (assertion logic)

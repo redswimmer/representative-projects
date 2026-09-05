@@ -179,18 +179,19 @@ lists component IDs.
 `providers: [file://../../shared/provider.yaml]`):
 
 ```yaml
-id: 'openai:chat:{{env.PF_MODEL}}'
-label: local-model
+id: openai:chat:gpt-5.6-luna
+label: gpt-5.6-luna
 config:
-  apiBaseUrl: '{{env.PF_BASE_URL}}'   # vLLM: http://localhost:8000/v1
-                                       # llama.cpp: http://localhost:8080/v1
-  apiKey: '{{env.PF_API_KEY}}'        # dummy value fine for local servers
   temperature: 0
 ```
 
-(If env templating in the `id` field proves unsupported at implementation
-time, fall back to a literal served-model-name in this one file — still a
-single-file edit.)
+(Amended 2026-09-05: an earlier revision routed model, base URL, and API key
+through `PF_*` env vars. Collapsed per promptfoo's own example conventions:
+model lives in the id, the key comes from `OPENAI_API_KEY` in the
+environment/`.env` — never in config — and `apiBaseUrl` is added under
+`config:` only when targeting a local server, e.g.
+`http://localhost:8000/v1` for vLLM, `:8080/v1` for llama.cpp. Switching
+targets is an edit to this one visible file.)
 
 - promptfoo runs via `uvx promptfoo@0.1.4` — the official PyPI wrapper
   (delivers CLI 0.122.2 at design time; still requires Node.js at runtime).
@@ -297,7 +298,8 @@ Runtime eval code remains stdlib-only.
 
 ## 10. Success Criteria
 
-1. `git clone` → start any OpenAI-compatible local server → export 3 env vars
+1. `git clone` → put `OPENAI_API_KEY` in `.env` (or point `provider.yaml` at
+   a local server)
    → `uvx promptfoo@0.1.4 eval -c evals/extract-problems/promptfooconfig.yaml`
    works, and `uv run pytest` passes.
 2. Every assertion in the final repo traces to a documented failure mode in
