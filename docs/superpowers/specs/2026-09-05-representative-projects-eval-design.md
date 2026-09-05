@@ -44,26 +44,21 @@ re-implement file loading promptfoo already does deterministically).
 job_listings/                      # real listings, one .txt per listing
 shared/
   provider.yaml                    # single provider definition (see §6)
-src/
-  listing_evals/                   # pure core logic: no promptfoo types, no IO
-    __init__.py
-    grounding.py                   # normalize_text, find_ungrounded_quotes
-    proposal_integrity.py          # dangling refs, unaddressed problems, code-leak scan
 evals/
   extract-problems/                # PHASE 1
     promptfooconfig.yaml
     prompts/extract.json           # chat-format messages (system + user)
     schema.json                    # phase-1 output contract
     generate_tests.py              # globs job_listings dir -> one test per file
-    asserts/grounding.py           # thin adapter over listing_evals.grounding
+    asserts/grounding.py           # matching logic + promptfoo adapter, one file (see §8)
   propose-project/                 # PHASE 2 (built after phase 1 iterates)
     promptfooconfig.yaml
     prompts/propose.json
     schema.json
     fixtures/*.json                # frozen, hand-verified phase-1 outputs
-    asserts/integrity.py           # thin adapter over listing_evals.proposal_integrity
+    asserts/integrity.py           # integrity logic + promptfoo adapter, one file
 tests/
-  unit/                            # pytest; tests core logic only (see §8)
+  unit/                            # pytest; tests assertion logic only (see §8)
 docs/
   error-analysis/                  # round-N notes, taxonomy, labels
   superpowers/specs/               # this spec
@@ -134,8 +129,8 @@ tests:
 contract, not speculative failure evals:
 
 1. `is-json` against `schema.json`.
-2. `python: file://asserts/grounding.py` — thin adapter calling
-   `listing_evals.grounding`: every `evidence` string must be a
+2. `python: file://asserts/grounding.py` — matching logic + adapter in one
+   file: every `evidence` string must be a
    substring of `context["vars"]["listing"]` after normalization on both
    sides: Unicode NFKC, curly quotes/dashes → ASCII, whitespace runs → single
    space, casefold. Returns a GradingResult with `named_scores`
@@ -169,8 +164,8 @@ lists component IDs.
 **Contract assertions (v0):**
 
 1. `is-json` against schema.
-2. `asserts/integrity.py` — thin adapter calling
-   `listing_evals.proposal_integrity`: every `addresses` ID exists in the
+2. `asserts/integrity.py` — integrity logic + adapter in one
+   file: every `addresses` ID exists in the
    fixture's problems; every fixture problem is addressed by ≥1 component;
    every roadmap component ID exists. Pure set arithmetic, with
    `named_scores` (`problem_coverage`, `ref_integrity`).
@@ -257,22 +252,26 @@ Gear").
 domain meaning (`find_ungrounded_quotes`, `job_listings_dir`,
 `unaddressed_problems`), never for their mechanics.
 
-**Core/adapter separation (ch. 3).** All domain logic lives in
-`src/listing_evals/` as pure functions — plain data in, plain data out; no
-promptfoo types, no file IO, no environment access. Each suite's
-`asserts/*.py` is a thin adapter: anchor `sys.path` to repo `src/` (2 lines),
-parse the model output, call core functions, marshal the result into a
-GradingResult dict. Adapters contain no logic worth testing.
+**Core/adapter separation (ch. 3) — a boundary inside one file.** (Amended
+2026-09-05: an earlier revision put the logic in a `src/listing_evals/`
+package; with a single consumer per module and nothing actually shared, that
+was collapsed — files that change together live together.) Each suite's
+`asserts/*.py` is layered: pure functions on top (plain data in, plain data
+out; no promptfoo types, no IO) and the `get_assert` GradingResult adapter at
+the bottom. `tests/unit/conftest.py` puts the asserts directory on `sys.path`
+so tests import the same file promptfoo executes. Extract a shared package
+only if two suites ever genuinely share logic.
 
 **High gear / low gear (ch. 5).** Unit tests live in `tests/unit/` (pytest)
-and target the pure core only — behavior at the function contract level:
-normalization edge cases (curly quotes, whitespace, unicode), grounding
-semantics (verbatim vs. fabricated vs. partially-overlapping quotes),
-integrity set logic (dangling refs, unaddressed problems). What is
-deliberately NOT unit-tested: promptfoo adapters, YAML configs, the test
-generator, GradingResult marshaling — that glue is exercised edge-to-edge by
-every eval run, and tests coupled to it would be the brittle kind that
-punish refactoring without catching real defects.
+and target the pure functions plus the adapter's *contract* (malformed model
+output returns a failed GradingResult, never raises — see §9): normalization
+edge cases (curly quotes, whitespace, unicode), grounding semantics (verbatim
+vs. fabricated vs. partially-overlapping quotes), integrity set logic
+(dangling refs, unaddressed problems), graceful-failure shapes. What is
+deliberately NOT unit-tested: YAML configs, the test generator, GradingResult
+field marshaling — that glue is exercised edge-to-edge by every eval run, and
+tests coupled to it would be the brittle kind that punish refactoring without
+catching real defects.
 
 **Tooling.** `uv run pytest` runs the suite. `pyproject.toml` gains:
 
@@ -281,7 +280,6 @@ punish refactoring without catching real defects.
 dev = ["pytest"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
 testpaths = ["tests/unit"]
 ```
 

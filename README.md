@@ -38,7 +38,7 @@ uvx promptfoo@0.1.4 eval -c evals/extract-problems/promptfooconfig.yaml --no-cac
 # 4. read traces in the browser
 uvx promptfoo@0.1.4 view
 
-# unit tests (core logic only)
+# unit tests (assertion logic)
 uv sync && uv run pytest
 ```
 
@@ -47,9 +47,8 @@ uv sync && uv run pytest
 | Path | What it is |
 |---|---|
 | `job_listings/` | Real job listings, one `.txt` per listing — the corpus |
-| `evals/extract-problems/` | Phase 1 suite: prompt (the agent), schema, grounding assertion |
-| `src/listing_evals/` | Pure domain logic (no promptfoo, no IO) behind every assertion |
-| `tests/unit/` | pytest, behavior-level, core logic only — never harness glue |
+| `evals/extract-problems/` | Phase 1 suite: prompt (the agent), schema, grounding assertion (pure matching logic + promptfoo adapter, one file) |
+| `tests/unit/` | pytest, behavior-level, assertion logic only — never harness glue |
 | `runs/` | Committed eval snapshots per iteration (`extract-problems-v0.json`, …) |
 | `docs/error-analysis/` | Failure taxonomy and labels, built by reading traces (created during round 1) |
 | `docs/superpowers/specs/` | The design spec this repo implements |

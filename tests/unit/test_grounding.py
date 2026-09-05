@@ -1,6 +1,6 @@
 """Behavior tests for evidence grounding: does a claimed quote actually appear in the listing?"""
 
-from listing_evals.grounding import find_ungrounded_quotes
+from grounding import find_ungrounded_quotes, get_assert
 
 LISTING = '''Acme Corp is hiring a Senior Data Engineer.
 You will take ownership of our nightly ETL
@@ -52,3 +52,35 @@ def test_mixed_quotes_reports_only_the_fabricated_one():
 
 def test_empty_quote_list_is_vacuously_grounded():
     assert find_ungrounded_quotes([], LISTING) == []
+
+
+# --- get_assert contract: malformed output fails gracefully, never raises ---
+
+
+def test_null_problems_fails_without_raising():
+    result = get_assert('{"problems": null}', {"vars": {"listing": LISTING}})
+    assert result["pass_"] is False and "list of objects" in result["reason"]
+
+
+def test_non_dict_problem_entry_fails_without_raising():
+    result = get_assert('{"problems": ["not a dict"]}', {"vars": {"listing": LISTING}})
+    assert result["pass_"] is False
+
+
+def test_evidence_as_plain_string_fails_without_raising():
+    output = '{"problems": [{"id": "P1", "evidence": "nightly ETL"}]}'
+    result = get_assert(output, {"vars": {"listing": LISTING}})
+    assert result["pass_"] is False and "list of strings" in result["reason"]
+
+
+def test_missing_listing_var_fails_without_raising():
+    output = '{"problems": [{"id": "P1", "evidence": ["nightly ETL"]}]}'
+    result = get_assert(output, {"vars": {}})
+    assert result["pass_"] is False and "listing var" in result["reason"]
+
+
+def test_partially_grounded_output_scores_the_fraction():
+    output = '{"problems": [{"id": "P1", "evidence": ["nightly ETL", "made-up quote"]}]}'
+    result = get_assert(output, {"vars": {"listing": LISTING}})
+    assert result["pass_"] is False and result["score"] == 0.5
+    assert "1/2" in result["reason"]

@@ -1,17 +1,45 @@
 """Promptfoo assertion: every evidence quote must appear verbatim in the listing.
 
-Thin adapter over listing_evals.grounding — parsing and marshaling only,
-no logic worth unit-testing (the eval run itself exercises this file).
+One file, two layers: pure matching logic on top (unit-tested from tests/unit/),
+the promptfoo GradingResult adapter (get_assert) at the bottom.
 """
 
 import json
-import sys
-from pathlib import Path
+import re
+import unicodedata
+from collections.abc import Sequence
 
-REPO_SRC = Path(__file__).resolve().parents[3] / "src"
-sys.path.insert(0, str(REPO_SRC))
+_PUNCTUATION_TRANSLATION = str.maketrans({
+    "‘": "'",  # left single curly quote
+    "’": "'",  # right single curly quote
+    "“": '"',  # left double curly quote
+    "”": '"',  # right double curly quote
+    "–": "-",  # en dash
+    "—": "-",  # em dash
+    "−": "-",  # minus sign
+})
+_WHITESPACE_RUNS = re.compile(r"\s+")
 
-from listing_evals.grounding import find_ungrounded_quotes  # noqa: E402
+
+def normalize_text(text: str) -> str:
+    """Collapse cosmetic differences (unicode forms, curly punctuation, whitespace, case)
+    so that only real wording differences distinguish two strings."""
+    text = unicodedata.normalize("NFKC", text)
+    text = text.translate(_PUNCTUATION_TRANSLATION)
+    return _WHITESPACE_RUNS.sub(" ", text).casefold().strip()
+
+
+def find_ungrounded_quotes(quotes: Sequence[str], listing: str) -> list[str]:
+    """Return the quotes that do NOT appear verbatim in the listing, after normalization.
+
+    An empty result means every quote is grounded. Returned quotes keep their
+    original form so callers can name the offender.
+    """
+    normalized_listing = normalize_text(listing)
+    return [quote for quote in quotes if normalize_text(quote) not in normalized_listing]
+
+
+# --- promptfoo adapter -------------------------------------------------------
 
 
 def _quote_label(quote: str, limit: int = 60) -> str:
@@ -44,7 +72,7 @@ def get_assert(output, context):
         problem_id = problem.get("id", "?")
         quotes = problem.get("evidence", [])
         if not isinstance(quotes, list) or not all(isinstance(q, str) for q in quotes):
-            return _contract_failure(f"{problem.get('id', '?')}: evidence must be a list of strings")
+            return _contract_failure(f"{problem_id}: evidence must be a list of strings")
         ungrounded = set(find_ungrounded_quotes(quotes, listing))
         for quote in quotes:
             total_quotes += 1
