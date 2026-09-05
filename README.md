@@ -21,8 +21,8 @@ Requirements: [uv](https://docs.astral.sh/uv/), Node.js (the promptfoo PyPI
 wrapper shells out to it), and any OpenAI-compatible endpoint — a local server (vLLM, llama.cpp) or the OpenAI API itself.
 
 ```bash
-# 1. put your key in .env (promptfoo loads it automatically)
-echo 'OPENAI_API_KEY=sk-...' > .env
+# 1. copy the example env and set your API key (promptfoo loads .env automatically)
+cp .env.example .env
 
 #    ...or serve locally and point evals/providers.yaml at it by adding
 #    `apiBaseUrl: http://localhost:8000/v1` (vLLM) / :8080/v1 (llama.cpp)
