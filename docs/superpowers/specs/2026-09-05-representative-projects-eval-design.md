@@ -42,9 +42,8 @@ re-implement file loading promptfoo already does deterministically).
 
 ```
 job_listings/                      # real listings, one .txt per listing
-shared/
-  provider.yaml                    # single provider definition (see §6)
 evals/
+  providers.yaml                   # single provider definition, shared by both suites (see §6)
   extract-problems/                # PHASE 1
     promptfooconfig.yaml
     prompts/extract.json           # chat-format messages (system + user)
@@ -175,8 +174,8 @@ lists component IDs.
 
 ## 6. Provider & Reproducibility
 
-`shared/provider.yaml` (referenced from both suites as
-`providers: [file://../../shared/provider.yaml]`):
+`evals/providers.yaml` (referenced from each suite as
+`providers: [file://../providers.yaml]`):
 
 ```yaml
 id: openai:chat:gpt-5.6-luna

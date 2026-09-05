@@ -24,7 +24,7 @@ wrapper shells out to it), and any OpenAI-compatible endpoint — a local server
 # 1. put your key in .env (promptfoo loads it automatically)
 echo 'OPENAI_API_KEY=sk-...' > .env
 
-#    ...or serve locally and point shared/provider.yaml at it by adding
+#    ...or serve locally and point evals/providers.yaml at it by adding
 #    `apiBaseUrl: http://localhost:8000/v1` (vLLM) / :8080/v1 (llama.cpp)
 #    under config: — model and endpoint live in that file, not in env vars.
 

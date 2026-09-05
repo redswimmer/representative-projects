@@ -5,7 +5,7 @@ prompts:
   - file://prompts/extract.json
 
 providers:
-  - file://../../shared/provider.yaml
+  - file://../providers.yaml
 
 defaultTest:
   assert:
