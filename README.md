@@ -37,10 +37,9 @@ around measuring that, cheaply and reproducibly:
   "*Our* mission is to create reliable, interpretable, and steerable AI
   systems" — the listing says "*Anthropic's* mission…". A confident,
   plausible, fabricated quote, flagged automatically with the exact string.
-- Failures like that aren't patched away quietly. Every run is committed,
-  each prompt revision is measured against the last, and new checks are
-  only added when a real failure shows the need (see the results table
-  below — the failure is part of the record).
+- Failures like that aren't patched away quietly: each prompt revision is
+  measured against the last, and new checks are only added when a real
+  failure shows the need.
 
 Inspired by Hamel Husain's
 ["It's hard to eval is a product smell"](https://hamelhusain.substack.com/p/its-hard-to-eval-is-a-product-smell):
@@ -66,13 +65,3 @@ uvx promptfoo view
 To analyze your own target listings, drop them into `job_listings/` as
 `.txt` files — one listing per file — and rerun. Every file in that folder
 is picked up automatically.
-
-## Results so far
-
-| Version | Change | Result |
-|---|---|---|
-| v0 | baseline prompt, contract checks (valid structure + verbatim evidence) | 9/10 listings pass on gpt-5.6-luna; 1 caught fabrication (paraphrased quote) |
-
-*Status: baseline complete on a corpus of 10 real listings; failure-mode
-analysis of the traces is next, then measured prompt iterations, then the
-project-proposal phase.*

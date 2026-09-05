@@ -61,13 +61,14 @@ tests/
 docs/
   error-analysis/                  # round-N notes, taxonomy, labels
   superpowers/specs/               # this spec
-README.md                          # thesis, methodology, iteration table, repro
+README.md                          # consumer-facing: thesis + quickstart only
 ```
 
 (Amended 2026-09-05: a committed `runs/` snapshot folder was dropped —
 promptfoo already records every eval in its local database, browsable and
-comparable via `promptfoo view`; the README table carries the headline
-numbers per iteration.)
+comparable via `promptfoo view`. The README is consumer-facing and carries
+no results tracking; iteration numbers live in the promptfoo DB and in
+`docs/error-analysis/` notes.)
 
 ```
 ```
@@ -221,8 +222,8 @@ scenarios, tests`, quoted `'{{env.VAR}}'`, chat prompts as JSON files.
 Per phase:
 
 1. **v0**: prompt + contract assertions. Smoke on 2–3 listings, then full
-   corpus run (recorded in promptfoo's local DB; headline numbers go in the
-   README iteration table).
+   corpus run (recorded in promptfoo's local DB; headline numbers noted in
+   `docs/error-analysis/`).
 2. **Error analysis round 1** (`docs/error-analysis/round-1.md`): the user
    reads every trace in `promptfoo view` — pass/fail + one-line "first thing
    that went wrong" per failure. After ~30–50, group notes into a 5–10
@@ -238,8 +239,8 @@ Per phase:
    endpoint as grader, calibrated against the user's labels (TPR/TNR) before
    its verdicts count.
 5. **Iterate**: each prompt revision = new labeled variant + full run
-   run in full. README iteration table: what failed → what changed →
-   metric delta.
+   run in full. Each iteration's what-failed → what-changed → metric-delta
+   gets a line in `docs/error-analysis/`.
 6. Repeat 1–5 for phase 2.
 
 **Optional, deferred (build only if wanted after both phases stabilize):**
