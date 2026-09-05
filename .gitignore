@@ -9,6 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# Node dependencies (claude-agent-sdk provider)
+node_modules/
+
 # Secrets
 .env
 
