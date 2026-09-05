@@ -1,0 +1,25 @@
+Performance Engineer
+San Francisco, CA | New York City, NY | Seattle, WA
+
+About Anthropic
+Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.
+
+About the role:
+Running machine learning (ML) algorithms at our scale often requires solving novel systems problems. As a Performance Engineer, you'll be responsible for identifying these problems, and then developing systems that optimize the throughput and robustness of our largest distributed systems. Strong candidates here will have a track record of solving large-scale systems problems and will be excited to grow to become an expert in ML also.
+
+You may be a good fit if you:
+- Have significant software engineering or machine learning experience, particularly at supercomputing scale
+- Are results-oriented, with a bias towards flexibility and impact
+- Pick up slack, even if it goes outside your job description
+- Enjoy pair programming (we love to pair!)
+- Want to learn more about machine learning research
+- Care about the societal impacts of your work
+
+Strong candidates may also have experience with: 
+- High performance, large-scale ML systems
+- GPU/Accelerator programming
+- ML framework internals
+- OS internals
+- Language modeling with transformers
+
+Original Job Listing: https://job-boards.greenhouse.io/anthropic/jobs/4020350008

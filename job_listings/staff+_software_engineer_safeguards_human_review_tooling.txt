@@ -1,0 +1,38 @@
+Staff+ Software Engineer, Safeguards Human Review Tooling
+San Francisco, CA
+
+About Anthropic
+Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.
+
+About the role
+The Safeguards team is responsible for ensuring our models and products are developed and deployed safely. We're looking for engineers for our Review Tooling team, which builds the systems that humans — and increasingly Claude — use to investigate potential harms and take enforcement actions across Anthropic's first-party products and third-party cloud platforms.
+
+This is a foundational role: as one of the first engineers on this new team, you'll own the tools our safety investigators rely on to understand what's happening on our platforms and act on it, as well as the platform underneath those tools. That platform includes analytics capabilities, privacy-preserving primitives that keep review workflows compatible with our data retention commitments, and a sandbox environment where new review interfaces and workflows can be built and iterated quickly. As model capabilities and usage grow, you'll also drive how we scale review through automation — building systems where Claude meaningfully extends what human reviewers can do, while keeping people in the loop where their judgment matters most.
+
+These are internal tools, but they are anything but low-stakes: the speed, clarity, and reliability of this tooling directly determines how quickly Anthropic can identify harmful behavior, make sound enforcement decisions, and feed signal back into model training. You'll partner closely with policy, operations, data science, legal, and privacy teams to ensure our enforcement systems are effective, accurate, and trustworthy.
+
+Key responsibilities
+- Build investigation, review, and enforcement tooling for both first-party and third-party platform surfaces — including case queues, investigation views, decision and audit logging, and account-actioning workflows
+- Develop the platform layer of reusable APIs, data storage, and backend services that lets new review workflows be stood up quickly and safely
+- Scale review through automation, including enabling reviewers to use Claude effectively and building toward Claude-assisted and Claude-driven review workflows
+- Partner with policy, operations, legal, privacy, and data science stakeholders to translate enforcement and investigation needs into reliable, well-designed systems that measurably reduce handling time and decision error
+- Build in the guardrails that sensitive internal tools require: granular permissions, audit trails, data-access controls, and reviewer wellbeing features such as content obfuscation and exposure limits
+- Instrument the tools you ship — surfacing metrics on queue health, reviewer throughput, and decision quality — and ensure tooling evolves alongside new privacy primitives and data retention commitments
+
+Minimum qualifications
+- A technical background in full-stack or platform engineering, with the ability to engage deeply in architecture and design discussions
+- Experience shipping internal tools or platforms with demanding operational users, and a track record of improving their workflows measurably
+- Experience working cross-functionally with non-engineering partners such as operations, policy, or legal teams
+- Excellent communication skills, including the ability to explain technical tradeoffs to non-technical stakeholders
+- Care about the societal impacts of AI and want your work to make powerful systems safer
+
+Preferred qualifications
+- 8+ years of industry software engineering experience 
+- Experience building trust and safety, integrity, fraud, or abuse-prevention tooling, or other systems supporting human review at scale
+- Experience designing systems under strict privacy, compliance, or data governance constraints, such as zero data retention environments
+- Experience integrating LLMs or agentic systems into operational workflows, or building human-in-the-loop automation — including using agentic coding tools (e.g., Claude Code) as a core part of your own development workflow
+- Experience building developer platforms or extensible tooling frameworks that other teams build on top of
+- Experience supporting enforcement or moderation systems across multiple product surfaces, including enterprise or cloud platform contexts
+- A product-minded approach to internal users: you work directly with the people using your tools, watch where they struggle, and fix it
+
+Original Job Listing: https://job-boards.greenhouse.io/anthropic/jobs/5342935008

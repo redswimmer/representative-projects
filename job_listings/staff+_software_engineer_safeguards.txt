@@ -1,0 +1,37 @@
+Staff+ Software Engineer, Safeguards
+San Francisco, CA | New York City, NY
+
+About Anthropic
+Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.
+
+About the role
+We are looking for software engineers to help build safety and oversight mechanisms for our AI systems. As a software engineer on the Safeguards team, you will work to monitor models, prevent misuse, and ensure user well-being. This role will focus on building systems to detect unwanted model behaviors and prevent disallowed use of models. You will apply your technical skills to uphold our principles of safety, transparency, and oversight while enforcing our terms of service and acceptable use policies.
+
+We have multiple teams that are currently hiring within Safeguards. Team placement occurs after the interview process, taking into account your interests and experience alongside organizational needs. This flexible approach allows us to match talented engineers where they'll have the greatest impact and growth potential. 
+
+Safeguards Acceleration: Builds the agentic systems that let Anthropic's trust & safety teams work at the speed of the models they're protecting. Our flagship project extends Claude Tag, Anthropic's agentic AI collaborator, so it can safely operate on the sensitive data at the heart of Safeguards work: investigating abuse, calibrating detection systems, and closing the loop from signal to enforcement. The hard part isn't making the agent capable, it's making it safe. We develop sandboxed agent architectures, brokered and audited data access, and provenance guarantees that keep humans firmly in control as model capabilities grow. You'll work at the intersection of agent security, privacy engineering, and safeguards infrastructure, on problems that get more important with every model release.
+
+Safeguards Interventions: Responsible for what happens when a safety system fires. You'll own the composable arsenal of intervention options that sit between our detection stack (classifiers and probes) and the user, across every Anthropic surface: 1P products, the API, and third-party clouds. This includes inline interventions for areas like harmful bio, cyber, and acceptable usage as well as downstream areas like child safety and copyright. You'll build sync and async systems that operate at Anthropic scale, touching every request, and ensuring that we evolve and drive the quality, scale and systems of our interventions to enable our products to grow safely.
+
+Safeguards Data Intelligence: Builds the systems that catch what everything else misses. Our Claude Investigation tool, an autonomous Claude-powered agent that reasons across tens of billions of stored interactions to surface cyberattacks, weapons development, and state-sponsored influence operations; thousands of copies run in parallel, which is how a small team covers the whole surface. The hard part isn't finding signal, it's finding it at this scale, under real deadlines, on threats that are actively adapting to us. You'll do serious distributed-systems and data-infrastructure work — running an agent fleet across three clouds, building batch inference, summarization, and search infrastructure — against threats that are happening today, not hypotheticals.
+
+Responsibilities:
+- Develop monitoring systems to detect unwanted behaviors from our API partners and potentially take automated enforcement actions; surface these in internal dashboards to analysts for manual review
+- Build abuse detection mechanisms and infrastructure 
+- Surface abuse patterns to our research teams to harden models at the training stage
+- Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale
+
+You may be a good fit if you:
+- Bachelor’s degree in Computer Science, Software Engineering or comparable experience
+- Proficiency in Python and Typescript
+- Ability to work across the stack
+- Strong communication skills and ability to explain complex technical concepts to non-technical stakeholders
+
+Strong candidates may also:
+- 8+ years of experience in a software engineering position
+- Have experience with integrity, spam, fraud, or abuse detection and mitigation
+- Have experience building trust and safety detection mechanisms and intervention for AI/ML systems
+- Have experience with prompt engineering, jailbreak attacks, and other adversarial inputs
+- Have worked closely with operational teams to build custom internal tooling
+
+Original Job Listing: https://job-boards.greenhouse.io/anthropic/jobs/4951844008

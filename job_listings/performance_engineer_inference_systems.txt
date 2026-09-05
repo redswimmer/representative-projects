@@ -1,0 +1,36 @@
+Performance Engineer, Inference Systems
+San Francisco, CA | New York City, NY | Seattle, WA
+
+About Anthropic
+Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.
+
+About the Role
+Anthropic's inference fleet serves Claude to millions of users across our own products and the world's largest cloud platforms. The stack that makes this possible is deep and tightly coupled: accelerator kernels, model servers, distributed routing, autoscaling, capacity management. Every layer affects the others, often in ways that are hard to see in isolation.
+
+The Inference System Dynamics team is responsible for understanding that whole system and holding it to a high bar across four dimensions: throughput, latency, reliability, and correctness. We measure how the fleet performs against its theoretical performance frontier, run cross-layer investigations to explain the gaps, and own the correctness checks that make sure Claude's outputs are right, not just fast, across hardware platforms and serving configurations. We don't own the individual components. We instrument and model them, find the highest-leverage opportunities across them, and partner with the owning teams to land the wins.
+
+You'll work across all four areas. One week that might mean tracing a tail-latency regression from request timing down through routing and batching into a kernel overhead; the next it might mean tightening a correctness eval so it catches an output regression introduced by a quantization change. We're looking for performance engineers who treat correctness as part of performance.
+
+Key Responsibilities
+- Run cross-layer performance investigations across throughput, latency, and reliability, sizing the gap between actual fleet performance and theoretical rooflines, identifying root causes, and quantifying the value of closing them
+- Own and improve the correctness evaluation pipeline that validates model output quality across hardware platforms, numerics, and serving configurations, and lead the investigation when it catches a regression
+- Build the observability, dashboards, and modeling tools that make throughput, latency, cost, reliability, correctness, and their interactions legible across the stack
+- Partner with kernel, serving, routing, autoscaling, and capacity teams to prioritize and land the highest-impact optimizations your analysis surfaces
+- Ruthlessly stack-rank a large surface area of opportunities by impact and effort, and say no to the ones that don't make the cut
+
+Minimum Qualifications
+- Hands-on performance engineering experience: profiling, roofline analysis, latency/throughput optimization, and root-cause investigation in complex production systems
+- Proficiency in Python, with the ability to read, instrument, and contribute to large production codebases you didn’t write
+- Solid data analysis skills (e.g. SQL, pandas, or similar) sufficient to turn raw telemetry into clear findings
+- Ability to communicate quantitative results clearly in writing to influence priorities on teams you don't manage
+- Genuine interest in correctness as an engineering discipline: numerics, evaluation design, regression detection
+
+Preferred Qualifications
+- Experience with ML systems, especially training or inference infrastructure or general LLM serving stacks. Direct large-scale inference experience is a strong plus
+- Familiarity with GPU/TPU/accelerator performance concepts (memory bandwidth, kernel overheads, quantization, collective communication). Reasoning about these matters more than having written kernels yourself
+- Experience with reliability engineering for high-throughput services: autoscaling, load balancing, request routing, tail latency
+- Experience with model evaluation or numerical regression-detection pipelines
+- Experience building observability or telemetry for distributed systems
+- Comfortable having impact through influence and evidence rather than direct ownership
+
+Original Job Listing: https://job-boards.greenhouse.io/anthropic/jobs/5224564008

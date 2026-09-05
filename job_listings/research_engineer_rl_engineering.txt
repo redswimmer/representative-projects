@@ -1,0 +1,27 @@
+Research Engineer, RL Engineering
+San Francisco, CA | New York City, NY | Seattle, WA
+
+About Anthropic
+Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.
+
+About the role:
+You want to build the cutting-edge systems that train AI models like Claude. You're excited to work at the frontier of machine learning, implementing and improving advanced techniques to create ever more capable, reliable and steerable AI. As an ML Systems Engineer on our Reinforcement Learning Engineering team, you'll be responsible for the critical algorithms and infrastructure that our researchers depend on to train models. Your work will directly enable breakthroughs in AI capabilities and safety. You'll focus obsessively on improving the performance, robustness, and usability of these systems so our research can progress as quickly as possible. You're energized by the challenge of supporting and empowering our research team in the mission to build beneficial AI systems. 
+
+Our finetuning researchers train our production Claude models, and internal research models, using RLHF and other related methods. Your job will be to build, maintain, and improve the algorithms and systems that these researchers use to train models. You’ll be responsible for improving the speed, reliability, and ease-of-use of these systems.
+
+You may be a good fit if you:
+- Have 4+ years of software engineering experience
+- Like working on systems and tools that make other people more productive
+- Are results-oriented, with a bias towards flexibility and impact
+- Pick up slack, even if it goes outside your job description
+- Enjoy pair programming (we love to pair!)
+- Want to learn more about machine learning research
+- Care about the societal impacts of your work
+
+Strong candidates may also have experience with:
+- High performance, large scale distributed systems
+- Large scale LLM training
+- Python
+- Implementing LLM finetuning algorithms, such as RLHF
+
+Original Job Listing: https://job-boards.greenhouse.io/anthropic/jobs/4952051008

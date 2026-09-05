@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Secrets
+.env
+
+# Tooling scratch
+.superpowers/
+.pytest_cache/

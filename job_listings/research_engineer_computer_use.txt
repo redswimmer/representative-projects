@@ -1,0 +1,34 @@
+Research Engineer, Computer Use
+San Francisco, CA | New York City, NY | Seattle, WA
+
+About Anthropic
+Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.
+
+About the role
+The Computer Use team focuses on teaching Claude to see, use, and understand computer interfaces. As a Research Engineer on the team, you'll work on advancing our models' ability to reliably and safely operate real software. We're looking for someone who's genuinely excited about both the research and the product sides of computer use.
+
+Your work will translate directly into model improvements in our own and our customers' products. You can try Claude's computer use capabilities today through the Claude in Chrome extension and Claude Cowork.
+
+Key Responsibilities:
+- Design and run experiments to improve Claude's perception and agentic capabilities
+- Develop robust, reliable evaluation frameworks for measuring our models' ability to complete complex computer tasks
+- Build and improve computer use and vision reinforcement learning training environments
+- Create pipelines and tools to test and validate complex RL environments
+- Collaborate with teams across the model training and infrastructure stack to improve our production training setup
+- Partner with product teams to bring research advances into production
+
+Minimum Qualifications:
+- Software engineering experience and proficiency in Python
+- Experience training, fine-tuning, or evaluating machine learning models
+- Strong communication skills and a collaborative working style
+- Care about the societal impacts and safety of your work
+
+Preferred Qualifications:
+- Experience training models for computer use or other agentic capabilities
+- Experience with reinforcement learning, particularly in long-horizon or sparse-reward settings
+- Familiarity with multimodal model training
+- Experience building evaluations or benchmarks for agentic systems
+- Experience building reinforcement learning environments, simulation systems, or large-scale ML infrastructure
+- Experience working closely with product teams to drive model improvements
+
+Original Job Listing: https://job-boards.greenhouse.io/anthropic/jobs/5285246008
