@@ -49,32 +49,40 @@ usually can too.
 ## Try it
 
 Requirements: [uv](https://docs.astral.sh/uv/), Node.js, and
+[Claude Code](https://claude.com/claude-code) installed and logged in.
+Both agents run on your Claude subscription — no API keys, no per-token
+charges.
 
-- **phase 1:** an OpenAI API key (or any OpenAI-compatible local server —
-  vLLM, llama.cpp);
-- **phase 2:** [Claude Code](https://claude.com/claude-code) installed and
-  logged in — its agent runtime powers this phase, so your subscription is
-  the only cost — plus a one-time `npm install`.
+**Use the agents** — run the pipeline over your listings, read the results:
 
 ```bash
-# 1. copy the example env and set your API key (phase 1)
-cp .env.example .env
+uv run pipeline.py                        # every listing in job_listings/
+uv run pipeline.py performance_engineer   # or just one
+```
 
-# 2. extract problems from every listing in the corpus
-uvx promptfoo eval -c evals/extract-problems/promptfooconfig.yaml --no-cache
+Each listing gets `output/<listing>/problems.json` (the decoded problems,
+with their evidence quotes) and `output/<listing>/project.json` (the
+proposed project). To analyze your own target listings, drop them into
+`job_listings/` as `.txt` files — one listing per file — and rerun.
 
-# 3. one-time: install the agent SDK that phase 2 runs on
+**Evaluate the agents** — the point of this repo — run each agent's graded
+suite and read every trace:
+
+```bash
+# one-time: install the agent SDK the eval harness runs on
 npm install
 
-# 4. propose a representative project for each verified problem set
+# each agent, graded over its committed corpus
+uvx promptfoo eval -c evals/extract-problems/promptfooconfig.yaml --no-cache
 uvx promptfoo eval -c evals/propose-project/promptfooconfig.yaml --no-cache
 
-# 5. read every analysis in the browser
+# read every analysis in the browser
 uvx promptfoo view
 ```
 
-To analyze your own target listings, drop them into `job_listings/` as
-`.txt` files — one listing per file — and rerun. Every file in that folder
-is picked up automatically. Phase 2 runs from
-`evals/propose-project/fixtures/` — phase-1 outputs that survived
-verification, one JSON per listing.
+Phase 1's eval corpus is `job_listings/`; phase 2's is
+`evals/propose-project/fixtures/` — verified phase-1 outputs, curated and
+committed so the proposal agent is always graded against stable inputs.
+When the evals catch a problem, the fix goes into the agents' prompt
+files — which the pipeline shares, so using and evaluating never drift
+apart.
