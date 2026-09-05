@@ -10,5 +10,5 @@ dependencies = []
 dev = ["pytest>=8"]
 
 [tool.pytest.ini_options]
-pythonpath = ["evals/extract-problems/asserts"]
+pythonpath = ["evals/extract-problems/asserts", "evals/propose-project/asserts"]
 testpaths = ["tests/unit"]

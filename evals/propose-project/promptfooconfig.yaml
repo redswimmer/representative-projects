@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: 'Phase 2: propose one representative project from verified problems'
+sharing: false
+
+prompts:
+  - file://prompts/propose.txt
+
+providers:
+  - id: anthropic:claude-agent-sdk
+    label: claude-agent-sdk
+    config:
+      apiKeyRequired: false # auth = the local Claude Code login (subscription)
+      title: propose-project # fixed session title; skips the auto-title model call
+      # no tools at v0 — the agent works from the listing, the verified
+      # problems, and its own knowledge. Tool-enabled variants are a
+      # documented iteration, not a v0 assumption.
+
+defaultTest:
+  assert:
+    - type: is-json
+      value: file://schema.json
+      metric: schema_adherence
+    - type: python
+      value: file://asserts/integrity.py
+      metric: integrity
+    - type: not-contains
+      value: '```'
+      metric: no_code
+
+tests:
+  - path: file://generate_tests.py:generate_tests
+    config:
+      fixtures_dir: fixtures
+      job_listings_dir: ../../job_listings
