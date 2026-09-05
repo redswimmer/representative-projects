@@ -1,0 +1,54 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "GPU resources are not being utilized or performing efficiently enough at the scale required for Claude and large language models.",
+      "evidence": [
+        "maximizing GPU utilization and performance at unprecedented scale",
+        "developing cutting-edge optimizations that directly enable new model capabilities and dramatically improve inference efficiency",
+        "Have deep experience with GPU programming and optimization at scale"
+      ],
+      "rationale": "The company needs to improve GPU utilization, throughput, and inference efficiency across extremely large ML workloads."
+    },
+    {
+      "id": "P2",
+      "problem": "The existing systems need lower-level GPU and kernel optimizations to overcome performance bottlenecks.",
+      "evidence": [
+        "implement state-of-the-art techniques from custom kernel development",
+        "from low-level tensor core optimizations",
+        "GPU Kernel Development: CUDA, Triton, CUTLASS, Flash Attention, tensor core optimization",
+        "Performance Engineering: Kernel fusion, memory bandwidth optimization, profiling with Nsight"
+      ],
+      "rationale": "The emphasis on custom kernels, tensor cores, fusion, memory bandwidth, and profiling indicates unresolved low-level execution bottlenecks."
+    },
+    {
+      "id": "P3",
+      "problem": "The ML software stack needs deeper compiler and framework-level optimization and integration.",
+      "evidence": [
+        "you'll architect and implement the foundational systems that power Claude",
+        "Can navigate complex systems from hardware interfaces to high-level ML frameworks",
+        "ML Compilers & Frameworks: PyTorch/JAX internals, torch.compile, XLA, custom operators"
+      ],
+      "rationale": "The role is intended to address performance limitations spanning GPU hardware interfaces, compilers, frameworks, and custom operators."
+    },
+    {
+      "id": "P4",
+      "problem": "Distributed GPU execution must be coordinated more efficiently across thousands of GPUs.",
+      "evidence": [
+        "orchestrating thousands of GPUs in perfect synchronization",
+        "Distributed Systems: NCCL, NVLink, collective communication, model parallelism"
+      ],
+      "rationale": "The need to synchronize thousands of GPUs and manage collective communication indicates challenges in scaling distributed training and inference."
+    },
+    {
+      "id": "P5",
+      "problem": "Large-scale ML infrastructure needs improved precision efficiency, reliability, and operational resilience.",
+      "evidence": [
+        "Low-Precision: INT8/FP8 quantization, mixed-precision techniques",
+        "Production Systems: Large-scale training infrastructure, fault tolerance, cluster orchestration",
+        "Strong candidates will have a track record of delivering transformative GPU performance improvements in production ML systems"
+      ],
+      "rationale": "The listing points to production demands for lower-precision computation, fault tolerance, and reliable orchestration while maintaining major performance gains."
+    }
+  ]
+}

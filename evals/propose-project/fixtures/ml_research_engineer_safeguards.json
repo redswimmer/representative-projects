@@ -1,0 +1,47 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Anthropic needs to detect harmful use and anomalous behavior across its AI systems at large scale.",
+      "evidence": [
+        "We are looking for ML Engineers and Research Engineers to help detect and mitigate misuse of our AI systems.",
+        "You will build systems that identify harmful use—from individual policy violations to sophisticated, coordinated attacks—and develop defenses that keep our products safe as capabilities advance.",
+        "Develop classifiers to detect misuse and anomalous behavior at scale."
+      ],
+      "rationale": "These statements show that the company needs scalable detection and mitigation for misuse ranging from isolated violations to coordinated attacks."
+    },
+    {
+      "id": "P2",
+      "problem": "Anthropic needs better synthetic training data and representative evaluations for its safety classifiers.",
+      "evidence": [
+        "This includes developing synthetic data pipelines for training classifiers and methods to automatically source representative evaluations to iterate on"
+      ],
+      "rationale": "The emphasis on synthetic data pipelines and automatically sourced evaluations indicates a need to improve the data and feedback loop used to train and refine classifiers."
+    },
+    {
+      "id": "P3",
+      "problem": "Anthropic needs to identify harms that emerge across multiple interactions and coordinated campaigns rather than only within individual exchanges.",
+      "evidence": [
+        "Build systems to monitor for harms that span multiple exchanges, such as coordinated cyber attacks and influence operations, and develop new methods for aggregating and analyzing signals across contexts"
+      ],
+      "rationale": "This requirement indicates that existing or needed safeguards must connect signals across conversations and contexts to detect coordinated, multi-exchange threats."
+    },
+    {
+      "id": "P4",
+      "problem": "Anthropic needs to assess and secure agentic products against agent-specific risks, especially prompt injection attacks.",
+      "evidence": [
+        "Evaluate and improve the safety of agentic products—developing both threat models and environments to test for agentic risks, and developing and deploying mitigations for prompt injection attacks"
+      ],
+      "rationale": "The role is tasked with addressing the distinct attack surface of agentic systems through threat modeling, testing environments, and deployed mitigations."
+    },
+    {
+      "id": "P5",
+      "problem": "Anthropic needs continuous adversarial testing and research to uncover misuse and improve the robustness of its safeguards.",
+      "evidence": [
+        "Conduct research on automated red-teaming, adversarial robustness, and other research that helps test for or find misuse",
+        "This work feeds directly into Anthropic's Responsible Scaling Policy commitments."
+      ],
+      "rationale": "The combination of automated red-teaming, robustness research, and responsible scaling commitments shows a need for ongoing methods that proactively find failures as model capabilities advance."
+    }
+  ]
+}

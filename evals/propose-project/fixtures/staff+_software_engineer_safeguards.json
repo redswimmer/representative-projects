@@ -1,0 +1,54 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Anthropic needs to detect unwanted model behavior, misuse, and evolving abuse patterns across its APIs and products.",
+      "evidence": [
+        "Develop monitoring systems to detect unwanted behaviors from our API partners and potentially take automated enforcement actions; surface these in internal dashboards to analysts for manual review",
+        "Build abuse detection mechanisms and infrastructure",
+        "The hard part isn't finding signal, it's finding it at this scale, under real deadlines, on threats that are actively adapting to us."
+      ],
+      "rationale": "These statements indicate a need for broad, reliable detection of abuse and model failures, including threats that change over time."
+    },
+    {
+      "id": "P2",
+      "problem": "Anthropic needs a scalable intervention and enforcement layer that can respond appropriately when detection systems identify harmful or disallowed activity.",
+      "evidence": [
+        "Responsible for what happens when a safety system fires.",
+        "You'll own the composable arsenal of intervention options that sit between our detection stack (classifiers and probes) and the user, across every Anthropic surface: 1P products, the API, and third-party clouds.",
+        "You'll build sync and async systems that operate at Anthropic scale, touching every request, and ensuring that we evolve and drive the quality, scale and systems of our interventions to enable our products to grow safely."
+      ],
+      "rationale": "The role is tasked with turning detection signals into real-time or asynchronous interventions and automated enforcement across all product surfaces."
+    },
+    {
+      "id": "P3",
+      "problem": "Anthropic needs secure, auditable agent systems and operational tooling that let trust and safety teams investigate abuse efficiently while preserving human oversight and sensitive-data controls.",
+      "evidence": [
+        "Builds the agentic systems that let Anthropic's trust & safety teams work at the speed of the models they're protecting.",
+        "The hard part isn't making the agent capable, it's making it safe.",
+        "We develop sandboxed agent architectures, brokered and audited data access, and provenance guarantees that keep humans firmly in control as model capabilities grow.",
+        "Have worked closely with operational teams to build custom internal tooling"
+      ],
+      "rationale": "These requirements show that Anthropic needs internal agents and tools that accelerate investigations without compromising privacy, auditability, security, or human control."
+    },
+    {
+      "id": "P4",
+      "problem": "Anthropic needs distributed data and inference infrastructure capable of analyzing massive interaction volumes and running large fleets of investigation agents across multiple clouds.",
+      "evidence": [
+        "Our Claude Investigation tool, an autonomous Claude-powered agent that reasons across tens of billions of stored interactions to surface cyberattacks, weapons development, and state-sponsored influence operations; thousands of copies run in parallel, which is how a small team covers the whole surface.",
+        "You'll do serious distributed-systems and data-infrastructure work — running an agent fleet across three clouds, building batch inference, summarization, and search infrastructure — against threats that are happening today, not hypotheticals."
+      ],
+      "rationale": "The scale, concurrency, multi-cloud deployment, and time sensitivity require substantial distributed-systems and data-platform engineering."
+    },
+    {
+      "id": "P5",
+      "problem": "Anthropic needs a closed-loop safety program that uses detected abuse to improve models and continuously strengthen layered defenses.",
+      "evidence": [
+        "Surface abuse patterns to our research teams to harden models at the training stage",
+        "Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale",
+        "The hard part isn't making the agent capable, it's making it safe."
+      ],
+      "rationale": "These statements describe a need to feed operational abuse findings back into model training and continuously improve multiple safety mechanisms."
+    }
+  ]
+}

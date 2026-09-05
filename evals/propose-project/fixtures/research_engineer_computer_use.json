@@ -1,0 +1,52 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Claude needs to become more capable and reliable at perceiving and operating real software interfaces.",
+      "evidence": [
+        "The Computer Use team focuses on teaching Claude to see, use, and understand computer interfaces.",
+        "advancing our models' ability to reliably and safely operate real software.",
+        "Design and run experiments to improve Claude's perception and agentic capabilities"
+      ],
+      "rationale": "These statements show that the company needs to improve Claude’s ability to understand interfaces and execute computer-based actions dependably."
+    },
+    {
+      "id": "P2",
+      "problem": "The company needs robust ways to evaluate whether models can complete complex computer-use tasks.",
+      "evidence": [
+        "Develop robust, reliable evaluation frameworks for measuring our models' ability to complete complex computer tasks",
+        "Experience building evaluations or benchmarks for agentic systems"
+      ],
+      "rationale": "The emphasis on robust evaluation frameworks and agentic benchmarks indicates a need to measure model performance on difficult, realistic tasks."
+    },
+    {
+      "id": "P3",
+      "problem": "The company needs better reinforcement-learning environments and validation tooling for computer use and vision training.",
+      "evidence": [
+        "Build and improve computer use and vision reinforcement learning training environments",
+        "Create pipelines and tools to test and validate complex RL environments",
+        "Experience building reinforcement learning environments, simulation systems, or large-scale ML infrastructure"
+      ],
+      "rationale": "These requirements indicate that existing training environments and validation systems must be built out or improved to support reliable RL development."
+    },
+    {
+      "id": "P4",
+      "problem": "The production model-training stack needs stronger integration, reliability, and scalability.",
+      "evidence": [
+        "Collaborate with teams across the model training and infrastructure stack to improve our production training setup",
+        "Experience building reinforcement learning environments, simulation systems, or large-scale ML infrastructure"
+      ],
+      "rationale": "The role is expected to address infrastructure and cross-stack issues that affect the effectiveness of production training."
+    },
+    {
+      "id": "P5",
+      "problem": "Research advances need to be translated into customer-facing products while maintaining safety and attention to societal impact.",
+      "evidence": [
+        "Partner with product teams to bring research advances into production",
+        "Your work will translate directly into model improvements in our own and our customers' products.",
+        "Care about the societal impacts and safety of your work"
+      ],
+      "rationale": "These statements show a need to operationalize research in products while ensuring that computer-use capabilities are deployed responsibly."
+    }
+  ]
+}

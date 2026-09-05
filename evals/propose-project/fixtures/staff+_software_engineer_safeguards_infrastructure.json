@@ -1,0 +1,47 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "The company needs stronger systems to detect harmful model behavior and prevent misuse or disallowed use.",
+      "evidence": [
+        "This role will focus on building systems to detect unwanted model behaviors and prevent disallowed use of models.",
+        "As a software engineer on the Safeguards team, you will work to monitor models, prevent misuse, and ensure user well-being."
+      ],
+      "rationale": "These statements indicate a need for technical mechanisms that identify unsafe behavior and block abusive or prohibited model usage."
+    },
+    {
+      "id": "P2",
+      "problem": "The company needs foundational infrastructure for measuring, evaluating, and managing safeguards-related data.",
+      "evidence": [
+        "Develop the foundational systems which power Safeguards, including infrastructure for data storage and management, metric and evaluation systems, and tooling for human and agentic review."
+      ],
+      "rationale": "The emphasis on storage, metrics, evaluations, and review tooling shows that Safeguards needs a stronger underlying measurement and data infrastructure."
+    },
+    {
+      "id": "P3",
+      "problem": "The company needs safeguards systems that are reliable and operationally efficient at scale, with less dependence on manual oversight.",
+      "evidence": [
+        "Ensure the day-to-day running of Safeguards systems and hold a high operational bar which serves both safety and customers while reducing the amount of human intervention and oversight required.",
+        "Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale"
+      ],
+      "rationale": "These requirements imply that existing or planned safeguards must become more dependable, scalable, and automated in day-to-day operation."
+    },
+    {
+      "id": "P4",
+      "problem": "The company needs layered, real-time defenses that can continuously improve against emerging safety risks.",
+      "evidence": [
+        "Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale"
+      ],
+      "rationale": "The requirement for multi-layered defenses and real-time improvement indicates an ongoing need to adapt safeguards as risks and model behavior change."
+    },
+    {
+      "id": "P5",
+      "problem": "The company needs custom review and operations tooling that supports both human teams and agentic systems.",
+      "evidence": [
+        "Develop the foundational systems which power Safeguards, including infrastructure for data storage and management, metric and evaluation systems, and tooling for human and agentic review.",
+        "Have worked closely with operational teams to build custom internal tooling"
+      ],
+      "rationale": "These statements show a need to equip reviewers and operational teams with purpose-built tools for investigating and acting on safety issues."
+    }
+  ]
+}

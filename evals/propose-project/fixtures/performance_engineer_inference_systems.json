@@ -1,0 +1,48 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "The inference fleet is not consistently operating near its theoretical performance potential, and the company needs to identify and quantify cross-layer bottlenecks.",
+      "evidence": [
+        "We measure how the fleet performs against its theoretical performance frontier, run cross-layer investigations to explain the gaps",
+        "Run cross-layer performance investigations across throughput, latency, and reliability, sizing the gap between actual fleet performance and theoretical rooflines, identifying root causes, and quantifying the value of closing them"
+      ],
+      "rationale": "These requirements indicate that Anthropic needs systematic diagnosis of performance shortfalls spanning kernels, serving, routing, autoscaling, and capacity management."
+    },
+    {
+      "id": "P2",
+      "problem": "The company needs stronger correctness validation to detect and investigate model-output regressions across hardware, numerical, and serving variations.",
+      "evidence": [
+        "own the correctness checks that make sure Claude's outputs are right, not just fast, across hardware platforms and serving configurations",
+        "Own and improve the correctness evaluation pipeline that validates model output quality across hardware platforms, numerics, and serving configurations, and lead the investigation when it catches a regression"
+      ],
+      "rationale": "The emphasis on correctness pipelines and regression investigations shows that output quality can be compromised by infrastructure or numerical changes and requires dedicated controls."
+    },
+    {
+      "id": "P3",
+      "problem": "The inference stack lacks sufficiently integrated observability and analytical models for understanding interactions among performance, cost, reliability, and correctness.",
+      "evidence": [
+        "Build the observability, dashboards, and modeling tools that make throughput, latency, cost, reliability, correctness, and their interactions legible across the stack",
+        "Every layer affects the others, often in ways that are hard to see in isolation."
+      ],
+      "rationale": "These statements imply that the distributed system’s cross-layer effects are currently difficult to see and need better telemetry, dashboards, and modeling."
+    },
+    {
+      "id": "P4",
+      "problem": "High-impact optimizations require coordination across component-owning teams even though no single team owns the whole inference system.",
+      "evidence": [
+        "We don't own the individual components. We instrument and model them, find the highest-leverage opportunities across them, and partner with the owning teams to land the wins.",
+        "Partner with kernel, serving, routing, autoscaling, and capacity teams to prioritize and land the highest-impact optimizations your analysis surfaces"
+      ],
+      "rationale": "The role exists to convert system-level analysis into improvements through influence and collaboration across teams with separate ownership."
+    },
+    {
+      "id": "P5",
+      "problem": "The company has a large, competing set of optimization opportunities and needs disciplined prioritization based on impact and effort.",
+      "evidence": [
+        "Ruthlessly stack-rank a large surface area of opportunities by impact and effort, and say no to the ones that don't make the cut"
+      ],
+      "rationale": "This explicit responsibility indicates that limited engineering capacity makes opportunity selection and rejection a central operational problem."
+    }
+  ]
+}

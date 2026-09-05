@@ -1,0 +1,42 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Anthropic needs to solve novel systems bottlenecks created by running machine-learning workloads at massive scale.",
+      "evidence": [
+        "Running machine learning (ML) algorithms at our scale often requires solving novel systems problems.",
+        "As a Performance Engineer, you'll be responsible for identifying these problems"
+      ],
+      "rationale": "These statements indicate that large-scale ML operations are generating unresolved systems challenges that require dedicated identification and engineering."
+    },
+    {
+      "id": "P2",
+      "problem": "Anthropic needs to improve the throughput and robustness of its largest distributed systems.",
+      "evidence": [
+        "developing systems that optimize the throughput and robustness of our largest distributed systems."
+      ],
+      "rationale": "The explicit responsibility to optimize throughput and robustness shows that the existing distributed infrastructure needs performance and reliability improvements."
+    },
+    {
+      "id": "P3",
+      "problem": "Anthropic needs deep performance expertise across the ML systems stack, including accelerators, frameworks, and operating systems.",
+      "evidence": [
+        "Have significant software engineering or machine learning experience, particularly at supercomputing scale",
+        "High performance, large-scale ML systems",
+        "GPU/Accelerator programming",
+        "ML framework internals",
+        "OS internals"
+      ],
+      "rationale": "The breadth and depth of the requested experience imply that performance issues span multiple layers of the supercomputing and ML infrastructure stack."
+    },
+    {
+      "id": "P4",
+      "problem": "Anthropic needs systems engineers who can expand their machine-learning expertise and collaborate closely with ML research.",
+      "evidence": [
+        "will be excited to grow to become an expert in ML also.",
+        "Want to learn more about machine learning research"
+      ],
+      "rationale": "These requirements suggest the team needs performance specialists who can bridge low-level systems engineering with machine-learning research and development."
+    }
+  ]
+}

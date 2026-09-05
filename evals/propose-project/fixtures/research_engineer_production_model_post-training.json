@@ -1,0 +1,64 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Improve the capabilities, alignment, and safety of production Claude models through more effective post-training.",
+      "evidence": [
+        "Anthropic's production models undergo sophisticated post-training processes to enhance their capabilities, alignment, and safety.",
+        "Your work will directly impact the quality, safety, and capabilities of our production models.",
+        "Conduct research to develop and optimize post-training recipes that directly improve production model quality"
+      ],
+      "rationale": "The company needs stronger post-training methods that improve model quality while preserving alignment and safety in production."
+    },
+    {
+      "id": "P2",
+      "problem": "Build and scale reliable, efficient infrastructure for fine-tuning and evaluating frontier models.",
+      "evidence": [
+        "Implement and optimize post-training techniques at scale on frontier models",
+        "Design, build, and run robust, efficient pipelines for model fine-tuning and evaluation",
+        "Are comfortable working with large-scale distributed systems and high-performance computing"
+      ],
+      "rationale": "The role is intended to solve the infrastructure and scalability challenges of running post-training workflows on very large models."
+    },
+    {
+      "id": "P3",
+      "problem": "Develop better ways to measure and improve model performance across multiple quality and safety dimensions.",
+      "evidence": [
+        "Develop tools to measure and improve model performance across various dimensions",
+        "Have experience with training, fine-tuning, or evaluating large language models"
+      ],
+      "rationale": "The company needs dependable measurement and evaluation capabilities to identify and improve model behavior across diverse dimensions."
+    },
+    {
+      "id": "P4",
+      "problem": "Turn emerging post-training and alignment research into production-ready model improvements.",
+      "evidence": [
+        "Collaborate with research teams to translate emerging techniques into production-ready implementations",
+        "You'll work at the intersection of cutting-edge research and production engineering, implementing, scaling, and improving post-training techniques like Constitutional AI, RLHF, and other alignment methodologies."
+      ],
+      "rationale": "The company needs engineers who can bridge research advances and deployable implementations rather than leaving techniques at the experimental stage."
+    },
+    {
+      "id": "P5",
+      "problem": "Diagnose and resolve complex failures in training pipelines and model behavior while maintaining operational reliability.",
+      "evidence": [
+        "Debug complex issues in training pipelines and model behavior",
+        "Help establish best practices for reliable, reproducible model post-training",
+        "This role may require responding to incidents on short-notice, including on weekends.",
+        "Maintain clarity when debugging complex, time-sensitive issues"
+      ],
+      "rationale": "The production post-training stack requires rapid incident response, sophisticated debugging, and practices that make results reliable and reproducible."
+    },
+    {
+      "id": "P6",
+      "problem": "Maintain execution speed and coordination while priorities shift in an ambiguous, high-pressure research environment.",
+      "evidence": [
+        "Thrive in controlled chaos and are energised, rather than overwhelmed, when juggling multiple urgent priorities",
+        "Adapt quickly to changing priorities",
+        "Enjoy collaborating across research and engineering disciplines",
+        "Can navigate ambiguity and make progress in fast-moving research environments"
+      ],
+      "rationale": "The company needs someone who can make progress and coordinate across teams despite urgent work, changing priorities, and unclear paths."
+    }
+  ]
+}
