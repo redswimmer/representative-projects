@@ -23,7 +23,7 @@ def test_quote_spanning_a_line_wrap_is_grounded():
 
 def test_prettified_curly_quotes_still_ground():
     # models often emit curly quotes even when the source is ASCII
-    assert find_ungrounded_quotes(['fails "silently"'], LISTING) == []
+    assert find_ungrounded_quotes(['fails “silently”'], LISTING) == []
 
 
 def test_em_dash_matches_source_hyphen():
