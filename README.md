@@ -13,7 +13,7 @@ evidence:
    actually trying to solve, where every claim is backed by *verbatim quotes
    from the listing itself*. If a quote isn't really in the listing, the
    analysis fails. You can Ctrl-F every piece of evidence.
-2. **Propose a representative project** *(next phase)*. Suggest one small,
+2. **Propose a representative project.** Suggest one small,
    buildable project — what it demonstrates, how each part maps back to a
    named problem, and a roadmap. Framing and direction only, **never code**:
    the applicant still does the work. That's the point — this is AI helping
@@ -48,20 +48,33 @@ usually can too.
 
 ## Try it
 
-Requirements: [uv](https://docs.astral.sh/uv/), and an OpenAI API
-key (or any OpenAI-compatible local server — vLLM, llama.cpp).
+Requirements: [uv](https://docs.astral.sh/uv/), Node.js, and
+
+- **phase 1:** an OpenAI API key (or any OpenAI-compatible local server —
+  vLLM, llama.cpp);
+- **phase 2:** [Claude Code](https://claude.com/claude-code) installed and
+  logged in — its agent runtime powers this phase, so your subscription is
+  the only cost — plus a one-time `npm install`.
 
 ```bash
-# 1. copy the example env and set your API key
+# 1. copy the example env and set your API key (phase 1)
 cp .env.example .env
 
-# 2. run phase 1 over the corpus of job listings
+# 2. extract problems from every listing in the corpus
 uvx promptfoo eval -c evals/extract-problems/promptfooconfig.yaml --no-cache
 
-# 3. read every analysis in the browser
+# 3. one-time: install the agent SDK that phase 2 runs on
+npm install
+
+# 4. propose a representative project for each verified problem set
+uvx promptfoo eval -c evals/propose-project/promptfooconfig.yaml --no-cache
+
+# 5. read every analysis in the browser
 uvx promptfoo view
 ```
 
 To analyze your own target listings, drop them into `job_listings/` as
 `.txt` files — one listing per file — and rerun. Every file in that folder
-is picked up automatically.
+is picked up automatically. Phase 2 runs from
+`evals/propose-project/fixtures/` — phase-1 outputs that survived
+verification, one JSON per listing.
