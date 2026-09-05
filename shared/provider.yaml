@@ -1,0 +1,6 @@
+id: 'openai:chat:{{env.PF_MODEL}}'
+label: local-model
+config:
+  apiBaseUrl: '{{env.PF_BASE_URL}}'
+  apiKey: '{{env.PF_API_KEY}}'
+  temperature: 0

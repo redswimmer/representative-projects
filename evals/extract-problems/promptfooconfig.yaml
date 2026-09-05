@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: 'Phase 1: extract evidence-grounded hiring problems from job listings'
+
+prompts:
+  - file://prompts/extract.json
+
+providers:
+  - file://../../shared/provider.yaml
+
+defaultTest:
+  assert:
+    - type: is-json
+      value: file://schema.json
+    - type: python
+      value: file://asserts/grounding.py
+      metric: evidence_grounding
+
+tests:
+  - path: file://generate_tests.py:generate_tests
+    config:
+      job_listings_dir: ../../job_listings
