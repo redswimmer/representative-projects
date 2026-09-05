@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
 description: 'Phase 1: extract evidence-grounded hiring problems from job listings'
+sharing: false
 
 prompts:
   - file://prompts/extract.json
