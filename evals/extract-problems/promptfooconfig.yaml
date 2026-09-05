@@ -3,7 +3,7 @@ description: 'Phase 1: extract evidence-grounded hiring problems from job listin
 sharing: false
 
 prompts:
-  - file://prompts/extract.json
+  - file://prompts/extract.txt
 
 providers:
   - file://../providers.yaml

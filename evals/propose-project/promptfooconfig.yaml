@@ -6,14 +6,7 @@ prompts:
   - file://prompts/propose.txt
 
 providers:
-  - id: anthropic:claude-agent-sdk
-    label: claude-agent-sdk
-    config:
-      apiKeyRequired: false # auth = the local Claude Code login (subscription)
-      title: propose-project # fixed session title; skips the auto-title model call
-      # no tools at v0 — the agent works from the listing, the verified
-      # problems, and its own knowledge. Tool-enabled variants are a
-      # documented iteration, not a v0 assumption.
+  - file://../providers.yaml
 
 defaultTest:
   assert:

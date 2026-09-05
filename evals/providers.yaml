@@ -1,6 +1,7 @@
-id: openai:chat:gpt-5.6-luna
-label: gpt-5.6-luna
+id: anthropic:claude-agent-sdk
+label: claude-agent-sdk
 config:
-  temperature: 0
-# To target a local OpenAI-compatible server instead, add under config:
-#   apiBaseUrl: http://localhost:8000/v1   # vLLM (llama.cpp: :8080/v1)
+  apiKeyRequired: false # auth = the local Claude Code login (subscription)
+  title: representative-projects # fixed session title; skips the auto-title model call
+  # no tools — both agents work from their prompt inputs and parametric
+  # knowledge. Tool-enabled variants are a documented iteration, not a default.
