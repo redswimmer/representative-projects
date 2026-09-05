@@ -15,6 +15,9 @@ node_modules/
 # Secrets
 .env
 
+# Pipeline results (the user's outputs, not repo content)
+output/
+
 # Tooling scratch
 .superpowers/
 .pytest_cache/
