@@ -258,8 +258,8 @@ package; with a single consumer per module and nothing actually shared, that
 was collapsed — files that change together live together.) Each suite's
 `asserts/*.py` is layered: pure functions on top (plain data in, plain data
 out; no promptfoo types, no IO) and the `get_assert` GradingResult adapter at
-the bottom. `tests/unit/conftest.py` puts the asserts directory on `sys.path`
-so tests import the same file promptfoo executes. Extract a shared package
+the bottom. pytest's `pythonpath` config points at the asserts directory so
+tests import the same file promptfoo executes. Extract a shared package
 only if two suites ever genuinely share logic.
 
 **High gear / low gear (ch. 5).** Unit tests live in `tests/unit/` (pytest)
