@@ -18,18 +18,24 @@ def _quote_label(quote: str, limit: int = 60) -> str:
     return quote if len(quote) <= limit else quote[: limit - 1] + "…"
 
 
+def _contract_failure(reason: str) -> dict:
+    return {"pass_": False, "score": 0.0, "reason": reason}
+
+
 def get_assert(output, context):
     try:
         data = output if isinstance(output, dict) else json.loads(output)
         problems = data["problems"]
     except (TypeError, ValueError, KeyError) as parse_error:
-        return {
-            "pass_": False,
-            "score": 0.0,
-            "reason": f"output is not contract JSON: {parse_error!r}",
-        }
+        return _contract_failure(f"output is not contract JSON: {parse_error!r}")
 
-    listing = context["vars"]["listing"]
+    if not isinstance(problems, list) or not all(isinstance(p, dict) for p in problems):
+        return _contract_failure("problems must be a list of objects")
+
+    listing = context.get("vars", {}).get("listing")
+    if not isinstance(listing, str) or not listing:
+        return _contract_failure("listing var missing from test context")
+
     component_results = []
     total_quotes = 0
     fabricated_quotes = 0
@@ -37,6 +43,8 @@ def get_assert(output, context):
     for problem in problems:
         problem_id = problem.get("id", "?")
         quotes = problem.get("evidence", [])
+        if not isinstance(quotes, list) or not all(isinstance(q, str) for q in quotes):
+            return _contract_failure(f"{problem.get('id', '?')}: evidence must be a list of strings")
         ungrounded = set(find_ungrounded_quotes(quotes, listing))
         for quote in quotes:
             total_quotes += 1

@@ -51,7 +51,7 @@ uv sync && uv run pytest
 | `src/listing_evals/` | Pure domain logic (no promptfoo, no IO) behind every assertion |
 | `tests/unit/` | pytest, behavior-level, core logic only — never harness glue |
 | `runs/` | Committed eval snapshots per iteration (`extract-problems-v0.json`, …) |
-| `docs/error-analysis/` | Failure taxonomy and labels, built by reading traces |
+| `docs/error-analysis/` | Failure taxonomy and labels, built by reading traces (created during round 1) |
 | `docs/superpowers/specs/` | The design spec this repo implements |
 
 ## Method
@@ -69,10 +69,14 @@ uv sync && uv run pytest
 4. **Iterations are committed:** each prompt revision gets a fresh run in
    `runs/`; the table below tracks what failed → what changed → the delta.
 
+Reading results: an assertion FAILURE is data — the pipeline measurably
+misbehaved and feeds error analysis. A pipeline ERROR (provider down, harness
+exception) is a bug; runs containing errors are never committed as baselines.
+
 ## Iterations
 
 | Version | Change | Result |
 |---|---|---|
-| v0 | baseline prompt, contract assertions | see `runs/extract-problems-v0.json` |
+| v0 | baseline prompt, contract assertions | 9/10 pass on gpt-5.6-luna; 1 grounding failure (paraphrased quote) — `runs/extract-problems-v0.json` |
 
 *Status: phase-1 v0 baseline complete; error analysis round 1 is next.*
