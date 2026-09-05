@@ -61,8 +61,15 @@ tests/
 docs/
   error-analysis/                  # round-N notes, taxonomy, labels
   superpowers/specs/               # this spec
-runs/                              # committed eval result snapshots (v0.json, ...)
 README.md                          # thesis, methodology, iteration table, repro
+```
+
+(Amended 2026-09-05: a committed `runs/` snapshot folder was dropped —
+promptfoo already records every eval in its local database, browsable and
+comparable via `promptfoo view`; the README table carries the headline
+numbers per iteration.)
+
+```
 ```
 
 Scaffold files `main.py`, `context.py`, and the root helpdesk
@@ -195,7 +202,8 @@ targets is an edit to this one visible file.)
 - promptfoo runs via `uvx promptfoo@0.1.4` — the official PyPI wrapper
   (delivers CLI 0.122.2 at design time; still requires Node.js at runtime).
   The pin is recorded in README and used in all commands.
-- Dev runs use `--no-cache --no-share`; snapshots via `-o runs/<tag>.json`.
+- Dev runs use `--no-cache`; run history lives in promptfoo's local DB
+  (`promptfoo view`), with `sharing: false` pinned in config.
 - `temperature: 0` for reproducibility (noted: not bit-exact across servers).
 - **Guided decoding / `response_format` json_schema is OFF at v0.** Malformed
   output is a real failure mode error analysis must observe. Turning it on is
@@ -213,7 +221,8 @@ scenarios, tests`, quoted `'{{env.VAR}}'`, chat prompts as JSON files.
 Per phase:
 
 1. **v0**: prompt + contract assertions. Smoke on 2–3 listings, then full
-   corpus run → `runs/<phase>-v0.json` (committed).
+   corpus run (recorded in promptfoo's local DB; headline numbers go in the
+   README iteration table).
 2. **Error analysis round 1** (`docs/error-analysis/round-1.md`): the user
    reads every trace in `promptfoo view` — pass/fail + one-line "first thing
    that went wrong" per failure. After ~30–50, group notes into a 5–10
@@ -229,7 +238,7 @@ Per phase:
    endpoint as grader, calibrated against the user's labels (TPR/TNR) before
    its verdicts count.
 5. **Iterate**: each prompt revision = new labeled variant + full run
-   committed to `runs/`. README iteration table: what failed → what changed →
+   run in full. README iteration table: what failed → what changed →
    metric delta.
 6. Repeat 1–5 for phase 2.
 
@@ -316,6 +325,6 @@ Runtime eval code remains stdlib-only.
 ## 11. Out of Scope
 
 Agent frameworks/SDKs, RAG, multi-turn conversation, cloud providers or paid
-judges, CI gating (may be added later; trivial with `runs/` snapshots),
+judges, CI gating (may be added later via `-o` result exports),
 resume/cover-letter generation, scraping infrastructure, web UI beyond
 `promptfoo view`.

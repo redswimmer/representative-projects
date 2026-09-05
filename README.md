@@ -49,16 +49,12 @@ usually can too.
 
 ## Try it
 
-Requirements: [uv](https://docs.astral.sh/uv/), Node.js, and an OpenAI API
+Requirements: [uv](https://docs.astral.sh/uv/), and an OpenAI API
 key (or any OpenAI-compatible local server — vLLM, llama.cpp).
 
 ```bash
 # 1. copy the example env and set your API key
 cp .env.example .env
-
-#    ...or serve locally and point evals/providers.yaml at it by adding
-#    `apiBaseUrl: http://localhost:8000/v1` (vLLM) / :8080/v1 (llama.cpp)
-#    under config: — model and endpoint live in that file, not in env vars.
 
 # 2. run phase 1 over the corpus of job listings
 uvx promptfoo eval -c evals/extract-problems/promptfooconfig.yaml --no-cache
@@ -75,7 +71,7 @@ is picked up automatically.
 
 | Version | Change | Result |
 |---|---|---|
-| v0 | baseline prompt, contract checks (valid structure + verbatim evidence) | 9/10 listings pass on gpt-5.6-luna; 1 caught fabrication (paraphrased quote) — `runs/extract-problems-v0.json` |
+| v0 | baseline prompt, contract checks (valid structure + verbatim evidence) | 9/10 listings pass on gpt-5.6-luna; 1 caught fabrication (paraphrased quote) |
 
 *Status: baseline complete on a corpus of 10 real listings; failure-mode
 analysis of the traces is next, then measured prompt iterations, then the
