@@ -1,0 +1,48 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "RLHF training infrastructure is likely slow, brittle, or hard to use, bottlenecking researcher velocity",
+      "evidence": [
+        "You'll focus obsessively on improving the performance, robustness, and usability of these systems so our research can progress as quickly as possible.",
+        "You’ll be responsible for improving the speed, reliability, and ease-of-use of these systems."
+      ],
+      "rationale": "Explicitly calling out speed, reliability, robustness, and usability as improvement targets implies current systems are lacking in those dimensions."
+    },
+    {
+      "id": "P2",
+      "problem": "No dedicated owner currently exists for the algorithms and systems underlying RLHF/finetuning, leaving researchers to build or maintain their own tooling instead of doing research",
+      "evidence": [
+        "Your job will be to build, maintain, and improve the algorithms and systems that these researchers use to train models.",
+        "you'll be responsible for the critical algorithms and infrastructure that our researchers depend on to train models"
+      ],
+      "rationale": "Framing this as a distinct hire's core responsibility suggests it isn't currently owned by a dedicated engineer, likely falling to researchers as a distraction."
+    },
+    {
+      "id": "P3",
+      "problem": "Scaling distributed training infrastructure for large LLMs is a technical challenge the team needs more expertise to handle",
+      "evidence": [
+        "High performance, large scale distributed systems",
+        "Large scale LLM training"
+      ],
+      "rationale": "Listing large-scale distributed systems experience as a differentiator indicates current scaling challenges require specialized skills not fully covered by the existing team."
+    },
+    {
+      "id": "P4",
+      "problem": "The team is understaffed or has undefined/overlapping responsibilities, requiring engineers to absorb work beyond formal role boundaries",
+      "evidence": [
+        "Pick up slack, even if it goes outside your job description"
+      ],
+      "rationale": "Explicitly asking candidates to work outside their job description signals gaps in coverage that aren't addressed by current staffing or role definitions."
+    },
+    {
+      "id": "P5",
+      "problem": "Engineers on this team need to ramp up on ML/RLHF concepts they may not already know, since deep ML research background isn't a strict requirement",
+      "evidence": [
+        "Want to learn more about machine learning research",
+        "Implementing LLM finetuning algorithms, such as RLHF"
+      ],
+      "rationale": "Treating ML research knowledge as a 'want to learn' trait rather than a hard requirement suggests the role draws from a systems-engineering background that needs cross-training into ML specifics."
+    }
+  ]
+}
