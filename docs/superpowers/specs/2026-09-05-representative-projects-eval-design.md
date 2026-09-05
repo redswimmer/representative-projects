@@ -28,7 +28,7 @@ IDs, and referential links exist *so that* correctness is checkable by code.
 |---|---|
 | Agent form | **A: Prompt-as-agent.** Pure promptfoo YAML; no agent code, no tools, no agent SDK. The prompt file is the agent. |
 | Chaining | Two independent suites. Phase 2 consumes **frozen, hand-verified fixtures**, never live phase-1 output. |
-| Corpus | User's **real job listings**, committed to the repo as `listings/*.txt`. |
+| Corpus | User's **real job listings**, committed to the repo as `job_listings/*.txt`. |
 | Runtime | Any OpenAI-compatible local server (vLLM or llama.cpp) via one shared provider file; endpoint is an env var. |
 | Judges | Deterministic assertions first. LLM judge only for failure modes that irreducibly require interpretation, run on the same local endpoint, and calibrated against hand labels before being trusted. |
 | Eval order | Contract assertions at v0; **all failure-mode assertions come after error analysis**, never speculatively. |
@@ -41,22 +41,29 @@ re-implement file loading promptfoo already does deterministically).
 ## 3. Repository Layout
 
 ```
-listings/                          # real listings, one .txt per listing
+job_listings/                      # real listings, one .txt per listing
 shared/
   provider.yaml                    # single provider definition (see §6)
+src/
+  listing_evals/                   # pure core logic: no promptfoo types, no IO
+    __init__.py
+    grounding.py                   # normalize_text, find_ungrounded_quotes
+    proposal_integrity.py          # dangling refs, unaddressed problems, code-leak scan
 evals/
   extract-problems/                # PHASE 1
     promptfooconfig.yaml
     prompts/extract.json           # chat-format messages (system + user)
     schema.json                    # phase-1 output contract
-    generate_tests.py              # globs listings dir -> one test per file
-    asserts/grounding.py           # evidence-substring check (stdlib only)
+    generate_tests.py              # globs job_listings dir -> one test per file
+    asserts/grounding.py           # thin adapter over listing_evals.grounding
   propose-project/                 # PHASE 2 (built after phase 1 iterates)
     promptfooconfig.yaml
     prompts/propose.json
     schema.json
     fixtures/*.json                # frozen, hand-verified phase-1 outputs
-    asserts/integrity.py           # ref integrity + coverage + no-code
+    asserts/integrity.py           # thin adapter over listing_evals.proposal_integrity
+tests/
+  unit/                            # pytest; tests core logic only (see §8)
 docs/
   error-analysis/                  # round-N notes, taxonomy, labels
   superpowers/specs/               # this spec
@@ -65,11 +72,11 @@ README.md                          # thesis, methodology, iteration table, repro
 ```
 
 Scaffold files `main.py`, `context.py`, and the root helpdesk
-`promptfooconfig.yaml` are deleted. `pyproject.toml` stays dependency-free;
-all eval-side Python is stdlib-only until a need is observed.
+`promptfooconfig.yaml` are deleted. Runtime eval code is stdlib-only;
+`pytest` is the sole dev dependency (see §8).
 
 Data flow is one-directional:
-`listings/ → phase 1 → human curation → fixtures/ → phase 2`.
+`job_listings/ → phase 1 → human curation → fixtures/ → phase 2`.
 
 ## 4. Phase 1 — `extract-problems`
 
@@ -112,21 +119,23 @@ pre-baking one is the anti-pattern the methodology exists to avoid.
 inspectable reasoning. Free-form CoT is never graded.
 
 **Test generation:** `generate_tests.py:generate_tests(config)` globs
-`config["listings_dir"]` (default `../../listings`), returns one test per file:
-`vars: {listing_id, listing}`, `description` = filename. Referenced as:
+`config["job_listings_dir"]` (default `../../job_listings`), returns one test
+per file: `vars: {listing_id, listing}`, `description` = filename. Deliberate
+IO glue — exercised by every eval run, never unit-tested (§8). Referenced as:
 
 ```yaml
 tests:
   - path: file://generate_tests.py:generate_tests
     config:
-      listings_dir: ../../listings
+      job_listings_dir: ../../job_listings
 ```
 
 **Contract assertions (v0, in `defaultTest`)** — these ARE the output
 contract, not speculative failure evals:
 
 1. `is-json` against `schema.json`.
-2. `python: file://asserts/grounding.py` — every `evidence` string must be a
+2. `python: file://asserts/grounding.py` — thin adapter calling
+   `listing_evals.grounding`: every `evidence` string must be a
    substring of `context["vars"]["listing"]` after normalization on both
    sides: Unicode NFKC, curly quotes/dashes → ASCII, whitespace runs → single
    space, casefold. Returns a GradingResult with `named_scores`
@@ -160,7 +169,8 @@ lists component IDs.
 **Contract assertions (v0):**
 
 1. `is-json` against schema.
-2. `asserts/integrity.py` (stdlib): every `addresses` ID exists in the
+2. `asserts/integrity.py` — thin adapter calling
+   `listing_evals.proposal_integrity`: every `addresses` ID exists in the
    fixture's problems; every fixture problem is addressed by ≥1 component;
    every roadmap component ID exists. Pure set arithmetic, with
    `named_scores` (`problem_coverage`, `ref_integrity`).
@@ -187,8 +197,9 @@ config:
 time, fall back to a literal served-model-name in this one file — still a
 single-file edit.)
 
-- promptfoo runs via `npx promptfoo@0.122.2` (current release at design time);
-  the pin is recorded in README and used in all commands.
+- promptfoo runs via `uvx promptfoo@0.1.4` — the official PyPI wrapper
+  (delivers CLI 0.122.2 at design time; still requires Node.js at runtime).
+  The pin is recorded in README and used in all commands.
 - Dev runs use `--no-cache --no-share`; snapshots via `-o runs/<tag>.json`.
 - `temperature: 0` for reproducibility (noted: not bit-exact across servers).
 - **Guided decoding / `response_format` json_schema is OFF at v0.** Malformed
@@ -236,32 +247,74 @@ Per phase:
 - Gold-label recall/precision suite over a hand-labeled listing subset
   (f-score pattern) if error analysis shows coverage failures matter.
 
-## 8. Error Handling
+## 8. Code Quality & Testing
+
+Guiding references: Clean Code (intent-revealing names) and cosmicpython
+chapters 3 ("On Coupling and Abstractions") and 5 ("TDD in High Gear and Low
+Gear").
+
+**Names convey intent.** Modules, functions, and variables are named for their
+domain meaning (`find_ungrounded_quotes`, `job_listings_dir`,
+`unaddressed_problems`), never for their mechanics.
+
+**Core/adapter separation (ch. 3).** All domain logic lives in
+`src/listing_evals/` as pure functions — plain data in, plain data out; no
+promptfoo types, no file IO, no environment access. Each suite's
+`asserts/*.py` is a thin adapter: anchor `sys.path` to repo `src/` (2 lines),
+parse the model output, call core functions, marshal the result into a
+GradingResult dict. Adapters contain no logic worth testing.
+
+**High gear / low gear (ch. 5).** Unit tests live in `tests/unit/` (pytest)
+and target the pure core only — behavior at the function contract level:
+normalization edge cases (curly quotes, whitespace, unicode), grounding
+semantics (verbatim vs. fabricated vs. partially-overlapping quotes),
+integrity set logic (dangling refs, unaddressed problems). What is
+deliberately NOT unit-tested: promptfoo adapters, YAML configs, the test
+generator, GradingResult marshaling — that glue is exercised edge-to-edge by
+every eval run, and tests coupled to it would be the brittle kind that
+punish refactoring without catching real defects.
+
+**Tooling.** `uv run pytest` runs the suite. `pyproject.toml` gains:
+
+```toml
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests/unit"]
+```
+
+Runtime eval code remains stdlib-only.
+
+## 9. Error Handling
 
 - Server down / provider error → surfaces as promptfoo ERROR (distinct from
   FAIL); README notes the distinction.
 - Unparseable output → `is-json` fails with reason; python assertions parse
   defensively and return failed GradingResults, never raise.
-- Assertion bugs: each `asserts/*.py` file ends with a stdlib
-  `if __name__ == "__main__":` self-check (assert-based, a few cases) — run
-  directly to verify the checker itself.
+- Assertion bugs: the core functions behind every assertion are covered by
+  `tests/unit/` (§8) — the checkers themselves are verified before their
+  verdicts are trusted.
 
-## 9. Success Criteria
+## 10. Success Criteria
 
 1. `git clone` → start any OpenAI-compatible local server → export 3 env vars
-   → `npx promptfoo@0.122.2 eval -c evals/extract-problems/promptfooconfig.yaml`
-   works.
+   → `uvx promptfoo@0.1.4 eval -c evals/extract-problems/promptfooconfig.yaml`
+   works, and `uv run pytest` passes.
 2. Every assertion in the final repo traces to a documented failure mode in
    `docs/error-analysis/`, or to the output contract. Zero speculative
    assertions.
 3. ≥1 full documented iteration per phase with before/after committed runs.
 4. LLM-judge count: 0 unless a failure mode demonstrably requires one; if
    present, its calibration numbers are committed.
-5. README tells the full story: thesis → contract → error analysis → evals →
+5. Unit tests cover every core function behind an assertion, at the behavior
+   level; no test imports promptfoo or touches harness glue.
+6. README tells the full story: thesis → contract → error analysis → evals →
    iterations, with the axial-coding symmetry (method applied to listings AND
    to traces) stated explicitly.
 
-## 10. Out of Scope
+## 11. Out of Scope
 
 Agent frameworks/SDKs, RAG, multi-turn conversation, cloud providers or paid
 judges, CI gating (may be added later; trivial with `runs/` snapshots),
