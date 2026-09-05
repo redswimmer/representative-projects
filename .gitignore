@@ -18,3 +18,6 @@ wheels/
 
 # Claude Code personal settings
 .claude/settings.local.json
+
+# Working artifacts (specs, plans, analysis notes) - local only
+docs/
