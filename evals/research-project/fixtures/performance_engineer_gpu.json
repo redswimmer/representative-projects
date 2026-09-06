@@ -1,0 +1,285 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "GPUs are not being utilized efficiently at the massive scale Anthropic operates, wasting compute capacity and money.",
+      "evidence": [
+        "maximizing GPU utilization and performance at unprecedented scale"
+      ],
+      "rationale": "Explicitly stating the need to maximize GPU utilization at unprecedented scale implies current utilization is suboptimal for their scale."
+    },
+    {
+      "id": "P2",
+      "problem": "Inference is not efficient enough, likely causing higher latency and/or cost per query for serving Claude to users.",
+      "evidence": [
+        "dramatically improve inference efficiency"
+      ],
+      "rationale": "A call to dramatically improve inference efficiency implies existing inference performance is a bottleneck."
+    },
+    {
+      "id": "P3",
+      "problem": "Existing low-level compute kernels are not optimized enough to extract full performance from GPU hardware (e.g., tensor cores).",
+      "evidence": [
+        "custom kernel development to distributed system architectures",
+        "tensor core optimization"
+      ],
+      "rationale": "The need for custom kernel development and tensor core optimization implies current kernels underperform relative to hardware potential."
+    },
+    {
+      "id": "P4",
+      "problem": "Coordinating and synchronizing very large GPU clusters (thousands of GPUs) for training/inference is a hard systems challenge that limits scale or reliability.",
+      "evidence": [
+        "orchestrating thousands of GPUs in perfect synchronization"
+      ],
+      "rationale": "Naming orchestration of thousands of GPUs in synchronization as a job responsibility implies this coordination is currently a difficult, unsolved problem at their scale."
+    },
+    {
+      "id": "P5",
+      "problem": "Model capability improvements are being constrained by underlying infrastructure/performance limitations rather than research ideas alone.",
+      "evidence": [
+        "developing cutting-edge optimizations that directly enable new model capabilities"
+      ],
+      "rationale": "Stating that optimizations 'directly enable new model capabilities' implies current infrastructure performance is a limiting factor on what models can do."
+    },
+    {
+      "id": "P6",
+      "problem": "The team lacks people who can work across the full stack from hardware interfaces to ML frameworks, creating gaps between low-level and high-level optimization work.",
+      "evidence": [
+        "Can navigate complex systems from hardware interfaces to high-level ML frameworks",
+        "Your work will span the entire stack\u2014from low-level tensor core optimizations to orchestrating thousands of GPUs in perfect synchronization."
+      ],
+      "rationale": "Requiring candidates to navigate the entire stack suggests existing gaps between hardware-level and framework-level engineering that need bridging."
+    },
+    {
+      "id": "P7",
+      "problem": "Distributed training/inference communication overhead (across NVLink/NCCL and model parallelism) may be limiting throughput at scale.",
+      "evidence": [
+        "NCCL, NVLink, collective communication, model parallelism"
+      ],
+      "rationale": "Listing these as desired experience areas implies current collective communication and model parallelism approaches need improvement to scale further."
+    },
+    {
+      "id": "P8",
+      "problem": "Compute costs and memory bandwidth constraints may be limiting model size, speed, or affordability, motivating low-precision approaches.",
+      "evidence": [
+        "INT8/FP8 quantization, mixed-precision techniques",
+        "memory bandwidth optimization"
+      ],
+      "rationale": "Desired expertise in quantization and memory bandwidth optimization implies current precision/memory usage is inefficient and costly."
+    },
+    {
+      "id": "P9",
+      "problem": "Large-scale training infrastructure may suffer from insufficient fault tolerance, risking wasted compute from failures during long training runs.",
+      "evidence": [
+        "Large-scale training infrastructure, fault tolerance, cluster orchestration"
+      ],
+      "rationale": "Explicitly seeking fault tolerance experience implies current training infrastructure is vulnerable to failures that need mitigation."
+    },
+    {
+      "id": "P10",
+      "problem": "The problem space is not well-defined or established, requiring someone who can independently determine priorities and solutions rather than follow existing playbooks.",
+      "evidence": [
+        "Thrive in ambiguous environments where you define the path forward"
+      ],
+      "rationale": "Seeking candidates who define their own path in ambiguity implies the company lacks a clear predefined roadmap for solving these GPU performance challenges."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Tensor-Core-Optimized Fused Attention Kernel Suite",
+      "summary": "Build a custom fused attention kernel (Triton/CUDA) optimized for tensor cores, extend it with FP8/INT8 quantization, wrap it as a PyTorch custom op, and use the resulting memory/throughput headroom to run a longer context length or larger batch than the unoptimized baseline could support on the same GPU. This demonstrates the low-level kernel craft, precision/memory-bandwidth engineering, and stack-spanning integration the role calls out, plus the direct link between an infra optimization and a new model capability.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Fused tensor-core attention kernel",
+          "description": "Implement a flash-attention-style fused kernel in Triton or raw CUDA that explicitly targets tensor core execution paths, then profile it with Nsight Compute against a naive PyTorch attention implementation to quantify occupancy and SM utilization gains.",
+          "addresses": [
+            "P1",
+            "P3"
+          ],
+          "rationale": "A working kernel with measured utilization/occupancy improvements over a naive baseline is direct, reproducible evidence of tensor-core-level kernel optimization skill and its effect on utilization."
+        },
+        {
+          "id": "C2",
+          "name": "Mixed-precision / FP8-INT8 variant",
+          "description": "Extend the kernel with FP8 and INT8 quantized code paths, measuring memory bandwidth usage and end-to-end throughput/latency versus the FP16/BF16 baseline at matched accuracy tolerance.",
+          "addresses": [
+            "P8",
+            "P2"
+          ],
+          "rationale": "Quantifying throughput and bandwidth gains from a self-built low-precision kernel path is concrete evidence of the quantization and memory-bandwidth expertise the listing seeks, and of inference-efficiency improvement."
+        },
+        {
+          "id": "C3",
+          "name": "PyTorch custom-op integration",
+          "description": "Register the kernel as a custom PyTorch operator (with autograd/inference support as applicable) and swap it into a small transformer model end to end, verifying correctness and compatibility with torch.compile.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "Carrying an optimization from raw CUDA/Triton up through operator registration into a real model shows the hardware-to-framework range the role explicitly requires."
+        },
+        {
+          "id": "C4",
+          "name": "Capability-unlock benchmark",
+          "description": "Use the memory savings from the quantized kernel to run a strictly longer context length or larger batch on identical hardware than the unoptimized model could fit without OOM, and report the throughput/latency delta.",
+          "addresses": [
+            "P5",
+            "P2"
+          ],
+          "rationale": "Showing a concrete case where a kernel-level optimization is the enabling factor for a capability (longer context) that was otherwise infeasible directly mirrors the claim that infra work enables new model capabilities."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Working fused tensor-core kernel with Nsight-verified utilization gains over baseline",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "FP8/INT8 quantized kernel variant with measured bandwidth and throughput improvements",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Kernel wrapped as a PyTorch custom op inside a runnable transformer model",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Demonstrated longer-context/larger-batch capability unlock with before/after benchmarks",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Small-Scale Multi-GPU Orchestration & Fault-Tolerant Training",
+      "summary": "Stand up a multi-GPU (e.g., 4-8 GPU) distributed training pipeline using tensor/pipeline parallelism over NCCL, build a lightweight orchestration/synchronization layer with live utilization monitoring, and inject simulated node failures to prove checkpoint-based recovery. This project is scaled down from 'thousands of GPUs' but demonstrates the same coordination, communication-overhead, and fault-tolerance principles the role is hired to solve at scale.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Model-parallel NCCL training pipeline",
+          "description": "Implement tensor and/or pipeline parallelism across several GPUs using NCCL collectives directly, then profile and optimize the overlap of compute with communication to reduce collective-communication overhead.",
+          "addresses": [
+            "P7",
+            "P4"
+          ],
+          "rationale": "Directly building and tuning a model-parallel pipeline on real NCCL collectives is hands-on evidence of reducing communication overhead and coordinating multiple GPUs, the same primitives used at thousands-of-GPU scale."
+        },
+        {
+          "id": "C2",
+          "name": "Synchronization/orchestration harness with utilization dashboard",
+          "description": "Build a lightweight coordinator that manages barriers, rank assignment, and elastic worker changes across the GPU pool, alongside a real-time dashboard showing per-GPU utilization during scale-out and scale-in events.",
+          "addresses": [
+            "P4",
+            "P1"
+          ],
+          "rationale": "A self-built orchestration layer plus utilization telemetry is direct evidence of understanding the coordination problem and of keeping GPUs busy during synchronization events, the core skill named for cluster-scale orchestration."
+        },
+        {
+          "id": "C3",
+          "name": "Fault injection and checkpoint/resume",
+          "description": "Simulate worker crashes mid-training and demonstrate automatic checkpoint-based recovery, measuring how much compute is lost versus a run with no fault tolerance in place.",
+          "addresses": [
+            "P9"
+          ],
+          "rationale": "A measured before/after comparison of wasted compute with and without checkpoint/resume is concrete evidence of building fault tolerance into training infrastructure."
+        },
+        {
+          "id": "C4",
+          "name": "Framework-integrated distributed config",
+          "description": "Combine the raw-NCCL orchestration logic with PyTorch DDP/FSDP configuration in the same pipeline, showing the custom low-level primitives and the higher-level framework working together.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "Interleaving hand-written NCCL orchestration with standard framework-level distributed training shows the same hardware-to-framework range as the kernel project but from the distributed-systems side."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Multi-GPU tensor/pipeline-parallel training running over NCCL with measured communication overhead",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Orchestration harness with live utilization dashboard across scale events",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Fault-injection tests showing checkpoint/resume compute-loss reduction",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Unified pipeline combining custom NCCL orchestration with DDP/FSDP",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Self-Directed Inference Performance Investigation",
+      "summary": "Pick an existing open-source inference stack, profile it end to end without a predefined ticket, independently identify and fix the biggest bottleneck, and write it up as an internal-RFC-style report. This project is the weakest on raw kernel/systems depth of the three but is the most direct demonstration of operating in an ambiguous, undefined problem space and communicating impact-driven results, which the other two projects don't showcase.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Open-ended profiling investigation",
+          "description": "Choose an open-source LLM inference server (e.g., vLLM or llama.cpp), profile GPU utilization and latency end to end with no predefined target, and document the hypothesis-driven process of narrowing down to the single biggest bottleneck.",
+          "addresses": [
+            "P10",
+            "P1"
+          ],
+          "rationale": "Self-scoping an investigation from scratch with no ticket or spec is direct evidence of defining one's own path forward in an ambiguous problem space, applied to a real utilization bottleneck."
+        },
+        {
+          "id": "C2",
+          "name": "Targeted fix and validation",
+          "description": "Implement a fix for the identified bottleneck (e.g., a scheduler change, KV-cache layout change, or kernel fusion) and measure the before/after latency and throughput impact under a realistic workload.",
+          "addresses": [
+            "P2",
+            "P10"
+          ],
+          "rationale": "Delivering a measurable inference-efficiency improvement that the applicant chose and scoped themselves is evidence of both inference-efficiency skill and independent judgment under ambiguity."
+        },
+        {
+          "id": "C3",
+          "name": "RFC-style performance report",
+          "description": "Write a short internal-RFC-style document covering the problem statement, alternatives considered, measured impact, and recommended follow-on work, in the style used to communicate infrastructure decisions to a research/engineering team.",
+          "addresses": [
+            "P10"
+          ],
+          "rationale": "A clear written artifact showing how ambiguous problems were scoped, prioritized, and communicated is evidence tailored specifically to the 'define your own path forward' requirement, beyond what code alone shows."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Documented end-to-end profiling investigation identifying the primary bottleneck",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Implemented fix with before/after throughput and latency measurements",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Published RFC-style write-up of the investigation and recommendations",
+          "components": [
+            "C3"
+          ]
+        }
+      ]
+    }
+  ]
+}

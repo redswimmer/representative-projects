@@ -1,0 +1,275 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Anthropic lacks robust foundational infrastructure (data storage, metrics/evaluation, and review tooling) to support its safety systems.",
+      "evidence": [
+        "Develop the foundational systems which power Safeguards, including infrastructure for data storage and management, metric and evaluation systems, and tooling for human and agentic review."
+      ],
+      "rationale": "The need to 'develop' these foundational systems implies they are currently missing, incomplete, or inadequate."
+    },
+    {
+      "id": "P2",
+      "problem": "The company cannot yet reliably detect when its AI models behave in unwanted ways or are misused.",
+      "evidence": [
+        "This role will focus on building systems to detect unwanted model behaviors and prevent disallowed use of models."
+      ],
+      "rationale": "Needing to build detection systems indicates current detection capability for unwanted behavior and disallowed use is insufficient."
+    },
+    {
+      "id": "P3",
+      "problem": "Safeguards operations rely too heavily on manual human intervention, which needs to be reduced without sacrificing safety or customer experience.",
+      "evidence": [
+        "Ensure the day-to-day running of Safeguards systems and hold a high operational bar which serves both safety and customers while reducing the amount of human intervention and oversight required."
+      ],
+      "rationale": "Explicitly wanting to reduce 'human intervention and oversight required' shows the current process depends too much on manual effort."
+    },
+    {
+      "id": "P4",
+      "problem": "Existing safety mechanisms are not sufficiently layered, real-time, or scalable to defend against evolving risks.",
+      "evidence": [
+        "Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale"
+      ],
+      "rationale": "The call to 'build robust and reliable multi-layered defenses' that 'work at scale' implies current defenses are not robust, layered, real-time, or scalable enough."
+    },
+    {
+      "id": "P5",
+      "problem": "User well-being and misuse risks from AI models are not fully safeguarded, requiring dedicated engineering.",
+      "evidence": [
+        "you will work to monitor models, prevent misuse, and ensure user well-being"
+      ],
+      "rationale": "The explicit goals to 'prevent misuse' and 'ensure user well-being' indicate these outcomes are not yet guaranteed by existing systems."
+    },
+    {
+      "id": "P6",
+      "problem": "Operational teams lack custom internal tooling needed to efficiently manage safeguards work.",
+      "evidence": [
+        "Have worked closely with operational teams to build custom internal tooling"
+      ],
+      "rationale": "Seeking someone experienced in building custom internal tooling for operational teams implies such tooling is currently lacking or insufficient."
+    },
+    {
+      "id": "P7",
+      "problem": "Complex technical safety work needs to be translated for non-technical stakeholders, and this communication currently falls short.",
+      "evidence": [
+        "Strong communication skills and ability to explain complex technical concepts to non-technical stakeholders"
+      ],
+      "rationale": "Requiring strong communication skills to explain technical concepts to non-technical stakeholders suggests a current gap in cross-functional understanding of safety systems."
+    },
+    {
+      "id": "P8",
+      "problem": "The company needs experienced engineers skilled in trust and safety, anti-spam, fraud, or abuse detection specifically applied to AI/ML systems, an area distinct from general software engineering.",
+      "evidence": [
+        "Have experience building trust and safety, anti-spam, fraud or abuse detection and mitigation mechanisms and interventions for AI/ML systems"
+      ],
+      "rationale": "Prioritizing candidates with this niche background implies the company needs specialized abuse-mitigation expertise it does not fully have in-house yet for AI/ML systems."
+    },
+    {
+      "id": "P9",
+      "problem": "The company needs better systems and tooling to measure privacy and data management compliance/effectiveness.",
+      "evidence": [
+        "Have experience building metrics and measurement systems or data and privacy management systems"
+      ],
+      "rationale": "Valuing this experience suggests current metrics, measurement, and data/privacy management systems need development or improvement."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Real-Time Multi-Layered Safeguards Pipeline",
+      "summary": "A self-contained moderation pipeline for an LLM-backed chat application that ingests prompts and responses, runs them through a cascade of increasingly expensive detectors, stores every decision for auditability, and exposes an evaluation harness that measures detector quality over time. This is the most direct analogue to the 'foundational Safeguards infrastructure' and 'multi-layered defense' language in the listing, and it demonstrates the ability to design data systems, real-time detection, and measurement together rather than as separate afterthoughts.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Structured event store",
+          "description": "A schema and storage layer that durably logs every prompt, response, and classifier verdict with enough structure to support replay, auditing, and later analysis, treated as the foundation the rest of the pipeline is built on rather than an incidental log file.",
+          "addresses": [
+            "P1"
+          ],
+          "rationale": "A purpose-built, queryable data store for safety-relevant events is direct evidence of the 'infrastructure for data storage and management' the listing says is missing."
+        },
+        {
+          "id": "C2",
+          "name": "Layered detection cascade",
+          "description": "A pipeline of detectors of increasing cost and accuracy -- fast keyword/heuristic filters, a lightweight ML or embedding-based classifier, and an LLM-judge for ambiguous cases -- applied to catch jailbreaks, self-harm content, and spam/abuse-style patterns in real time, with circuit breakers so the system degrades gracefully under load.",
+          "addresses": [
+            "P2",
+            "P4",
+            "P5",
+            "P8"
+          ],
+          "rationale": "A working cascade that catches unwanted behavior and abuse patterns at low latency and under load is concrete proof of building multi-layered, real-time, scalable defenses rather than just describing them."
+        },
+        {
+          "id": "C3",
+          "name": "Detector evaluation harness",
+          "description": "A held-out and adversarially-constructed test set, including a small red-team prompt suite, run automatically against the cascade to produce precision/recall/drift metrics whenever a detector or prompt changes.",
+          "addresses": [
+            "P1"
+          ],
+          "rationale": "A repeatable metric and evaluation system for the detectors themselves is direct evidence of the 'metric and evaluation systems' the listing calls out as foundational and currently lacking."
+        },
+        {
+          "id": "C4",
+          "name": "Triage and review queue",
+          "description": "A lightweight review UI that surfaces only the cases the cascade is least confident about, auto-resolves high-confidence low-risk and high-risk cases, and records reviewer overrides back into the training/eval set.",
+          "addresses": [
+            "P1",
+            "P3"
+          ],
+          "rationale": "Auto-resolving confident cases while routing only ambiguous ones to a human demonstrates review tooling that measurably cuts required human intervention without removing oversight where it matters."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Define event schema and stand up the structured store for prompts, responses, and verdicts",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Build the layered detection cascade with heuristic, classifier, and LLM-judge stages",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Build the adversarial/held-out evaluation harness and wire it to run on every change",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build the confidence-based triage queue and feed reviewer decisions back into the eval set",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Agentic Safety Review Assistant",
+      "summary": "An agent-assisted review system that uses an agentic coding/LLM framework to pre-triage flagged content against a written policy, draft a recommendation and rationale, and route cases through a confidence-tiered escalation ladder that always forces high-stakes cases (e.g. well-being risk) to a human. This targets the listing's explicit interest in 'agentic review' tooling and in reducing human oversight burden without losing it where it counts, while pairing it with a policy-grounded eval suite for regression testing.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Policy-grounded eval suite",
+          "description": "A written safety policy translated into a structured set of test cases and automated adversarial prompts, run as a regression suite whenever the underlying model or agent prompt changes, flagging behavioral drift.",
+          "addresses": [
+            "P2",
+            "P4"
+          ],
+          "rationale": "A regression suite that catches unwanted behavior against an explicit policy as models change is direct evidence of building detection that keeps pace with evolving risk, not a one-off check."
+        },
+        {
+          "id": "C2",
+          "name": "Agentic pre-reviewer",
+          "description": "An agent, built on an agentic coding/LLM framework, that reads flagged content plus the policy suite, drafts a recommended disposition and cites the specific policy clause it relied on, for a human to approve, edit, or reject.",
+          "addresses": [
+            "P1",
+            "P3"
+          ],
+          "rationale": "A working agentic review tool that produces auditable, policy-cited recommendations is concrete evidence of both 'tooling for agentic review' and of reducing human effort per case."
+        },
+        {
+          "id": "C3",
+          "name": "Confidence-tiered escalation ladder",
+          "description": "An orchestration layer that routes each case to auto-resolution, a second agent pass, or mandatory human review based on the agent's confidence and a fixed list of always-escalate categories such as self-harm or acute well-being risk.",
+          "addresses": [
+            "P4",
+            "P5"
+          ],
+          "rationale": "Hard-coding non-negotiable human escalation for well-being-critical categories while automating the rest demonstrates a layered defense that scales without silently trading away user safety."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Write the safety policy and build the adversarial/regression eval suite against it",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Build the agentic pre-reviewer that drafts policy-cited recommendations",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Build the confidence-tiered escalation ladder with hard-coded always-escalate categories",
+          "components": [
+            "C3"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trust & Safety Operations Toolkit",
+      "summary": "An internal-tooling-flavored project aimed at the operations side of safeguards: detecting abusive/fraudulent usage patterns against a mock API, giving reviewers a purpose-built case-management tool, tracking privacy/data-handling metrics as first-class KPIs, and translating all of it into a plain-language report for non-technical stakeholders. This project emphasizes the ops-tooling, measurement, and communication requirements of the listing rather than core detection infrastructure, making it a good complement for an applicant whose strengths lean toward product/ops engineering and stakeholder-facing work.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Usage anomaly detector",
+          "description": "A detector over synthetic API usage logs that flags fraud/spam-style patterns such as credential stuffing, velocity abuse, or coordinated scripted abuse against a mock LLM API.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "Applying anti-fraud/anti-abuse pattern detection specifically to API usage against an AI system is direct evidence of the niche trust-and-safety skill set the listing calls out."
+        },
+        {
+          "id": "C2",
+          "name": "Case-management tool for reviewers",
+          "description": "A purpose-built internal tool for an operations team to work flagged cases: queues, bulk actions, suggested next steps, and per-reviewer throughput tracking, built from scratch rather than adapted from a generic ticketing tool.",
+          "addresses": [
+            "P6",
+            "P3"
+          ],
+          "rationale": "A tool designed around how an ops team actually works cases is concrete evidence of building the 'custom internal tooling' the listing says operational teams currently lack, and its suggested-action features show a measurable cut in per-case manual effort."
+        },
+        {
+          "id": "C3",
+          "name": "Privacy and data-handling metrics dashboard",
+          "description": "A measurement layer that tracks data retention compliance, PII redaction rates, and access-log completeness as ongoing KPIs rather than one-off audits.",
+          "addresses": [
+            "P9"
+          ],
+          "rationale": "Turning privacy and data-management practices into continuously measured metrics is direct evidence of the 'metrics and measurement systems or data and privacy management systems' experience the listing asks for."
+        },
+        {
+          "id": "C4",
+          "name": "Stakeholder-facing summary report",
+          "description": "An auto-generated plain-language weekly report that translates the detector, case-management, and privacy metrics into a narrative a non-technical stakeholder (e.g. legal or leadership) could act on without needing to read raw dashboards.",
+          "addresses": [
+            "P7"
+          ],
+          "rationale": "Producing a document that a non-technical reader could actually use is a concrete, checkable demonstration of the communication skill the listing requires, rather than a self-reported claim."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Generate synthetic API usage logs and build the anomaly/abuse detector",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Build the case-management tool around the detector's output",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add the privacy/data-handling metrics dashboard",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build the auto-generated stakeholder report drawing on all prior metrics",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    }
+  ]
+}

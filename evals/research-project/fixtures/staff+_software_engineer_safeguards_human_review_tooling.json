@@ -1,0 +1,319 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "No dedicated team or owned tooling exists yet for safety investigators to review and act on harmful behavior across first- and third-party platforms.",
+      "evidence": [
+        "This is a foundational role: as one of the first engineers on this new team, you'll own the tools our safety investigators rely on to understand what's happening on our platforms and act on it, as well as the platform underneath those tools."
+      ],
+      "rationale": "Calling it a new team and a foundational role implies this tooling and ownership does not yet exist and must be built from scratch."
+    },
+    {
+      "id": "P2",
+      "problem": "There is no reusable platform layer (APIs, storage, backend services) enabling new review workflows to be built quickly, so each workflow likely requires bespoke engineering.",
+      "evidence": [
+        "Develop the platform layer of reusable APIs, data storage, and backend services that lets new review workflows be stood up quickly and safely",
+        "a sandbox environment where new review interfaces and workflows can be built and iterated quickly"
+      ],
+      "rationale": "The need to build a reusable platform and a sandbox for iteration suggests current workflow creation is slow or ad hoc."
+    },
+    {
+      "id": "P3",
+      "problem": "Review and enforcement workflows risk being incompatible with the company's data retention and privacy commitments as they scale.",
+      "evidence": [
+        "privacy-preserving primitives that keep review workflows compatible with our data retention commitments",
+        "Experience designing systems under strict privacy, compliance, or data governance constraints, such as zero data retention environments",
+        "ensure tooling evolves alongside new privacy primitives and data retention commitments"
+      ],
+      "rationale": "Explicit mention of needing privacy-preserving primitives and compliance-aware design indicates existing or anticipated tension between review tooling and privacy/retention obligations."
+    },
+    {
+      "id": "P4",
+      "problem": "As model usage and capability grow, human-only review will not scale, requiring automation and Claude-assisted or Claude-driven review to extend reviewer capacity.",
+      "evidence": [
+        "As model capabilities and usage grow, you'll also drive how we scale review through automation \u2014 building systems where Claude meaningfully extends what human reviewers can do, while keeping people in the loop where their judgment matters most.",
+        "Scale review through automation, including enabling reviewers to use Claude effectively and building toward Claude-assisted and Claude-driven review workflows"
+      ],
+      "rationale": "The stated need to 'scale review through automation' as usage grows implies current human review capacity cannot keep pace with growth."
+    },
+    {
+      "id": "P5",
+      "problem": "Slow or unclear investigation tooling delays identification of harmful behavior and enforcement decisions, weakening the feedback loop into model training.",
+      "evidence": [
+        "the speed, clarity, and reliability of this tooling directly determines how quickly Anthropic can identify harmful behavior, make sound enforcement decisions, and feed signal back into model training"
+      ],
+      "rationale": "Framing tooling speed/clarity/reliability as directly determining detection and response speed implies current gaps in these tools slow down harm identification and enforcement."
+    },
+    {
+      "id": "P6",
+      "problem": "Core investigation and enforcement functionality\u2014case queues, investigation views, audit logging, account-actioning\u2014is missing or underbuilt across product surfaces.",
+      "evidence": [
+        "Build investigation, review, and enforcement tooling for both first-party and third-party platform surfaces \u2014 including case queues, investigation views, decision and audit logging, and account-actioning workflows"
+      ],
+      "rationale": "Listing these as responsibilities to 'build' indicates these capabilities do not yet fully exist across the relevant surfaces."
+    },
+    {
+      "id": "P7",
+      "problem": "Enforcement and investigation needs from policy, operations, legal, privacy, and data science stakeholders are not yet reliably translated into effective systems, leading to slow handling times and decision errors.",
+      "evidence": [
+        "Partner with policy, operations, legal, privacy, and data science stakeholders to translate enforcement and investigation needs into reliable, well-designed systems that measurably reduce handling time and decision error"
+      ],
+      "rationale": "The explicit goal to 'measurably reduce handling time and decision error' implies these metrics are currently suboptimal."
+    },
+    {
+      "id": "P8",
+      "problem": "Sensitive internal review tools lack sufficient guardrails such as granular permissions, audit trails, data-access controls, and protections for reviewer wellbeing.",
+      "evidence": [
+        "Build in the guardrails that sensitive internal tools require: granular permissions, audit trails, data-access controls, and reviewer wellbeing features such as content obfuscation and exposure limits"
+      ],
+      "rationale": "Stating these guardrails need to be 'built in' implies they are currently absent or insufficient in the tooling."
+    },
+    {
+      "id": "P9",
+      "problem": "There is insufficient visibility into operational health of the review process, such as queue health, reviewer throughput, and decision quality.",
+      "evidence": [
+        "Instrument the tools you ship \u2014 surfacing metrics on queue health, reviewer throughput, and decision quality"
+      ],
+      "rationale": "The need to explicitly build instrumentation for these metrics implies they are not currently measured or visible."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Unified Trust & Safety Case Management Platform",
+      "summary": "A full-stack case management platform for investigating and enforcing against harmful behavior across simulated first-party and third-party platform surfaces. It demonstrates staff-level full-stack/platform engineering by building the foundational queueing, investigation, audit, guardrail, and metrics tooling this role says doesn't yet exist, and by showing that layer is genuinely reusable rather than a one-off tool.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Core Case & Investigation Workspace",
+          "description": "A case management system that ingests flagged events from two simulated platform types (a first-party app and a third-party cloud/API platform), presents them in prioritized queues, gives investigators a unified investigation view of event history and context, and lets them record enforcement actions (warn, suspend, ban) that are immutably logged.",
+          "addresses": [
+            "P1",
+            "P6"
+          ],
+          "rationale": "Building queueing, investigation, and enforcement/account-actioning end-to-end across two distinct simulated platform types is direct evidence of standing up the foundational tooling the listing says a new team must build from scratch."
+        },
+        {
+          "id": "C2",
+          "name": "Reusable Platform APIs & Storage Layer",
+          "description": "A refactor of the case system's backend into versioned, documented APIs and a generalized schema (cases, events, entities, actions), such that a second, differently-shaped review workflow can be stood up purely by adding configuration rather than rewriting backend code.",
+          "addresses": [
+            "P2"
+          ],
+          "rationale": "Proving a second workflow can be added through configuration alone demonstrates the platform layer is genuinely reusable, not just one bespoke tool."
+        },
+        {
+          "id": "C3",
+          "name": "Guardrails: Permissions, Audit Trails, Reviewer Wellbeing",
+          "description": "Role-based access control limiting which investigators can view or act on which case categories, an immutable audit trail of every view and action, and reviewer wellbeing features such as automatic blurring of graphic content until explicitly revealed and daily exposure limits that throttle sensitive-content viewing per reviewer.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "Implementing working versions of every named guardrail (permissions, audit trails, data-access controls, wellbeing features) is direct proof these can be built into sensitive internal tools."
+        },
+        {
+          "id": "C4",
+          "name": "Operational Metrics Dashboard",
+          "description": "A dashboard instrumented into the platform showing queue depth and age, per-reviewer throughput, average handling time, and a decision-quality proxy such as overturn/appeal rate, all fed by the same event log used for auditing.",
+          "addresses": [
+            "P9",
+            "P7"
+          ],
+          "rationale": "Surfacing these exact operational metrics and tying them to a stakeholder-relevant handling-time/decision-error goal evidences the ability to make review operations measurable and visible."
+        },
+        {
+          "id": "C5",
+          "name": "Policy Configuration Layer for Non-Engineering Stakeholders",
+          "description": "A declarative, form-driven configuration surface letting a non-engineer define which conditions route a case to which queue, what enforcement options apply, and what counts as a policy violation, without a code change or deploy.",
+          "addresses": [
+            "P7"
+          ],
+          "rationale": "Giving non-engineers direct control over enforcement logic is concrete evidence of translating cross-functional policy/legal/ops needs into a working system rather than just describing collaboration."
+        },
+        {
+          "id": "C6",
+          "name": "Latency & Reliability Instrumentation",
+          "description": "Tracing and alerting layered on the investigation views and queues that track lookup latency, error rates, and data freshness, with a simple SLO view of how tooling reliability trends over time.",
+          "addresses": [
+            "P5"
+          ],
+          "rationale": "Explicitly measuring speed and reliability of the investigation tooling shows understanding that these properties directly gate how fast harmful behavior can be identified and acted on."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Ship core case queue and investigation view with manual enforcement actions across two simulated platform surfaces.",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Generalize the backend into reusable APIs/schema and prove reusability by onboarding a second workflow type via configuration only.",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add RBAC, audit trail, and reviewer wellbeing features.",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Add latency/reliability instrumentation.",
+          "components": [
+            "C6"
+          ]
+        },
+        {
+          "milestone": "Build the operational metrics dashboard tied to handling-time/decision-error goals.",
+          "components": [
+            "C4"
+          ]
+        },
+        {
+          "milestone": "Add the non-engineer policy configuration layer.",
+          "components": [
+            "C5"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Claude-in-the-Loop Review Automation",
+      "summary": "A human-in-the-loop review workflow demonstrating how Claude can extend reviewer capacity: automated case triage, Claude-drafted enforcement recommendations gated by mandatory human approval, and quantitative tracking of agreement rate and speed gains. This project emphasizes LLM/agentic integration skills and targets the listing's call to scale review through automation while keeping people in the loop.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Automated Case Triage",
+          "description": "A pipeline where incoming flagged content is passed to Claude for classification of severity, category, and likely policy violated, with results used to automatically prioritize cases into queues instead of relying on purely manual triage.",
+          "addresses": [
+            "P4"
+          ],
+          "rationale": "Shows a working example of Claude extending reviewer capacity by absorbing the high-volume triage step so humans can focus on judgment-heavy decisions."
+        },
+        {
+          "id": "C2",
+          "name": "Claude-Drafted Decision Recommendations",
+          "description": "For each case, Claude drafts a proposed enforcement decision with rationale citing the relevant policy, which a human reviewer must explicitly approve, edit, or reject before it takes effect.",
+          "addresses": [
+            "P4",
+            "P7"
+          ],
+          "rationale": "Keeping an explicit human-approval gate on Claude's output matches the listing's emphasis on Claude-assisted rather than fully autonomous workflows, while showing enforcement needs translated into a working recommendation system."
+        },
+        {
+          "id": "C3",
+          "name": "Agreement & Decision-Quality Tracking",
+          "description": "Instrumentation logging how often reviewers accept, edit, or override Claude's recommendation, computing an ongoing agreement-rate metric and flagging drift in recommendation quality over time.",
+          "addresses": [
+            "P9"
+          ],
+          "rationale": "Tracking human-AI agreement rate is a concrete, novel form of decision-quality visibility specific to human-in-the-loop automation."
+        },
+        {
+          "id": "C4",
+          "name": "Speed Benchmark: Manual vs. Claude-Assisted",
+          "description": "A controlled comparison harness that runs the same set of synthetic cases through a manual-only workflow and the Claude-assisted workflow, measuring time-to-decision and reviewer effort for each.",
+          "addresses": [
+            "P5"
+          ],
+          "rationale": "Quantifying the speed improvement from automation is direct evidence of understanding how tooling speed maps to how quickly harmful behavior can be identified and acted on."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build case ingestion and a manual baseline review flow, then add the Claude-based triage classifier.",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add Claude-drafted decision recommendations with a mandatory human approval gate.",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Instrument agreement/override tracking as an ongoing decision-quality metric.",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build and run the manual-vs-assisted speed benchmark.",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Privacy-Preserving Review Sandbox",
+      "summary": "A review-tooling sandbox emphasizing privacy and compliance engineering: a redaction and retention-aware data pipeline, a zero-persistence review mode, fine-grained data-access controls, and a scaffold that lets new review workflows be prototyped quickly against synthetic data. This project targets the listing's preferred experience with strict privacy/data-governance constraints and the requested sandbox for fast, safe workflow iteration.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Data Minimization & Redaction Pipeline",
+          "description": "A pipeline that ingests raw case data and applies field-level redaction/tokenization of PII before storage or display, with configurable per-field retention windows after which data is automatically purged.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "Implementing redaction plus automatic time-boxed deletion is concrete evidence of designing review workflows that stay compatible with data retention commitments."
+        },
+        {
+          "id": "C2",
+          "name": "Zero-Retention-Compatible Review Mode",
+          "description": "An alternate review mode where sensitive case content is fetched on demand from the source system for the duration of a review session and never persisted in the tool's own storage, with the UI and audit log referencing only opaque case IDs and redacted summaries.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "A working zero-persistence pattern for the review UI itself is hands-on evidence of the zero-data-retention experience the listing calls out as preferred."
+        },
+        {
+          "id": "C3",
+          "name": "Workflow Sandbox Scaffold",
+          "description": "A synthetic data generator paired with a plugin-style component library that lets a new review screen or workflow, such as a new case type or enforcement action, be built and tested against realistic synthetic data in isolation from any real data store.",
+          "addresses": [
+            "P2"
+          ],
+          "rationale": "A working sandbox where new workflows can be prototyped in isolation is exactly the 'iterate quickly and safely' capability the listing identifies as missing."
+        },
+        {
+          "id": "C4",
+          "name": "Sensitive-Data Access Controls & Audit Logging",
+          "description": "Field-level access control governing who can view unredacted versus redacted data, combined with an audit log that separately records every unredaction/reveal event for compliance review.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "Field-level access control tied to an independent audit trail of reveal events is a concrete, compliance-oriented data-access guardrail beyond generic role-based permissions."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the synthetic data generator and the plugin-style sandbox scaffold for prototyping new workflows.",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build the redaction/minimization pipeline with configurable retention windows.",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add the zero-retention review mode with on-demand fetch and opaque references.",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add field-level access controls and reveal-event audit logging.",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    }
+  ]
+}
