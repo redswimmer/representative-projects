@@ -2,15 +2,31 @@
   "type": "object",
   "properties": {
     "problems": {
+      "description": "The distinct problems the company is hiring to solve, as evidenced by the listing.",
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "pattern": "^P[0-9]+$" },
-          "problem": { "type": "string" },
-          "evidence": { "type": "array", "minItems": 1, "items": { "type": "string" } },
-          "rationale": { "type": "string" }
+          "id": {
+            "description": "Sequential problem identifier: P1, P2, ...",
+            "type": "string",
+            "pattern": "^P[0-9]+$"
+          },
+          "problem": {
+            "description": "One clear statement of a single problem the company is trying to solve.",
+            "type": "string"
+          },
+          "evidence": {
+            "description": "Quotes copied character-for-character from the listing that support this problem.",
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string"}
+          },
+          "rationale": {
+            "description": "One sentence explaining why the evidence implies the problem.",
+            "type": "string"
+          }
         },
         "required": ["id", "problem", "evidence", "rationale"],
         "additionalProperties": false
