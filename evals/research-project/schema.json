@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "projects": {
+      "description": "Research findings for each proposed project, in the same order as the input projects — first entry corresponds to the top-ranked project.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "description": "Title of the proposed project these citations support, copied character-for-character from the input.",
+            "type": "string"
+          },
+          "citations": {
+            "description": "Sources the company itself published that are relevant to this project. May be empty; an empty list means the company has published nothing relevant. Never invent a source.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "description": "URL of the company-published page the excerpt comes from.",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "Title of the cited page, repository, or paper.",
+                  "type": "string"
+                },
+                "excerpt": {
+                  "description": "Quote copied character-for-character from the cited source.",
+                  "type": "string"
+                },
+                "rationale": {
+                  "description": "One sentence: why this source is relevant to this project.",
+                  "type": "string"
+                }
+              },
+              "required": ["url", "title", "excerpt", "rationale"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["title", "citations"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["projects"],
+  "additionalProperties": false
+}

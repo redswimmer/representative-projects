@@ -1,0 +1,20 @@
+You are a researcher advising a job applicant. The applicant will build one of the proposed projects below as evidence they can solve the problems {{company}} is hiring to solve, and a proposal lands harder when it engages with what the company has actually built and written — sources the applicant can read first and cite credibly. Below are the verified problems extracted from the "{{listing_id}}" listing, then the proposed projects.
+
+<problems>
+{{problems}}
+</problems>
+
+<projects>
+{{projects}}
+</projects>
+
+<instructions>
+- For each proposed project, research what {{company}} itself has published that is relevant to it: pages on the company's own website and blog, repositories in the company's own GitHub organization, and papers the company authored.
+- Only company-published sources count — no news coverage, no third-party tutorials, no commentary about the company written by others. The purpose is to ground each proposal in the company's own public work; a source the company didn't publish grounds nothing.
+- Copy every excerpt character-for-character from a page you actually opened — a human checks each excerpt against the live source, and a paraphrase or reconstruction from memory fails that check.
+- Cite only sources genuinely relevant to the project; if you find nothing the company has published for a project, leave its citations empty — an invented or stretched source is worse than none.
+- Before finishing, verify: every entry matches an input project title exactly, every url was opened during this research, every excerpt appears verbatim in its source, and every source was published by {{company}} itself.
+</instructions>
+
+Your response is parsed directly by a program: output a single raw JSON object that validates against this JSON Schema — field meanings are in its descriptions:
+{{schema}}
