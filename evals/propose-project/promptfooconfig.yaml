@@ -9,6 +9,8 @@ providers:
   - file://../providers.yaml
 
 defaultTest:
+  vars:
+    schema: file://schema.json # the same file is-json validates against
   assert:
     - type: is-json
       value: file://schema.json

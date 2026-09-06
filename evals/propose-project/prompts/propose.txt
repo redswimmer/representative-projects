@@ -7,8 +7,8 @@ Rules:
 - Every problem must be addressed by at least one component.
 - roadmap: ordered milestones for building the project; each milestone lists the component ids it delivers. Reference only component ids that exist.
 - Framing and direction only — NEVER include code, shell commands, or snippets. The applicant does the building.
-- Respond with JSON only. No markdown fences, no commentary. Use exactly this shape:
-{"project": {"title": "...", "summary": "...", "components": [{"id": "C1", "name": "...", "description": "...", "addresses": ["P1"], "justification": "..."}], "roadmap": [{"milestone": "...", "components": ["C1"]}]}}
+- Respond with JSON only. No markdown fences, no commentary. Your output must validate against this JSON Schema:
+{{schema}}}
 
 Problems:
 {{problems}}

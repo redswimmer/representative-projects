@@ -2,6 +2,7 @@ id: anthropic:claude-agent-sdk
 label: claude-agent-sdk
 config:
   apiKeyRequired: false # auth = the local Claude Code login (subscription)
+  model: claude-sonnet-5 # pin explicitly; SDK default drifts with the account
   title: representative-projects # fixed session title; skips the auto-title model call
   # no tools — both agents work from their prompt inputs and parametric
   # knowledge. Tool-enabled variants are a documented iteration, not a default.
