@@ -2,63 +2,81 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "Improve the capabilities, alignment, and safety of production Claude models through more effective post-training.",
+      "problem": "Post-training techniques (Constitutional AI, RLHF, etc.) need to be scaled from research prototypes to reliable, efficient production pipelines for frontier models",
       "evidence": [
-        "Anthropic's production models undergo sophisticated post-training processes to enhance their capabilities, alignment, and safety.",
-        "Your work will directly impact the quality, safety, and capabilities of our production models.",
-        "Conduct research to develop and optimize post-training recipes that directly improve production model quality"
+        "implementing, scaling, and improving post-training techniques like Constitutional AI, RLHF, and other alignment methodologies",
+        "Design, build, and run robust, efficient pipelines for model fine-tuning and evaluation"
       ],
-      "rationale": "The company needs stronger post-training methods that improve model quality while preserving alignment and safety in production."
+      "rationale": "Explicitly calling for someone to implement, scale, and build pipelines for post-training methods shows these processes aren't yet robust or efficient enough for production."
     },
     {
       "id": "P2",
-      "problem": "Build and scale reliable, efficient infrastructure for fine-tuning and evaluating frontier models.",
+      "problem": "There is a gap between emerging research techniques and production-ready implementations that needs to be bridged",
       "evidence": [
-        "Implement and optimize post-training techniques at scale on frontier models",
-        "Design, build, and run robust, efficient pipelines for model fine-tuning and evaluation",
-        "Are comfortable working with large-scale distributed systems and high-performance computing"
+        "Collaborate with research teams to translate emerging techniques into production-ready implementations"
       ],
-      "rationale": "The role is intended to solve the infrastructure and scalability challenges of running post-training workflows on very large models."
+      "rationale": "The need for someone to 'translate' research into production implies research results are not currently deployable without dedicated engineering effort."
     },
     {
       "id": "P3",
-      "problem": "Develop better ways to measure and improve model performance across multiple quality and safety dimensions.",
+      "problem": "Training pipelines and model behavior have complex bugs/issues that require dedicated debugging expertise",
       "evidence": [
-        "Develop tools to measure and improve model performance across various dimensions",
-        "Have experience with training, fine-tuning, or evaluating large language models"
+        "Debug complex issues in training pipelines and model behavior",
+        "Maintain clarity when debugging complex, time-sensitive issues",
+        "Are adept at analyzing and debugging model training processes"
       ],
-      "rationale": "The company needs dependable measurement and evaluation capabilities to identify and improve model behavior across diverse dimensions."
+      "rationale": "Repeated emphasis on debugging complex, time-sensitive training issues indicates recurring, hard-to-diagnose failures in the pipeline that need specialized skill to resolve."
     },
     {
       "id": "P4",
-      "problem": "Turn emerging post-training and alignment research into production-ready model improvements.",
+      "problem": "Model quality across multiple performance dimensions is not adequately measured or optimized, requiring new tooling",
       "evidence": [
-        "Collaborate with research teams to translate emerging techniques into production-ready implementations",
-        "You'll work at the intersection of cutting-edge research and production engineering, implementing, scaling, and improving post-training techniques like Constitutional AI, RLHF, and other alignment methodologies."
+        "Develop tools to measure and improve model performance across various dimensions"
       ],
-      "rationale": "The company needs engineers who can bridge research advances and deployable implementations rather than leaving techniques at the experimental stage."
+      "rationale": "The explicit ask to develop new measurement tools implies existing evaluation capabilities are insufficient to track and improve model performance."
     },
     {
       "id": "P5",
-      "problem": "Diagnose and resolve complex failures in training pipelines and model behavior while maintaining operational reliability.",
+      "problem": "Post-training work lacks standardized, reproducible practices, causing inconsistency or unreliability",
       "evidence": [
-        "Debug complex issues in training pipelines and model behavior",
-        "Help establish best practices for reliable, reproducible model post-training",
-        "This role may require responding to incidents on short-notice, including on weekends.",
-        "Maintain clarity when debugging complex, time-sensitive issues"
+        "Help establish best practices for reliable, reproducible model post-training"
       ],
-      "rationale": "The production post-training stack requires rapid incident response, sophisticated debugging, and practices that make results reliable and reproducible."
+      "rationale": "Needing to 'establish' best practices implies current post-training processes are not yet reliable or reproducible."
     },
     {
       "id": "P6",
-      "problem": "Maintain execution speed and coordination while priorities shift in an ambiguous, high-pressure research environment.",
+      "problem": "The team faces urgent, unpredictable operational incidents that require rapid response, including outside normal working hours",
       "evidence": [
-        "Thrive in controlled chaos and are energised, rather than overwhelmed, when juggling multiple urgent priorities",
+        "This role may require responding to incidents on short-notice, including on weekends.",
+        "Thrive in controlled chaos and are energised, rather than overwhelmed, when juggling multiple urgent priorities"
+      ],
+      "rationale": "The explicit mention of short-notice incident response and thriving in 'controlled chaos' signals frequent unplanned operational fires that the current team struggles to cover."
+    },
+    {
+      "id": "P7",
+      "problem": "Priorities in this fast-moving research environment shift frequently, requiring engineers who can adapt without losing productivity",
+      "evidence": [
         "Adapt quickly to changing priorities",
-        "Enjoy collaborating across research and engineering disciplines",
         "Can navigate ambiguity and make progress in fast-moving research environments"
       ],
-      "rationale": "The company needs someone who can make progress and coordinate across teams despite urgent work, changing priorities, and unclear paths."
+      "rationale": "The requirement to adapt to changing priorities and navigate ambiguity suggests the current roadmap is unstable and existing staff need reinforcement to keep pace."
+    },
+    {
+      "id": "P8",
+      "problem": "Post-training must operate at large scale on distributed, high-performance computing infrastructure, requiring specialized systems expertise",
+      "evidence": [
+        "Are comfortable working with large-scale distributed systems and high-performance computing",
+        "Implement and optimize post-training techniques at scale on frontier models"
+      ],
+      "rationale": "Requiring comfort with large-scale distributed systems and optimization 'at scale' implies current infrastructure/processes struggle to efficiently handle frontier-model-scale training."
+    },
+    {
+      "id": "P9",
+      "problem": "Balancing rigorous engineering/operational reliability with fast research exploration is a persistent tension needing skilled staff",
+      "evidence": [
+        "Can balance research exploration with engineering rigor and operational reliability"
+      ],
+      "rationale": "Calling out the need to balance exploration with rigor suggests the team currently struggles to reconcile fast research iteration with production-grade reliability."
     }
   ]
 }

@@ -2,53 +2,86 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "GPU resources are not being utilized or performing efficiently enough at the scale required for Claude and large language models.",
+      "problem": "GPUs are not being utilized efficiently at the massive scale Anthropic operates, wasting compute capacity and money.",
       "evidence": [
-        "maximizing GPU utilization and performance at unprecedented scale",
-        "developing cutting-edge optimizations that directly enable new model capabilities and dramatically improve inference efficiency",
-        "Have deep experience with GPU programming and optimization at scale"
+        "maximizing GPU utilization and performance at unprecedented scale"
       ],
-      "rationale": "The company needs to improve GPU utilization, throughput, and inference efficiency across extremely large ML workloads."
+      "rationale": "Explicitly stating the need to maximize GPU utilization at unprecedented scale implies current utilization is suboptimal for their scale."
     },
     {
       "id": "P2",
-      "problem": "The existing systems need lower-level GPU and kernel optimizations to overcome performance bottlenecks.",
+      "problem": "Inference is not efficient enough, likely causing higher latency and/or cost per query for serving Claude to users.",
       "evidence": [
-        "implement state-of-the-art techniques from custom kernel development",
-        "from low-level tensor core optimizations",
-        "GPU Kernel Development: CUDA, Triton, CUTLASS, Flash Attention, tensor core optimization",
-        "Performance Engineering: Kernel fusion, memory bandwidth optimization, profiling with Nsight"
+        "dramatically improve inference efficiency"
       ],
-      "rationale": "The emphasis on custom kernels, tensor cores, fusion, memory bandwidth, and profiling indicates unresolved low-level execution bottlenecks."
+      "rationale": "A call to dramatically improve inference efficiency implies existing inference performance is a bottleneck."
     },
     {
       "id": "P3",
-      "problem": "The ML software stack needs deeper compiler and framework-level optimization and integration.",
+      "problem": "Existing low-level compute kernels are not optimized enough to extract full performance from GPU hardware (e.g., tensor cores).",
       "evidence": [
-        "you'll architect and implement the foundational systems that power Claude",
-        "Can navigate complex systems from hardware interfaces to high-level ML frameworks",
-        "ML Compilers & Frameworks: PyTorch/JAX internals, torch.compile, XLA, custom operators"
+        "custom kernel development to distributed system architectures",
+        "tensor core optimization"
       ],
-      "rationale": "The role is intended to address performance limitations spanning GPU hardware interfaces, compilers, frameworks, and custom operators."
+      "rationale": "The need for custom kernel development and tensor core optimization implies current kernels underperform relative to hardware potential."
     },
     {
       "id": "P4",
-      "problem": "Distributed GPU execution must be coordinated more efficiently across thousands of GPUs.",
+      "problem": "Coordinating and synchronizing very large GPU clusters (thousands of GPUs) for training/inference is a hard systems challenge that limits scale or reliability.",
       "evidence": [
-        "orchestrating thousands of GPUs in perfect synchronization",
-        "Distributed Systems: NCCL, NVLink, collective communication, model parallelism"
+        "orchestrating thousands of GPUs in perfect synchronization"
       ],
-      "rationale": "The need to synchronize thousands of GPUs and manage collective communication indicates challenges in scaling distributed training and inference."
+      "rationale": "Naming orchestration of thousands of GPUs in synchronization as a job responsibility implies this coordination is currently a difficult, unsolved problem at their scale."
     },
     {
       "id": "P5",
-      "problem": "Large-scale ML infrastructure needs improved precision efficiency, reliability, and operational resilience.",
+      "problem": "Model capability improvements are being constrained by underlying infrastructure/performance limitations rather than research ideas alone.",
       "evidence": [
-        "Low-Precision: INT8/FP8 quantization, mixed-precision techniques",
-        "Production Systems: Large-scale training infrastructure, fault tolerance, cluster orchestration",
-        "Strong candidates will have a track record of delivering transformative GPU performance improvements in production ML systems"
+        "developing cutting-edge optimizations that directly enable new model capabilities"
       ],
-      "rationale": "The listing points to production demands for lower-precision computation, fault tolerance, and reliable orchestration while maintaining major performance gains."
+      "rationale": "Stating that optimizations 'directly enable new model capabilities' implies current infrastructure performance is a limiting factor on what models can do."
+    },
+    {
+      "id": "P6",
+      "problem": "The team lacks people who can work across the full stack from hardware interfaces to ML frameworks, creating gaps between low-level and high-level optimization work.",
+      "evidence": [
+        "Can navigate complex systems from hardware interfaces to high-level ML frameworks",
+        "Your work will span the entire stack—from low-level tensor core optimizations to orchestrating thousands of GPUs in perfect synchronization."
+      ],
+      "rationale": "Requiring candidates to navigate the entire stack suggests existing gaps between hardware-level and framework-level engineering that need bridging."
+    },
+    {
+      "id": "P7",
+      "problem": "Distributed training/inference communication overhead (across NVLink/NCCL and model parallelism) may be limiting throughput at scale.",
+      "evidence": [
+        "NCCL, NVLink, collective communication, model parallelism"
+      ],
+      "rationale": "Listing these as desired experience areas implies current collective communication and model parallelism approaches need improvement to scale further."
+    },
+    {
+      "id": "P8",
+      "problem": "Compute costs and memory bandwidth constraints may be limiting model size, speed, or affordability, motivating low-precision approaches.",
+      "evidence": [
+        "INT8/FP8 quantization, mixed-precision techniques",
+        "memory bandwidth optimization"
+      ],
+      "rationale": "Desired expertise in quantization and memory bandwidth optimization implies current precision/memory usage is inefficient and costly."
+    },
+    {
+      "id": "P9",
+      "problem": "Large-scale training infrastructure may suffer from insufficient fault tolerance, risking wasted compute from failures during long training runs.",
+      "evidence": [
+        "Large-scale training infrastructure, fault tolerance, cluster orchestration"
+      ],
+      "rationale": "Explicitly seeking fault tolerance experience implies current training infrastructure is vulnerable to failures that need mitigation."
+    },
+    {
+      "id": "P10",
+      "problem": "The problem space is not well-defined or established, requiring someone who can independently determine priorities and solutions rather than follow existing playbooks.",
+      "evidence": [
+        "Thrive in ambiguous environments where you define the path forward"
+      ],
+      "rationale": "Seeking candidates who define their own path in ambiguity implies the company lacks a clear predefined roadmap for solving these GPU performance challenges."
     }
   ]
 }

@@ -2,63 +2,79 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "Safety investigators need better tooling to investigate harmful behavior and take consistent enforcement actions across multiple product and platform surfaces.",
+      "problem": "No dedicated team or owned tooling exists yet for safety investigators to review and act on harmful behavior across first- and third-party platforms.",
       "evidence": [
-        "the systems that humans — and increasingly Claude — use to investigate potential harms and take enforcement actions across Anthropic's first-party products and third-party cloud platforms",
-        "you'll own the tools our safety investigators rely on to understand what's happening on our platforms and act on it",
-        "Build investigation, review, and enforcement tooling for both first-party and third-party platform surfaces"
+        "This is a foundational role: as one of the first engineers on this new team, you'll own the tools our safety investigators rely on to understand what's happening on our platforms and act on it, as well as the platform underneath those tools."
       ],
-      "rationale": "The emphasis on investigation views, case queues, audit logging, and account actioning indicates that existing cross-surface enforcement workflows are insufficient or fragmented."
+      "rationale": "Calling it a new team and a foundational role implies this tooling and ownership does not yet exist and must be built from scratch."
     },
     {
       "id": "P2",
-      "problem": "The organization lacks a reusable platform that allows new review workflows to be created quickly and safely.",
+      "problem": "There is no reusable platform layer (APIs, storage, backend services) enabling new review workflows to be built quickly, so each workflow likely requires bespoke engineering.",
       "evidence": [
-        "This is a foundational role: as one of the first engineers on this new team",
-        "the platform underneath those tools",
         "Develop the platform layer of reusable APIs, data storage, and backend services that lets new review workflows be stood up quickly and safely",
         "a sandbox environment where new review interfaces and workflows can be built and iterated quickly"
       ],
-      "rationale": "Calling the team new and foundational, while explicitly requiring reusable services and a sandbox, signals a need to establish core infrastructure rather than merely extend a mature platform."
+      "rationale": "The need to build a reusable platform and a sandbox for iteration suggests current workflow creation is slow or ad hoc."
     },
     {
       "id": "P3",
-      "problem": "Human review capacity will not scale with model capabilities and usage without effective automation that preserves appropriate human judgment.",
+      "problem": "Review and enforcement workflows risk being incompatible with the company's data retention and privacy commitments as they scale.",
       "evidence": [
-        "As model capabilities and usage grow, you'll also drive how we scale review through automation",
-        "building systems where Claude meaningfully extends what human reviewers can do, while keeping people in the loop where their judgment matters most",
-        "Scale review through automation, including enabling reviewers to use Claude effectively and building toward Claude-assisted and Claude-driven review workflows"
+        "privacy-preserving primitives that keep review workflows compatible with our data retention commitments",
+        "Experience designing systems under strict privacy, compliance, or data governance constraints, such as zero data retention environments",
+        "ensure tooling evolves alongside new privacy primitives and data retention commitments"
       ],
-      "rationale": "The listing directly identifies growing review demand and the need to augment or automate reviewer work while retaining human oversight."
+      "rationale": "Explicit mention of needing privacy-preserving primitives and compliance-aware design indicates existing or anticipated tension between review tooling and privacy/retention obligations."
     },
     {
       "id": "P4",
-      "problem": "Enforcement decisions and review operations need to become faster, more accurate, and more measurable.",
+      "problem": "As model usage and capability grow, human-only review will not scale, requiring automation and Claude-assisted or Claude-driven review to extend reviewer capacity.",
       "evidence": [
-        "the speed, clarity, and reliability of this tooling directly determines how quickly Anthropic can identify harmful behavior, make sound enforcement decisions, and feed signal back into model training",
-        "translate enforcement and investigation needs into reliable, well-designed systems that measurably reduce handling time and decision error",
-        "Instrument the tools you ship — surfacing metrics on queue health, reviewer throughput, and decision quality"
+        "As model capabilities and usage grow, you'll also drive how we scale review through automation — building systems where Claude meaningfully extends what human reviewers can do, while keeping people in the loop where their judgment matters most.",
+        "Scale review through automation, including enabling reviewers to use Claude effectively and building toward Claude-assisted and Claude-driven review workflows"
       ],
-      "rationale": "The focus on handling time, decision error, queue health, throughput, and decision quality shows that current review processes need stronger operational performance and feedback measurement."
+      "rationale": "The stated need to 'scale review through automation' as usage grows implies current human review capacity cannot keep pace with growth."
     },
     {
       "id": "P5",
-      "problem": "Sensitive review workflows must satisfy stringent privacy, access-control, auditability, and data-retention requirements.",
+      "problem": "Slow or unclear investigation tooling delays identification of harmful behavior and enforcement decisions, weakening the feedback loop into model training.",
       "evidence": [
-        "privacy-preserving primitives that keep review workflows compatible with our data retention commitments",
-        "Build in the guardrails that sensitive internal tools require: granular permissions, audit trails, data-access controls",
-        "ensure tooling evolves alongside new privacy primitives and data retention commitments"
+        "the speed, clarity, and reliability of this tooling directly determines how quickly Anthropic can identify harmful behavior, make sound enforcement decisions, and feed signal back into model training"
       ],
-      "rationale": "These requirements indicate that the company needs tooling capable of supporting enforcement operations without violating privacy, governance, or retention constraints."
+      "rationale": "Framing tooling speed/clarity/reliability as directly determining detection and response speed implies current gaps in these tools slow down harm identification and enforcement."
     },
     {
       "id": "P6",
-      "problem": "Reviewers need protection from harmful content exposure and other wellbeing risks while performing their work.",
+      "problem": "Core investigation and enforcement functionality—case queues, investigation views, audit logging, account-actioning—is missing or underbuilt across product surfaces.",
       "evidence": [
-        "reviewer wellbeing features such as content obfuscation and exposure limits",
-        "Build in the guardrails that sensitive internal tools require"
+        "Build investigation, review, and enforcement tooling for both first-party and third-party platform surfaces — including case queues, investigation views, decision and audit logging, and account-actioning workflows"
       ],
-      "rationale": "The explicit requirement for obfuscation and exposure limits shows that reviewer wellbeing and the risks of repeated harmful-content exposure are unresolved operational concerns."
+      "rationale": "Listing these as responsibilities to 'build' indicates these capabilities do not yet fully exist across the relevant surfaces."
+    },
+    {
+      "id": "P7",
+      "problem": "Enforcement and investigation needs from policy, operations, legal, privacy, and data science stakeholders are not yet reliably translated into effective systems, leading to slow handling times and decision errors.",
+      "evidence": [
+        "Partner with policy, operations, legal, privacy, and data science stakeholders to translate enforcement and investigation needs into reliable, well-designed systems that measurably reduce handling time and decision error"
+      ],
+      "rationale": "The explicit goal to 'measurably reduce handling time and decision error' implies these metrics are currently suboptimal."
+    },
+    {
+      "id": "P8",
+      "problem": "Sensitive internal review tools lack sufficient guardrails such as granular permissions, audit trails, data-access controls, and protections for reviewer wellbeing.",
+      "evidence": [
+        "Build in the guardrails that sensitive internal tools require: granular permissions, audit trails, data-access controls, and reviewer wellbeing features such as content obfuscation and exposure limits"
+      ],
+      "rationale": "Stating these guardrails need to be 'built in' implies they are currently absent or insufficient in the tooling."
+    },
+    {
+      "id": "P9",
+      "problem": "There is insufficient visibility into operational health of the review process, such as queue health, reviewer throughput, and decision quality.",
+      "evidence": [
+        "Instrument the tools you ship — surfacing metrics on queue health, reviewer throughput, and decision quality"
+      ],
+      "rationale": "The need to explicitly build instrumentation for these metrics implies they are not currently measured or visible."
     }
   ]
 }

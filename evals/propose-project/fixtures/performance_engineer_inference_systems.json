@@ -2,47 +2,72 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "The inference fleet is not consistently operating near its theoretical performance potential, and the company needs to identify and quantify cross-layer bottlenecks.",
+      "problem": "No one has a unified, cross-layer view of the inference stack, so performance-affecting interactions between layers go unnoticed",
       "evidence": [
-        "We measure how the fleet performs against its theoretical performance frontier, run cross-layer investigations to explain the gaps",
-        "Run cross-layer performance investigations across throughput, latency, and reliability, sizing the gap between actual fleet performance and theoretical rooflines, identifying root causes, and quantifying the value of closing them"
+        "The stack that makes this possible is deep and tightly coupled: accelerator kernels, model servers, distributed routing, autoscaling, capacity management. Every layer affects the others, often in ways that are hard to see in isolation."
       ],
-      "rationale": "These requirements indicate that Anthropic needs systematic diagnosis of performance shortfalls spanning kernels, serving, routing, autoscaling, and capacity management."
+      "rationale": "Describing the stack as tightly coupled with effects hard to see in isolation implies a gap in cross-layer visibility that the role must fill."
     },
     {
       "id": "P2",
-      "problem": "The company needs stronger correctness validation to detect and investigate model-output regressions across hardware, numerical, and serving variations.",
+      "problem": "The fleet's actual performance is not being systematically measured against its theoretical maximum, leaving unknown gaps and untraced root causes",
       "evidence": [
-        "own the correctness checks that make sure Claude's outputs are right, not just fast, across hardware platforms and serving configurations",
-        "Own and improve the correctness evaluation pipeline that validates model output quality across hardware platforms, numerics, and serving configurations, and lead the investigation when it catches a regression"
+        "We measure how the fleet performs against its theoretical performance frontier, run cross-layer investigations to explain the gaps",
+        "sizing the gap between actual fleet performance and theoretical rooflines, identifying root causes, and quantifying the value of closing them"
       ],
-      "rationale": "The emphasis on correctness pipelines and regression investigations shows that output quality can be compromised by infrastructure or numerical changes and requires dedicated controls."
+      "rationale": "The explicit need to measure against a 'theoretical performance frontier' and 'explain the gaps' shows this analysis isn't currently happening in a rigorous, ongoing way."
     },
     {
       "id": "P3",
-      "problem": "The inference stack lacks sufficiently integrated observability and analytical models for understanding interactions among performance, cost, reliability, and correctness.",
+      "problem": "There is no dedicated ownership of correctness verification, so output-quality regressions (e.g. from quantization or hardware/config changes) risk slipping through undetected",
       "evidence": [
-        "Build the observability, dashboards, and modeling tools that make throughput, latency, cost, reliability, correctness, and their interactions legible across the stack",
-        "Every layer affects the others, often in ways that are hard to see in isolation."
+        "own the correctness checks that make sure Claude's outputs are right, not just fast, across hardware platforms and serving configurations",
+        "Own and improve the correctness evaluation pipeline that validates model output quality across hardware platforms, numerics, and serving configurations, and lead the investigation when it catches a regression",
+        "tightening a correctness eval so it catches an output regression introduced by a quantization change"
       ],
-      "rationale": "These statements imply that the distributed system’s cross-layer effects are currently difficult to see and need better telemetry, dashboards, and modeling."
+      "rationale": "The need to 'own and improve' the correctness pipeline and catch regressions implies existing correctness checks are insufficient or unowned."
     },
     {
       "id": "P4",
-      "problem": "High-impact optimizations require coordination across component-owning teams even though no single team owns the whole inference system.",
+      "problem": "Throughput, latency, cost, reliability, and correctness data are not currently legible or observable in a unified way across the stack",
+      "evidence": [
+        "Build the observability, dashboards, and modeling tools that make throughput, latency, cost, reliability, correctness, and their interactions legible across the stack"
+      ],
+      "rationale": "The explicit ask to 'build' tools that make these metrics 'legible' implies such visibility does not yet adequately exist."
+    },
+    {
+      "id": "P5",
+      "problem": "Performance issues span multiple owning teams (kernel, serving, routing, autoscaling, capacity) with no cross-cutting role to prioritize and coordinate fixes across them",
       "evidence": [
         "We don't own the individual components. We instrument and model them, find the highest-leverage opportunities across them, and partner with the owning teams to land the wins.",
         "Partner with kernel, serving, routing, autoscaling, and capacity teams to prioritize and land the highest-impact optimizations your analysis surfaces"
       ],
-      "rationale": "The role exists to convert system-level analysis into improvements through influence and collaboration across teams with separate ownership."
+      "rationale": "The need for a role that partners across many owning teams to land wins implies these teams lack a mechanism to identify and coordinate the highest-leverage cross-team optimizations themselves."
     },
     {
-      "id": "P5",
-      "problem": "The company has a large, competing set of optimization opportunities and needs disciplined prioritization based on impact and effort.",
+      "id": "P6",
+      "problem": "With a large surface area of potential performance opportunities, the organization lacks a disciplined process to prioritize effort and avoid wasted work on low-impact fixes",
       "evidence": [
         "Ruthlessly stack-rank a large surface area of opportunities by impact and effort, and say no to the ones that don't make the cut"
       ],
-      "rationale": "This explicit responsibility indicates that limited engineering capacity makes opportunity selection and rejection a central operational problem."
+      "rationale": "The instruction to 'ruthlessly stack-rank' and 'say no' implies too many candidate opportunities exist without a systematic filter to focus resources."
+    },
+    {
+      "id": "P7",
+      "problem": "Tail-latency and other regressions are difficult to trace because they require cross-stack investigation from request timing through routing, batching, and kernel overhead",
+      "evidence": [
+        "One week that might mean tracing a tail-latency regression from request timing down through routing and batching into a kernel overhead"
+      ],
+      "rationale": "Citing this as a representative task implies such regressions currently require difficult, manual cross-layer tracing that isn't otherwise handled."
+    },
+    {
+      "id": "P8",
+      "problem": "Engineers need to influence and change systems owned by other teams without formal authority, requiring strong evidence-based persuasion",
+      "evidence": [
+        "Ability to communicate quantitative results clearly in writing to influence priorities on teams you don't manage",
+        "Comfortable having impact through influence and evidence rather than direct ownership"
+      ],
+      "rationale": "Requiring influence skills over teams the hire doesn't manage implies the company needs someone who can drive change across organizational boundaries without direct control."
     }
   ]
 }

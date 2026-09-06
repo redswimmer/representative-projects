@@ -2,46 +2,75 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "The company needs stronger systems to detect harmful model behavior and prevent misuse or disallowed use.",
-      "evidence": [
-        "This role will focus on building systems to detect unwanted model behaviors and prevent disallowed use of models.",
-        "As a software engineer on the Safeguards team, you will work to monitor models, prevent misuse, and ensure user well-being."
-      ],
-      "rationale": "These statements indicate a need for technical mechanisms that identify unsafe behavior and block abusive or prohibited model usage."
-    },
-    {
-      "id": "P2",
-      "problem": "The company needs foundational infrastructure for measuring, evaluating, and managing safeguards-related data.",
+      "problem": "Anthropic lacks robust foundational infrastructure (data storage, metrics/evaluation, and review tooling) to support its safety systems.",
       "evidence": [
         "Develop the foundational systems which power Safeguards, including infrastructure for data storage and management, metric and evaluation systems, and tooling for human and agentic review."
       ],
-      "rationale": "The emphasis on storage, metrics, evaluations, and review tooling shows that Safeguards needs a stronger underlying measurement and data infrastructure."
+      "rationale": "The need to 'develop' these foundational systems implies they are currently missing, incomplete, or inadequate."
+    },
+    {
+      "id": "P2",
+      "problem": "The company cannot yet reliably detect when its AI models behave in unwanted ways or are misused.",
+      "evidence": [
+        "This role will focus on building systems to detect unwanted model behaviors and prevent disallowed use of models."
+      ],
+      "rationale": "Needing to build detection systems indicates current detection capability for unwanted behavior and disallowed use is insufficient."
     },
     {
       "id": "P3",
-      "problem": "The company needs safeguards systems that are reliable and operationally efficient at scale, with less dependence on manual oversight.",
+      "problem": "Safeguards operations rely too heavily on manual human intervention, which needs to be reduced without sacrificing safety or customer experience.",
       "evidence": [
-        "Ensure the day-to-day running of Safeguards systems and hold a high operational bar which serves both safety and customers while reducing the amount of human intervention and oversight required.",
-        "Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale"
+        "Ensure the day-to-day running of Safeguards systems and hold a high operational bar which serves both safety and customers while reducing the amount of human intervention and oversight required."
       ],
-      "rationale": "These requirements imply that existing or planned safeguards must become more dependable, scalable, and automated in day-to-day operation."
+      "rationale": "Explicitly wanting to reduce 'human intervention and oversight required' shows the current process depends too much on manual effort."
     },
     {
       "id": "P4",
-      "problem": "The company needs layered, real-time defenses that can continuously improve against emerging safety risks.",
+      "problem": "Existing safety mechanisms are not sufficiently layered, real-time, or scalable to defend against evolving risks.",
       "evidence": [
         "Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale"
       ],
-      "rationale": "The requirement for multi-layered defenses and real-time improvement indicates an ongoing need to adapt safeguards as risks and model behavior change."
+      "rationale": "The call to 'build robust and reliable multi-layered defenses' that 'work at scale' implies current defenses are not robust, layered, real-time, or scalable enough."
     },
     {
       "id": "P5",
-      "problem": "The company needs custom review and operations tooling that supports both human teams and agentic systems.",
+      "problem": "User well-being and misuse risks from AI models are not fully safeguarded, requiring dedicated engineering.",
       "evidence": [
-        "Develop the foundational systems which power Safeguards, including infrastructure for data storage and management, metric and evaluation systems, and tooling for human and agentic review.",
+        "you will work to monitor models, prevent misuse, and ensure user well-being"
+      ],
+      "rationale": "The explicit goals to 'prevent misuse' and 'ensure user well-being' indicate these outcomes are not yet guaranteed by existing systems."
+    },
+    {
+      "id": "P6",
+      "problem": "Operational teams lack custom internal tooling needed to efficiently manage safeguards work.",
+      "evidence": [
         "Have worked closely with operational teams to build custom internal tooling"
       ],
-      "rationale": "These statements show a need to equip reviewers and operational teams with purpose-built tools for investigating and acting on safety issues."
+      "rationale": "Seeking someone experienced in building custom internal tooling for operational teams implies such tooling is currently lacking or insufficient."
+    },
+    {
+      "id": "P7",
+      "problem": "Complex technical safety work needs to be translated for non-technical stakeholders, and this communication currently falls short.",
+      "evidence": [
+        "Strong communication skills and ability to explain complex technical concepts to non-technical stakeholders"
+      ],
+      "rationale": "Requiring strong communication skills to explain technical concepts to non-technical stakeholders suggests a current gap in cross-functional understanding of safety systems."
+    },
+    {
+      "id": "P8",
+      "problem": "The company needs experienced engineers skilled in trust and safety, anti-spam, fraud, or abuse detection specifically applied to AI/ML systems, an area distinct from general software engineering.",
+      "evidence": [
+        "Have experience building trust and safety, anti-spam, fraud or abuse detection and mitigation mechanisms and interventions for AI/ML systems"
+      ],
+      "rationale": "Prioritizing candidates with this niche background implies the company needs specialized abuse-mitigation expertise it does not fully have in-house yet for AI/ML systems."
+    },
+    {
+      "id": "P9",
+      "problem": "The company needs better systems and tooling to measure privacy and data management compliance/effectiveness.",
+      "evidence": [
+        "Have experience building metrics and measurement systems or data and privacy management systems"
+      ],
+      "rationale": "Valuing this experience suggests current metrics, measurement, and data/privacy management systems need development or improvement."
     }
   ]
 }

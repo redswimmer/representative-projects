@@ -2,47 +2,71 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "RLHF training infrastructure is likely slow, brittle, or hard to use, bottlenecking researcher velocity",
+      "problem": "RL training infrastructure and algorithms need to be built, maintained, and improved to keep pace with research demands",
       "evidence": [
-        "You'll focus obsessively on improving the performance, robustness, and usability of these systems so our research can progress as quickly as possible.",
-        "You’ll be responsible for improving the speed, reliability, and ease-of-use of these systems."
+        "Your job will be to build, maintain, and improve the algorithms and systems that these researchers use to train models."
       ],
-      "rationale": "Explicitly calling out speed, reliability, robustness, and usability as improvement targets implies current systems are lacking in those dimensions."
+      "rationale": "This directly states the core deliverable: ongoing construction and upkeep of the training systems and algorithms."
     },
     {
       "id": "P2",
-      "problem": "No dedicated owner currently exists for the algorithms and systems underlying RLHF/finetuning, leaving researchers to build or maintain their own tooling instead of doing research",
+      "problem": "Current training systems are slow, unreliable, or hard to use, limiting researcher productivity",
       "evidence": [
-        "Your job will be to build, maintain, and improve the algorithms and systems that these researchers use to train models.",
-        "you'll be responsible for the critical algorithms and infrastructure that our researchers depend on to train models"
+        "You’ll be responsible for improving the speed, reliability, and ease-of-use of these systems."
       ],
-      "rationale": "Framing this as a distinct hire's core responsibility suggests it isn't currently owned by a dedicated engineer, likely falling to researchers as a distraction."
+      "rationale": "Naming speed, reliability, and ease-of-use as improvement targets implies these are current deficiencies holding back researchers."
     },
     {
       "id": "P3",
-      "problem": "Scaling distributed training infrastructure for large LLMs is a technical challenge the team needs more expertise to handle",
+      "problem": "The pace of ML research is bottlenecked by systems performance and robustness",
+      "evidence": [
+        "You'll focus obsessively on improving the performance, robustness, and usability of these systems so our research can progress as quickly as possible."
+      ],
+      "rationale": "The explicit goal of enabling research to 'progress as quickly as possible' implies current systems are constraining research velocity."
+    },
+    {
+      "id": "P4",
+      "problem": "Researchers training production Claude models and internal research models via RLHF need dedicated engineering support to depend on",
+      "evidence": [
+        "Our finetuning researchers train our production Claude models, and internal research models, using RLHF and other related methods.",
+        "you'll be responsible for the critical algorithms and infrastructure that our researchers depend on to train models"
+      ],
+      "rationale": "Describing researchers' dependence on critical infrastructure indicates a need for dedicated engineers to build and support that infrastructure."
+    },
+    {
+      "id": "P5",
+      "problem": "Scaling large, high-performance distributed systems for LLM training is technically demanding and requires specialized experience",
       "evidence": [
         "High performance, large scale distributed systems",
         "Large scale LLM training"
       ],
-      "rationale": "Listing large-scale distributed systems experience as a differentiator indicates current scaling challenges require specialized skills not fully covered by the existing team."
+      "rationale": "Listing these as sought-after experience areas implies the role involves solving hard distributed-systems and scale challenges."
     },
     {
-      "id": "P4",
-      "problem": "The team is understaffed or has undefined/overlapping responsibilities, requiring engineers to absorb work beyond formal role boundaries",
+      "id": "P6",
+      "problem": "The team has gaps or undefined work that require someone flexible enough to take on tasks beyond a narrow job description",
       "evidence": [
-        "Pick up slack, even if it goes outside your job description"
+        "Pick up slack, even if it goes outside your job description",
+        "Are results-oriented, with a bias towards flexibility and impact"
       ],
-      "rationale": "Explicitly asking candidates to work outside their job description signals gaps in coverage that aren't addressed by current staffing or role definitions."
+      "rationale": "Explicitly asking candidates to pick up slack outside their job description suggests unmet or shifting needs that don't fit neat role boundaries."
     },
     {
-      "id": "P5",
-      "problem": "Engineers on this team need to ramp up on ML/RLHF concepts they may not already know, since deep ML research background isn't a strict requirement",
+      "id": "P7",
+      "problem": "Implementing and improving advanced LLM finetuning techniques such as RLHF requires engineers with direct algorithmic implementation experience",
       "evidence": [
-        "Want to learn more about machine learning research",
         "Implementing LLM finetuning algorithms, such as RLHF"
       ],
-      "rationale": "Treating ML research knowledge as a 'want to learn' trait rather than a hard requirement suggests the role draws from a systems-engineering background that needs cross-training into ML specifics."
+      "rationale": "Seeking candidates with this specific experience shows a need to implement and refine these finetuning algorithms."
+    },
+    {
+      "id": "P8",
+      "problem": "Effective collaboration between engineers and ML researchers is needed to translate research needs into working systems",
+      "evidence": [
+        "Like working on systems and tools that make other people more productive",
+        "Enjoy pair programming (we love to pair!)"
+      ],
+      "rationale": "Valuing collaborative, productivity-focused work styles implies the role requires close coordination with researchers to build usable tools."
     }
   ]
 }

@@ -2,53 +2,103 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "Anthropic needs to detect unwanted model behavior, misuse, and evolving abuse patterns across its APIs and products.",
+      "problem": "Trust & safety teams cannot investigate abuse, calibrate detection systems, and enforce actions fast enough compared to the speed of model capability growth",
       "evidence": [
-        "Develop monitoring systems to detect unwanted behaviors from our API partners and potentially take automated enforcement actions; surface these in internal dashboards to analysts for manual review",
-        "Build abuse detection mechanisms and infrastructure",
-        "The hard part isn't finding signal, it's finding it at this scale, under real deadlines, on threats that are actively adapting to us."
+        "Builds the agentic systems that let Anthropic's trust & safety teams work at the speed of the models they're protecting."
       ],
-      "rationale": "These statements indicate a need for broad, reliable detection of abuse and model failures, including threats that change over time."
+      "rationale": "This states directly that the safety team's operational speed lags behind model speed, and that agentic systems are needed to close that gap."
     },
     {
       "id": "P2",
-      "problem": "Anthropic needs a scalable intervention and enforcement layer that can respond appropriately when detection systems identify harmful or disallowed activity.",
+      "problem": "Existing AI agents are not safe enough to be trusted with sensitive abuse-investigation and enforcement data",
       "evidence": [
-        "Responsible for what happens when a safety system fires.",
-        "You'll own the composable arsenal of intervention options that sit between our detection stack (classifiers and probes) and the user, across every Anthropic surface: 1P products, the API, and third-party clouds.",
-        "You'll build sync and async systems that operate at Anthropic scale, touching every request, and ensuring that we evolve and drive the quality, scale and systems of our interventions to enable our products to grow safely."
+        "Our flagship project extends Claude Tag, Anthropic's agentic AI collaborator, so it can safely operate on the sensitive data at the heart of Safeguards work: investigating abuse, calibrating detection systems, and closing the loop from signal to enforcement.",
+        "The hard part isn't making the agent capable, it's making it safe."
       ],
-      "rationale": "The role is tasked with turning detection signals into real-time or asynchronous interventions and automated enforcement across all product surfaces."
+      "rationale": "The explicit call-out that capability isn't the hard part but safety is implies current agent architectures lack the safeguards needed to handle sensitive data responsibly."
     },
     {
       "id": "P3",
-      "problem": "Anthropic needs secure, auditable agent systems and operational tooling that let trust and safety teams investigate abuse efficiently while preserving human oversight and sensitive-data controls.",
+      "problem": "There is no mechanism to keep human oversight and control over agentic systems as they gain more capability and data access",
       "evidence": [
-        "Builds the agentic systems that let Anthropic's trust & safety teams work at the speed of the models they're protecting.",
-        "The hard part isn't making the agent capable, it's making it safe.",
-        "We develop sandboxed agent architectures, brokered and audited data access, and provenance guarantees that keep humans firmly in control as model capabilities grow.",
-        "Have worked closely with operational teams to build custom internal tooling"
+        "We develop sandboxed agent architectures, brokered and audited data access, and provenance guarantees that keep humans firmly in control as model capabilities grow."
       ],
-      "rationale": "These requirements show that Anthropic needs internal agents and tools that accelerate investigations without compromising privacy, auditability, security, or human control."
+      "rationale": "The need to build sandboxing, brokered/audited access, and provenance guarantees implies these controls don't yet adequately exist to keep humans in control."
     },
     {
       "id": "P4",
-      "problem": "Anthropic needs distributed data and inference infrastructure capable of analyzing massive interaction volumes and running large fleets of investigation agents across multiple clouds.",
+      "problem": "Once a safety classifier or probe fires, there is no unified, scalable set of intervention mechanisms to act on it across all of Anthropic's surfaces (1P products, API, third-party clouds)",
       "evidence": [
-        "Our Claude Investigation tool, an autonomous Claude-powered agent that reasons across tens of billions of stored interactions to surface cyberattacks, weapons development, and state-sponsored influence operations; thousands of copies run in parallel, which is how a small team covers the whole surface.",
-        "You'll do serious distributed-systems and data-infrastructure work — running an agent fleet across three clouds, building batch inference, summarization, and search infrastructure — against threats that are happening today, not hypotheticals."
+        "Responsible for what happens when a safety system fires.",
+        "You'll own the composable arsenal of intervention options that sit between our detection stack (classifiers and probes) and the user, across every Anthropic surface: 1P products, the API, and third-party clouds."
       ],
-      "rationale": "The scale, concurrency, multi-cloud deployment, and time sensitivity require substantial distributed-systems and data-platform engineering."
+      "rationale": "The need to 'own' and build a 'composable arsenal' of interventions implies this connective tissue between detection and enforcement is currently missing or fragmented."
     },
     {
       "id": "P5",
-      "problem": "Anthropic needs a closed-loop safety program that uses detected abuse to improve models and continuously strengthen layered defenses.",
+      "problem": "Harm categories like bio, cyber, acceptable usage, child safety, and copyright each need inline and downstream interventions that don't yet operate reliably at Anthropic's request-level scale",
       "evidence": [
-        "Surface abuse patterns to our research teams to harden models at the training stage",
-        "Build robust and reliable multi-layered defenses for real-time improvement of safety mechanisms that work at scale",
-        "The hard part isn't making the agent capable, it's making it safe."
+        "This includes inline interventions for areas like harmful bio, cyber, and acceptable usage as well as downstream areas like child safety and copyright.",
+        "You'll build sync and async systems that operate at Anthropic scale, touching every request, and ensuring that we evolve and drive the quality, scale and systems of our interventions to enable our products to grow safely."
       ],
-      "rationale": "These statements describe a need to feed operational abuse findings back into model training and continuously improve multiple safety mechanisms."
+      "rationale": "The requirement to build systems touching every request and to 'evolve and drive the quality, scale' of interventions indicates current intervention infrastructure cannot yet keep pace with product growth."
+    },
+    {
+      "id": "P6",
+      "problem": "Manual or small-team review cannot cover the full surface of billions of stored interactions to detect serious threats like cyberattacks, weapons development, and influence operations",
+      "evidence": [
+        "Our Claude Investigation tool, an autonomous Claude-powered agent that reasons across tens of billions of stored interactions to surface cyberattacks, weapons development, and state-sponsored influence operations; thousands of copies run in parallel, which is how a small team covers the whole surface."
+      ],
+      "rationale": "Running thousands of parallel agent copies to let 'a small team cover the whole surface' implies human/manual review alone cannot scale to the volume of interactions needing analysis."
+    },
+    {
+      "id": "P7",
+      "problem": "Threat detection must operate under real deadlines against adversaries who actively adapt their behavior to evade detection",
+      "evidence": [
+        "The hard part isn't finding signal, it's finding it at this scale, under real deadlines, on threats that are actively adapting to us."
+      ],
+      "rationale": "This explicitly frames the challenge as scale, time pressure, and adversarial adaptation rather than simple signal detection, implying current systems struggle with these constraints."
+    },
+    {
+      "id": "P8",
+      "problem": "Lack of infrastructure to run agent fleets and perform batch inference, summarization, and search across multiple cloud environments for investigations",
+      "evidence": [
+        "You'll do serious distributed-systems and data-infrastructure work — running an agent fleet across three clouds, building batch inference, summarization, and search infrastructure — against threats that are happening today, not hypotheticals."
+      ],
+      "rationale": "The need to 'build' this infrastructure against real, ongoing threats indicates it does not yet exist or is insufficient at the required scale."
+    },
+    {
+      "id": "P9",
+      "problem": "Unwanted model behaviors and disallowed use by API partners are not being adequately monitored, flagged, or enforced against automatically",
+      "evidence": [
+        "Develop monitoring systems to detect unwanted behaviors from our API partners and potentially take automated enforcement actions; surface these in internal dashboards to analysts for manual review"
+      ],
+      "rationale": "This responsibility directly states the need to build detection, automated enforcement, and analyst-facing dashboards, implying these capabilities are currently insufficient or missing."
+    },
+    {
+      "id": "P10",
+      "problem": "Abuse detection signals are not being fed back to research teams to improve model training and harden models against misuse",
+      "evidence": [
+        "Surface abuse patterns to our research teams to harden models at the training stage"
+      ],
+      "rationale": "This responsibility implies a current gap in the feedback loop between observed abuse and model training improvements."
+    },
+    {
+      "id": "P11",
+      "problem": "Difficulty hiring engineers who combine deep technical skill with the ability to communicate safety and abuse issues to non-technical stakeholders and operational teams",
+      "evidence": [
+        "Strong communication skills and ability to explain complex technical concepts to non-technical stakeholders",
+        "Have worked closely with operational teams to build custom internal tooling"
+      ],
+      "rationale": "Explicitly listing these as desired qualities suggests the company struggles to find engineers who can bridge technical safety work with non-technical operational stakeholders."
+    },
+    {
+      "id": "P12",
+      "problem": "Need for engineers experienced in adversarial attacks (jailbreaks, prompt engineering exploits) since current defenses may not withstand such adversarial inputs",
+      "evidence": [
+        "Have experience with prompt engineering, jailbreak attacks, and other adversarial inputs"
+      ],
+      "rationale": "Seeking candidates with this specific adversarial expertise implies existing defenses need strengthening against jailbreaks and adversarial prompts."
     }
   ]
 }

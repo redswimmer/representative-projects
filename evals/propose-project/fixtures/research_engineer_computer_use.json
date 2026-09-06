@@ -2,51 +2,62 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "Claude needs to become more capable and reliable at perceiving and operating real software interfaces.",
+      "problem": "Claude's models are not yet reliable or safe enough at perceiving and operating real software interfaces autonomously",
       "evidence": [
-        "The Computer Use team focuses on teaching Claude to see, use, and understand computer interfaces.",
-        "advancing our models' ability to reliably and safely operate real software.",
-        "Design and run experiments to improve Claude's perception and agentic capabilities"
+        "Design and run experiments to improve Claude's perception and agentic capabilities",
+        "you'll work on advancing our models' ability to reliably and safely operate real software"
       ],
-      "rationale": "These statements show that the company needs to improve Claude’s ability to understand interfaces and execute computer-based actions dependably."
+      "rationale": "The need to run experiments to improve perception and agentic capabilities, and to advance reliable/safe operation, implies current model performance on computer use is insufficient."
     },
     {
       "id": "P2",
-      "problem": "The company needs robust ways to evaluate whether models can complete complex computer-use tasks.",
+      "problem": "The company lacks robust ways to measure whether models can actually complete complex computer tasks",
       "evidence": [
-        "Develop robust, reliable evaluation frameworks for measuring our models' ability to complete complex computer tasks",
-        "Experience building evaluations or benchmarks for agentic systems"
+        "Develop robust, reliable evaluation frameworks for measuring our models' ability to complete complex computer tasks"
       ],
-      "rationale": "The emphasis on robust evaluation frameworks and agentic benchmarks indicates a need to measure model performance on difficult, realistic tasks."
+      "rationale": "Explicitly needing to 'develop' such frameworks indicates existing evaluation methods for agentic computer tasks are inadequate or missing."
     },
     {
       "id": "P3",
-      "problem": "The company needs better reinforcement-learning environments and validation tooling for computer use and vision training.",
+      "problem": "Existing reinforcement learning training environments for computer use and vision tasks are insufficient or need improvement",
       "evidence": [
-        "Build and improve computer use and vision reinforcement learning training environments",
-        "Create pipelines and tools to test and validate complex RL environments",
-        "Experience building reinforcement learning environments, simulation systems, or large-scale ML infrastructure"
+        "Build and improve computer use and vision reinforcement learning training environments"
       ],
-      "rationale": "These requirements indicate that existing training environments and validation systems must be built out or improved to support reliable RL development."
+      "rationale": "The instruction to 'build and improve' these environments shows current RL training environments for this domain are lacking or immature."
     },
     {
       "id": "P4",
-      "problem": "The production model-training stack needs stronger integration, reliability, and scalability.",
+      "problem": "The company cannot yet reliably validate whether complex RL environments behave correctly before using them for training",
       "evidence": [
-        "Collaborate with teams across the model training and infrastructure stack to improve our production training setup",
-        "Experience building reinforcement learning environments, simulation systems, or large-scale ML infrastructure"
+        "Create pipelines and tools to test and validate complex RL environments"
       ],
-      "rationale": "The role is expected to address infrastructure and cross-stack issues that affect the effectiveness of production training."
+      "rationale": "Needing new pipelines/tools to test and validate RL environments implies no adequate validation infrastructure currently exists."
     },
     {
       "id": "P5",
-      "problem": "Research advances need to be translated into customer-facing products while maintaining safety and attention to societal impact.",
+      "problem": "Coordination gaps exist between research teams and the production training/infrastructure stack, slowing improvements",
+      "evidence": [
+        "Collaborate with teams across the model training and infrastructure stack to improve our production training setup"
+      ],
+      "rationale": "The explicit call to collaborate across teams to improve the production training setup suggests the current setup and cross-team coordination need work."
+    },
+    {
+      "id": "P6",
+      "problem": "Research advances in computer use are not translating quickly or smoothly into shipped product features",
       "evidence": [
         "Partner with product teams to bring research advances into production",
-        "Your work will translate directly into model improvements in our own and our customers' products.",
-        "Care about the societal impacts and safety of your work"
+        "Your work will translate directly into model improvements in our own and our customers' products."
       ],
-      "rationale": "These statements show a need to operationalize research in products while ensuring that computer-use capabilities are deployed responsibly."
+      "rationale": "The emphasis on partnering with product teams to bring research into production implies a gap between research output and product deployment that needs closing."
+    },
+    {
+      "id": "P7",
+      "problem": "The company needs engineers skilled in long-horizon, sparse-reward RL and multimodal training, a specialized and scarce skill set, to advance agentic computer use",
+      "evidence": [
+        "Experience with reinforcement learning, particularly in long-horizon or sparse-reward settings",
+        "Familiarity with multimodal model training"
+      ],
+      "rationale": "Listing these as preferred qualifications shows the team lacks sufficient specialized RL/multimodal expertise needed to solve its hardest technical challenges."
     }
   ]
 }

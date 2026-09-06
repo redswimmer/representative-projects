@@ -2,41 +2,78 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "Anthropic needs to solve novel systems bottlenecks created by running machine-learning workloads at massive scale.",
+      "problem": "Anthropic's ML systems face novel, unsolved systems/performance problems at massive scale that don't have off-the-shelf solutions",
       "evidence": [
-        "Running machine learning (ML) algorithms at our scale often requires solving novel systems problems.",
-        "As a Performance Engineer, you'll be responsible for identifying these problems"
+        "Running machine learning (ML) algorithms at our scale often requires solving novel systems problems."
       ],
-      "rationale": "These statements indicate that large-scale ML operations are generating unresolved systems challenges that require dedicated identification and engineering."
+      "rationale": "Stating that their scale 'often requires solving novel systems problems' implies existing solutions are insufficient and new problem identification is needed."
     },
     {
       "id": "P2",
-      "problem": "Anthropic needs to improve the throughput and robustness of its largest distributed systems.",
+      "problem": "Their largest distributed training/inference systems lack sufficient throughput, wasting compute capacity",
       "evidence": [
-        "developing systems that optimize the throughput and robustness of our largest distributed systems."
+        "developing systems that optimize the throughput and robustness of our largest distributed systems"
       ],
-      "rationale": "The explicit responsibility to optimize throughput and robustness shows that the existing distributed infrastructure needs performance and reliability improvements."
+      "rationale": "Explicitly naming throughput optimization as a responsibility implies current throughput is suboptimal for their largest distributed systems."
     },
     {
       "id": "P3",
-      "problem": "Anthropic needs deep performance expertise across the ML systems stack, including accelerators, frameworks, and operating systems.",
+      "problem": "Their largest distributed systems are insufficiently robust, likely suffering failures or instability at scale",
+      "evidence": [
+        "developing systems that optimize the throughput and robustness of our largest distributed systems"
+      ],
+      "rationale": "Pairing robustness with throughput as something to optimize implies reliability issues exist in these large distributed systems."
+    },
+    {
+      "id": "P4",
+      "problem": "The company lacks people who can proactively spot and define performance/systems problems before they can be solved, rather than just executing on pre-defined tickets",
+      "evidence": [
+        "you'll be responsible for identifying these problems, and then developing systems"
+      ],
+      "rationale": "Making problem identification an explicit responsibility indicates a gap in proactive problem discovery, not just execution."
+    },
+    {
+      "id": "P5",
+      "problem": "Hiring for this role is hard because it requires rare cross-domain expertise: deep systems/supercomputing background combined with willingness to learn ML research",
       "evidence": [
         "Have significant software engineering or machine learning experience, particularly at supercomputing scale",
-        "High performance, large-scale ML systems",
+        "Want to learn more about machine learning research"
+      ],
+      "rationale": "Requiring supercomputing-scale systems expertise plus openness to learning ML research suggests candidates with only one of these skill sets are insufficient for the role."
+    },
+    {
+      "id": "P6",
+      "problem": "Undefined or shifting work exists that falls outside formal job descriptions and needs someone flexible to absorb it",
+      "evidence": [
+        "Pick up slack, even if it goes outside your job description"
+      ],
+      "rationale": "Explicitly asking candidates to take on work beyond their job description implies there are gaps in responsibility coverage that need to be filled ad hoc."
+    },
+    {
+      "id": "P7",
+      "problem": "Knowledge silos or single points of failure may exist in engineering work, requiring collaborative pairing to spread expertise and maintain velocity",
+      "evidence": [
+        "Enjoy pair programming (we love to pair!)"
+      ],
+      "rationale": "Emphasizing pairing as a valued practice suggests the team relies on close collaboration to transfer knowledge and solve hard problems together rather than in isolation."
+    },
+    {
+      "id": "P8",
+      "problem": "The role requires deep technical specialization across GPU/accelerator programming, ML framework internals, and OS internals that is scarce and needed to solve performance bottlenecks",
+      "evidence": [
         "GPU/Accelerator programming",
         "ML framework internals",
         "OS internals"
       ],
-      "rationale": "The breadth and depth of the requested experience imply that performance issues span multiple layers of the supercomputing and ML infrastructure stack."
+      "rationale": "Listing these low-level, specialized areas as desired experience implies current performance bottlenecks stem from these layers of the stack."
     },
     {
-      "id": "P4",
-      "problem": "Anthropic needs systems engineers who can expand their machine-learning expertise and collaborate closely with ML research.",
+      "id": "P9",
+      "problem": "Optimizing systems specifically for transformer-based language model workloads is a distinct need not covered by generic systems engineering skills",
       "evidence": [
-        "will be excited to grow to become an expert in ML also.",
-        "Want to learn more about machine learning research"
+        "Language modeling with transformers"
       ],
-      "rationale": "These requirements suggest the team needs performance specialists who can bridge low-level systems engineering with machine-learning research and development."
+      "rationale": "Calling out transformer-based language modeling experience separately suggests performance issues are tied to the specific characteristics of transformer workloads at their scale."
     }
   ]
 }

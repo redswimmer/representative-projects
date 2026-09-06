@@ -2,46 +2,67 @@
   "problems": [
     {
       "id": "P1",
-      "problem": "Anthropic needs to detect harmful use and anomalous behavior across its AI systems at large scale.",
+      "problem": "Lack of scalable classifiers to detect misuse and anomalous behavior in AI system usage",
       "evidence": [
-        "We are looking for ML Engineers and Research Engineers to help detect and mitigate misuse of our AI systems.",
-        "You will build systems that identify harmful use—from individual policy violations to sophisticated, coordinated attacks—and develop defenses that keep our products safe as capabilities advance.",
-        "Develop classifiers to detect misuse and anomalous behavior at scale."
+        "Develop classifiers to detect misuse and anomalous behavior at scale. This includes developing synthetic data pipelines for training classifiers and methods to automatically source representative evaluations to iterate on"
       ],
-      "rationale": "These statements show that the company needs scalable detection and mitigation for misuse ranging from isolated violations to coordinated attacks."
+      "rationale": "Explicitly listing this as a responsibility implies no adequate classifier/data pipeline system currently exists at the needed scale."
     },
     {
       "id": "P2",
-      "problem": "Anthropic needs better synthetic training data and representative evaluations for its safety classifiers.",
-      "evidence": [
-        "This includes developing synthetic data pipelines for training classifiers and methods to automatically source representative evaluations to iterate on"
-      ],
-      "rationale": "The emphasis on synthetic data pipelines and automatically sourced evaluations indicates a need to improve the data and feedback loop used to train and refine classifiers."
-    },
-    {
-      "id": "P3",
-      "problem": "Anthropic needs to identify harms that emerge across multiple interactions and coordinated campaigns rather than only within individual exchanges.",
+      "problem": "Inability to detect harms that unfold across multiple exchanges, such as coordinated attacks and influence operations",
       "evidence": [
         "Build systems to monitor for harms that span multiple exchanges, such as coordinated cyber attacks and influence operations, and develop new methods for aggregating and analyzing signals across contexts"
       ],
-      "rationale": "This requirement indicates that existing or needed safeguards must connect signals across conversations and contexts to detect coordinated, multi-exchange threats."
+      "rationale": "Needing to build new monitoring and signal-aggregation systems indicates current tooling cannot detect cross-context, coordinated abuse."
     },
     {
-      "id": "P4",
-      "problem": "Anthropic needs to assess and secure agentic products against agent-specific risks, especially prompt injection attacks.",
+      "id": "P3",
+      "problem": "Agentic products lack sufficient threat models, testing environments, and mitigations against risks like prompt injection",
       "evidence": [
         "Evaluate and improve the safety of agentic products—developing both threat models and environments to test for agentic risks, and developing and deploying mitigations for prompt injection attacks"
       ],
-      "rationale": "The role is tasked with addressing the distinct attack surface of agentic systems through threat modeling, testing environments, and deployed mitigations."
+      "rationale": "The need to develop threat models, test environments, and mitigations shows these safeguards for agentic products are currently insufficient or missing."
+    },
+    {
+      "id": "P4",
+      "problem": "Insufficient methods to proactively find and test for misuse via automated red-teaming and adversarial robustness research",
+      "evidence": [
+        "Conduct research on automated red-teaming, adversarial robustness, and other research that helps test for or find misuse"
+      ],
+      "rationale": "Requesting research to help find or test for misuse implies existing methods for uncovering vulnerabilities are inadequate."
     },
     {
       "id": "P5",
-      "problem": "Anthropic needs continuous adversarial testing and research to uncover misuse and improve the robustness of its safeguards.",
+      "problem": "Increasing model capabilities risk outpacing existing defenses against harmful use",
       "evidence": [
-        "Conduct research on automated red-teaming, adversarial robustness, and other research that helps test for or find misuse",
+        "develop defenses that keep our products safe as capabilities advance"
+      ],
+      "rationale": "The phrase indicates a need for defenses to continuously evolve alongside growing model capabilities, implying current defenses may lag behind."
+    },
+    {
+      "id": "P6",
+      "problem": "Need to ensure models behave appropriately and protect user wellbeing across diverse contexts",
+      "evidence": [
+        "You will also work on systems that protect user wellbeing and ensure our models behave appropriately across a wide range of contexts."
+      ],
+      "rationale": "This states a direct responsibility to build systems for a gap that presumably isn't fully covered yet."
+    },
+    {
+      "id": "P7",
+      "problem": "Company must meet formal Responsible Scaling Policy commitments that require dedicated safeguards work",
+      "evidence": [
         "This work feeds directly into Anthropic's Responsible Scaling Policy commitments."
       ],
-      "rationale": "The combination of automated red-teaming, robustness research, and responsible scaling commitments shows a need for ongoing methods that proactively find failures as model capabilities advance."
+      "rationale": "Tying the role directly to policy commitments suggests unmet obligations that require additional engineering effort to satisfy."
+    },
+    {
+      "id": "P8",
+      "problem": "Existing team lacks engineers who can operate across the full research-to-deployment pipeline for safety systems",
+      "evidence": [
+        "Are comfortable working across the research-to-deployment pipeline, from exploratory experiments to production systems"
+      ],
+      "rationale": "Requiring this specific breadth of experience suggests a current gap in staff who can carry safety research through to production."
     }
   ]
 }
