@@ -1,0 +1,278 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Lack of scalable classifiers to detect misuse and anomalous behavior in AI system usage",
+      "evidence": [
+        "Develop classifiers to detect misuse and anomalous behavior at scale. This includes developing synthetic data pipelines for training classifiers and methods to automatically source representative evaluations to iterate on"
+      ],
+      "rationale": "Explicitly listing this as a responsibility implies no adequate classifier/data pipeline system currently exists at the needed scale."
+    },
+    {
+      "id": "P2",
+      "problem": "Inability to detect harms that unfold across multiple exchanges, such as coordinated attacks and influence operations",
+      "evidence": [
+        "Build systems to monitor for harms that span multiple exchanges, such as coordinated cyber attacks and influence operations, and develop new methods for aggregating and analyzing signals across contexts"
+      ],
+      "rationale": "Needing to build new monitoring and signal-aggregation systems indicates current tooling cannot detect cross-context, coordinated abuse."
+    },
+    {
+      "id": "P3",
+      "problem": "Agentic products lack sufficient threat models, testing environments, and mitigations against risks like prompt injection",
+      "evidence": [
+        "Evaluate and improve the safety of agentic products\u2014developing both threat models and environments to test for agentic risks, and developing and deploying mitigations for prompt injection attacks"
+      ],
+      "rationale": "The need to develop threat models, test environments, and mitigations shows these safeguards for agentic products are currently insufficient or missing."
+    },
+    {
+      "id": "P4",
+      "problem": "Insufficient methods to proactively find and test for misuse via automated red-teaming and adversarial robustness research",
+      "evidence": [
+        "Conduct research on automated red-teaming, adversarial robustness, and other research that helps test for or find misuse"
+      ],
+      "rationale": "Requesting research to help find or test for misuse implies existing methods for uncovering vulnerabilities are inadequate."
+    },
+    {
+      "id": "P5",
+      "problem": "Increasing model capabilities risk outpacing existing defenses against harmful use",
+      "evidence": [
+        "develop defenses that keep our products safe as capabilities advance"
+      ],
+      "rationale": "The phrase indicates a need for defenses to continuously evolve alongside growing model capabilities, implying current defenses may lag behind."
+    },
+    {
+      "id": "P6",
+      "problem": "Need to ensure models behave appropriately and protect user wellbeing across diverse contexts",
+      "evidence": [
+        "You will also work on systems that protect user wellbeing and ensure our models behave appropriately across a wide range of contexts."
+      ],
+      "rationale": "This states a direct responsibility to build systems for a gap that presumably isn't fully covered yet."
+    },
+    {
+      "id": "P7",
+      "problem": "Company must meet formal Responsible Scaling Policy commitments that require dedicated safeguards work",
+      "evidence": [
+        "This work feeds directly into Anthropic's Responsible Scaling Policy commitments."
+      ],
+      "rationale": "Tying the role directly to policy commitments suggests unmet obligations that require additional engineering effort to satisfy."
+    },
+    {
+      "id": "P8",
+      "problem": "Existing team lacks engineers who can operate across the full research-to-deployment pipeline for safety systems",
+      "evidence": [
+        "Are comfortable working across the research-to-deployment pipeline, from exploratory experiments to production systems"
+      ],
+      "rationale": "Requiring this specific breadth of experience suggests a current gap in staff who can carry safety research through to production."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Scalable Misuse Classifier Pipeline",
+      "summary": "An end-to-end system that generates synthetic training data for misuse/anomaly classifiers, trains and evaluates the classifiers, uses an active-learning loop to keep surfacing new representative examples, and ships the result as a served, monitored API. This is the most literal match to the listing's first responsibility bullet and demonstrates classic ML engineering craft: data generation, modeling, evaluation, and production deployment in one coherent pipeline.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Synthetic misuse data generator",
+          "description": "A pipeline that uses an LLM to generate paired benign/violating examples across a defined misuse taxonomy (e.g. jailbreak attempts, disallowed-content requests, policy-boundary probing), producing a labeled dataset without relying on real user data.",
+          "addresses": [
+            "P1"
+          ],
+          "rationale": "Building a working synthetic data generation pipeline is direct evidence of the exact skill the listing calls out for bootstrapping classifiers at scale."
+        },
+        {
+          "id": "C2",
+          "name": "Misuse and anomaly classifier",
+          "description": "A classifier (e.g. embedding-based model or lightweight fine-tune) trained on the synthetic data to flag misuse categories, plus a simple anomaly/outlier detector on usage-pattern features, with a versioned retraining setup so new attack categories can be folded in as they're discovered.",
+          "addresses": [
+            "P1",
+            "P5"
+          ],
+          "rationale": "A trained, evaluated classifier with a repeatable retraining path shows both the core detection capability and a concrete mechanism for defenses to keep pace as new misuse patterns emerge."
+        },
+        {
+          "id": "C3",
+          "name": "Active-learning eval sourcing loop",
+          "description": "An uncertainty-sampling or disagreement-based loop that runs the classifier over a larger unlabeled pool, surfaces the most informative/representative examples for labeling, and feeds them back into retraining, mimicking the process of automatically sourcing representative evaluations to iterate on.",
+          "addresses": [
+            "P1"
+          ],
+          "rationale": "Demonstrating an automated example-sourcing loop directly answers the listing's explicit call for methods to source representative evaluations, not just a one-off model."
+        },
+        {
+          "id": "C4",
+          "name": "Served classifier with monitoring dashboard",
+          "description": "The classifier wrapped as a small API service with request logging, precision/recall tracking over time, and drift alerts, taking the project from notebook experiment to a runnable production-style system.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "Carrying the same model from data generation through to a monitored deployed service is concrete evidence of comfort across the full research-to-deployment pipeline."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Define a misuse taxonomy and build the synthetic data generation pipeline",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Train and evaluate the classifier and anomaly detector on held-out data",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add the active-learning loop to iterate on the training set",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Deploy the classifier as a monitored service",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Agentic Prompt-Injection Red-Team Harness",
+      "summary": "A sandboxed agentic environment paired with an automated red-teaming loop that searches for prompt-injection successes, plus mitigations implemented and re-tested against the same harness. This project pairs a written threat model with working adversarial tooling, covering two full responsibility bullets around agentic safety and automated red-teaming/adversarial robustness.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Agentic threat model",
+          "description": "A structured threat model document for a small tool-using agent (e.g. one with web browsing and file access), enumerating attack surfaces such as direct and indirect prompt injection, tool-output poisoning, and data exfiltration paths.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "Producing a concrete, agent-specific threat model demonstrates the analytical step the listing says is currently missing before any testing or mitigation work can happen."
+        },
+        {
+          "id": "C2",
+          "name": "Sandboxed agent test environment",
+          "description": "A small tool-using agent running in an isolated sandbox, exercised against a suite of adversarial scenarios (malicious webpages/documents containing embedded instructions) designed to test whether it follows attacker-injected instructions instead of the user's.",
+          "addresses": [
+            "P3",
+            "P4"
+          ],
+          "rationale": "A working test environment that reproducibly exercises agentic risks is direct evidence of the ability to build the testing infrastructure the listing says is lacking."
+        },
+        {
+          "id": "C3",
+          "name": "Automated red-team mutation loop",
+          "description": "An automated attack generator that mutates and searches over injection payloads (e.g. via LLM-driven paraphrase/search or iterative refinement) to find successful prompt injections at scale, with a metric for attack success rate against the sandboxed agent.",
+          "addresses": [
+            "P4"
+          ],
+          "rationale": "An automated, scalable search for successful attacks is concrete evidence of the automated red-teaming and adversarial-robustness research the listing asks for, beyond manual probing."
+        },
+        {
+          "id": "C4",
+          "name": "Mitigations with before/after evaluation",
+          "description": "Implemented and evaluated defenses against the discovered injection patterns (e.g. instruction-hierarchy prompting, output/tool-call filtering, permission gating), re-run through the same red-team suite to quantify the drop in attack success rate.",
+          "addresses": [
+            "P3",
+            "P5"
+          ],
+          "rationale": "Showing a measured reduction in attack success after adding mitigations, using the same harness that will be used to discover future attacks, is direct evidence of building defenses that can keep pace as new attack variants are found."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Write the threat model for the target agentic product",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Build the sandboxed agent and adversarial scenario suite",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Build the automated attack-mutation loop and measure baseline attack success rate",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Implement mitigations and re-measure attack success rate to show improvement",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cross-Session Coordinated-Harm and Wellbeing Monitor",
+      "summary": "A monitoring system that looks past single messages to score entire sessions or clusters of sessions for coordinated misuse patterns and to check whether model behavior stays appropriate as a conversation escalates or a user shows signs of distress. This project targets the harder, less commonly demonstrated multi-turn/cross-context problem, and is a good fit for an applicant who wants to emphasize systems-design and signal-aggregation skills over pure classifier work.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Simulated multi-turn attack corpus",
+          "description": "A generated dataset of multi-turn conversations and multi-session clusters simulating coordinated jailbreak attempts, escalating harmful requests, and influence-operation-style narrative seeding, built because real coordinated-attack transcripts aren't available outside a company's own logs.",
+          "addresses": [
+            "P2"
+          ],
+          "rationale": "Constructing a corpus that spans exchanges and sessions, rather than single-turn examples, is a prerequisite for demonstrating any cross-context detection method."
+        },
+        {
+          "id": "C2",
+          "name": "Cross-context signal aggregation engine",
+          "description": "A system that tracks signals within and across sessions (topic drift, escalation trajectory, repeated behavioral fingerprints across otherwise-separate sessions) and aggregates them into a session- or cluster-level risk score, rather than scoring individual messages in isolation.",
+          "addresses": [
+            "P2"
+          ],
+          "rationale": "A working aggregation engine that scores coordinated behavior across sessions directly answers the listing's call for new methods to aggregate and analyze signals across contexts."
+        },
+        {
+          "id": "C3",
+          "name": "Context-appropriateness and wellbeing monitor",
+          "description": "A module that evaluates a model's responses across the arc of a conversation for context-appropriate behavior, e.g. whether it responds appropriately when a user shows signs of distress, and whether its persona or advice-giving drifts into unsafe territory as the conversation continues.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "Building a monitor that judges appropriateness over the course of a conversation, not just per-message, is concrete evidence for the listing's stated responsibility to protect user wellbeing across contexts."
+        },
+        {
+          "id": "C4",
+          "name": "Alerting dashboard with review workflow",
+          "description": "A dashboard that surfaces flagged sessions with the underlying aggregated evidence for a human reviewer, taking the aggregation engine and wellbeing monitor from research scripts to a small deployable review tool.",
+          "addresses": [
+            "P2",
+            "P8"
+          ],
+          "rationale": "Presenting flagged, explainable cases through a reviewer-facing workflow shows the system is usable in an operational setting, not just a research notebook, evidencing both cross-context detection and deployment readiness."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the simulated multi-turn/multi-session attack corpus",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Implement the cross-context signal aggregation engine and score sessions",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Build the context-appropriateness/wellbeing monitor",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build the alerting dashboard and reviewer workflow",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    }
+  ]
+}

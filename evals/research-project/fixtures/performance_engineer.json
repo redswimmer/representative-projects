@@ -1,0 +1,322 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Anthropic's ML systems face novel, unsolved systems/performance problems at massive scale that don't have off-the-shelf solutions",
+      "evidence": [
+        "Running machine learning (ML) algorithms at our scale often requires solving novel systems problems."
+      ],
+      "rationale": "Stating that their scale 'often requires solving novel systems problems' implies existing solutions are insufficient and new problem identification is needed."
+    },
+    {
+      "id": "P2",
+      "problem": "Their largest distributed training/inference systems lack sufficient throughput, wasting compute capacity",
+      "evidence": [
+        "developing systems that optimize the throughput and robustness of our largest distributed systems"
+      ],
+      "rationale": "Explicitly naming throughput optimization as a responsibility implies current throughput is suboptimal for their largest distributed systems."
+    },
+    {
+      "id": "P3",
+      "problem": "Their largest distributed systems are insufficiently robust, likely suffering failures or instability at scale",
+      "evidence": [
+        "developing systems that optimize the throughput and robustness of our largest distributed systems"
+      ],
+      "rationale": "Pairing robustness with throughput as something to optimize implies reliability issues exist in these large distributed systems."
+    },
+    {
+      "id": "P4",
+      "problem": "The company lacks people who can proactively spot and define performance/systems problems before they can be solved, rather than just executing on pre-defined tickets",
+      "evidence": [
+        "you'll be responsible for identifying these problems, and then developing systems"
+      ],
+      "rationale": "Making problem identification an explicit responsibility indicates a gap in proactive problem discovery, not just execution."
+    },
+    {
+      "id": "P5",
+      "problem": "Hiring for this role is hard because it requires rare cross-domain expertise: deep systems/supercomputing background combined with willingness to learn ML research",
+      "evidence": [
+        "Have significant software engineering or machine learning experience, particularly at supercomputing scale",
+        "Want to learn more about machine learning research"
+      ],
+      "rationale": "Requiring supercomputing-scale systems expertise plus openness to learning ML research suggests candidates with only one of these skill sets are insufficient for the role."
+    },
+    {
+      "id": "P6",
+      "problem": "Undefined or shifting work exists that falls outside formal job descriptions and needs someone flexible to absorb it",
+      "evidence": [
+        "Pick up slack, even if it goes outside your job description"
+      ],
+      "rationale": "Explicitly asking candidates to take on work beyond their job description implies there are gaps in responsibility coverage that need to be filled ad hoc."
+    },
+    {
+      "id": "P7",
+      "problem": "Knowledge silos or single points of failure may exist in engineering work, requiring collaborative pairing to spread expertise and maintain velocity",
+      "evidence": [
+        "Enjoy pair programming (we love to pair!)"
+      ],
+      "rationale": "Emphasizing pairing as a valued practice suggests the team relies on close collaboration to transfer knowledge and solve hard problems together rather than in isolation."
+    },
+    {
+      "id": "P8",
+      "problem": "The role requires deep technical specialization across GPU/accelerator programming, ML framework internals, and OS internals that is scarce and needed to solve performance bottlenecks",
+      "evidence": [
+        "GPU/Accelerator programming",
+        "ML framework internals",
+        "OS internals"
+      ],
+      "rationale": "Listing these low-level, specialized areas as desired experience implies current performance bottlenecks stem from these layers of the stack."
+    },
+    {
+      "id": "P9",
+      "problem": "Optimizing systems specifically for transformer-based language model workloads is a distinct need not covered by generic systems engineering skills",
+      "evidence": [
+        "Language modeling with transformers"
+      ],
+      "rationale": "Calling out transformer-based language modeling experience separately suggests performance issues are tied to the specific characteristics of transformer workloads at their scale."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Distributed Transformer Training Performance & Resilience Testbed",
+      "summary": "Build and operate a multi-GPU/multi-node training pipeline for a transformer language model, then apply a real performance-engineering workflow to it: profile to find a bottleneck nobody told you about, fix it and measure the throughput gain, and stress it with injected failures to prove it recovers cleanly. This is the most direct analog to the listing's core ask \u2014 identifying novel problems in a large distributed ML system and improving its throughput and robustness \u2014 and pairs it with a written narrative connecting the systems work to ML training dynamics.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Multi-node transformer training pipeline",
+          "description": "Stand up data/tensor/pipeline-parallel training of a transformer language model across multiple GPUs or nodes (cloud spot instances or several local GPUs), using a standard framework as the base.",
+          "addresses": [
+            "P9",
+            "P1"
+          ],
+          "rationale": "Building and operating real parallel training infrastructure for a transformer workload shows firsthand exposure to the exact class of large-scale ML system the role is about, at whatever scale is available to a solo applicant."
+        },
+        {
+          "id": "C2",
+          "name": "Bottleneck discovery investigation",
+          "description": "Use profiling tools (PyTorch profiler, Nsight Systems, network traces) to proactively find and document an un-ticketed performance issue in the pipeline, such as a communication stall or pipeline bubble, before attempting any fix.",
+          "addresses": [
+            "P4",
+            "P1"
+          ],
+          "rationale": "A documented investigation that starts from 'nothing was reported' to 'here is the specific bottleneck' is direct evidence of the proactive problem-identification skill the listing calls out as a named responsibility."
+        },
+        {
+          "id": "C3",
+          "name": "Throughput optimization",
+          "description": "Implement a targeted fix for the discovered bottleneck (e.g. overlapping communication with computation, better sharding, kernel fusion) and measure the resulting tokens/second improvement against the baseline.",
+          "addresses": [
+            "P2"
+          ],
+          "rationale": "A measured before/after throughput number is concrete, falsifiable evidence of the ability to optimize a distributed training system's throughput."
+        },
+        {
+          "id": "C4",
+          "name": "Fault injection and elastic recovery",
+          "description": "Kill worker processes or nodes mid-training and implement checkpointing and elastic restart so the job resumes without data corruption or manual intervention, measuring recovery time.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "Deliberately breaking the system and showing it recovers automatically is direct, testable evidence of engineering for robustness in a distributed system."
+        },
+        {
+          "id": "C5",
+          "name": "Cross-domain systems-to-ML write-up",
+          "description": "Write a report connecting the parallelism and optimization choices made in C1-C3 to their effects on training dynamics, such as how sharding strategy or communication overlap interacts with convergence or loss curves.",
+          "addresses": [
+            "P5"
+          ],
+          "rationale": "Explaining systems decisions in terms of their ML research consequences demonstrates the rare combination of supercomputing-grade systems skill and genuine ML research fluency the listing says is hard to hire for."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Working multi-node transformer training baseline",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Documented bottleneck investigation",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Optimization implemented with measured throughput gain",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Fault injection and recovery validated",
+          "components": [
+            "C4"
+          ]
+        },
+        {
+          "milestone": "Published cross-domain analysis",
+          "components": [
+            "C5"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "GPU Kernel and Framework Internals for LLM Inference",
+      "summary": "Go a layer deeper than framework APIs: write a custom GPU kernel for a performance-critical transformer operation, wire it into an existing ML framework's internals, and trace the full stack down to the OS and driver level to find where time is actually going during inference. This project is the strongest evidence for the listing's 'strong candidate' bullets on GPU/accelerator programming, framework internals, and OS internals specifically.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Custom transformer kernel",
+          "description": "Implement a custom GPU kernel in CUDA or Triton for a performance-critical transformer operation such as fused attention or paged KV-cache management.",
+          "addresses": [
+            "P8",
+            "P9"
+          ],
+          "rationale": "Writing a working, correct low-level GPU kernel for a transformer-specific operation is direct evidence of accelerator programming skill applied to the exact workload type the listing names."
+        },
+        {
+          "id": "C2",
+          "name": "Framework internals integration",
+          "description": "Integrate the custom kernel into an existing ML framework (e.g. as a PyTorch custom op or a patch to an inference server like vLLM), navigating its dispatcher, memory allocator, and execution graph.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "Successfully patching a real framework's internals rather than only using its public API demonstrates the framework-internals depth the listing lists as a differentiator."
+        },
+        {
+          "id": "C3",
+          "name": "OS-level stack tracing",
+          "description": "Use perf, eBPF, or strace to trace how the framework and kernel interact with the OS scheduler, memory paging, and driver calls, surfacing a non-obvious stall that a purely ML-level profiler would miss.",
+          "addresses": [
+            "P8",
+            "P1"
+          ],
+          "rationale": "Finding a real bottleneck that only appears at the OS/driver boundary is concrete proof of OS-internals expertise and of the ability to surface a genuinely novel systems problem others hadn't identified."
+        },
+        {
+          "id": "C4",
+          "name": "Inference throughput benchmark",
+          "description": "Build a benchmark harness for realistic LLM serving (batched requests, continuous batching) and measure the latency/throughput improvement delivered by the kernel and fix.",
+          "addresses": [
+            "P2",
+            "P9"
+          ],
+          "rationale": "A reproducible benchmark with measured gains on a transformer serving workload is concrete evidence of improving throughput for the exact class of workload the role targets."
+        },
+        {
+          "id": "C5",
+          "name": "Systems-to-serving-quality analysis",
+          "description": "Write an analysis linking the low-level implementation choice (e.g. KV-cache eviction policy) to its effect on model serving quality, such as long-context behavior.",
+          "addresses": [
+            "P5"
+          ],
+          "rationale": "Tying a kernel-level decision to its downstream effect on model behavior demonstrates the applicant can operate credibly on both the deep-systems and ML-research sides the listing says are rare to find together."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Working custom kernel with correctness tests",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Kernel integrated into framework internals",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "OS-level trace identifying a real bottleneck",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Benchmark suite with measured throughput gain",
+          "components": [
+            "C4"
+          ]
+        },
+        {
+          "milestone": "Published systems-to-quality analysis",
+          "components": [
+            "C5"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Open-Source ML Systems Performance Contribution",
+      "summary": "Rather than a standalone project, find and fix a real, un-ticketed performance problem in an established open-source ML systems project (e.g. vLLM, DeepSpeed, Megatron-LM), carry it through the maintainers' review process, and pick up whatever adjacent unglamorous work surfaces along the way. This project is weaker evidence on raw technical depth than the other two but is the best available proxy for the listing's more behavioral asks \u2014 working collaboratively with other engineers and absorbing work outside a narrow ticket.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Unprompted bottleneck discovery in a live project",
+          "description": "Profile a real, actively-used open-source ML systems project and find a performance issue that has no existing issue or ticket describing it.",
+          "addresses": [
+            "P4",
+            "P1"
+          ],
+          "rationale": "Finding a real, previously unknown problem in production-grade open-source infrastructure is stronger evidence of proactive problem identification than finding one in a project you built and control."
+        },
+        {
+          "id": "C2",
+          "name": "Reviewed pull request",
+          "description": "Submit a fix as a pull request and go through the project's real code review cycle, iterating on maintainer feedback until it merges or reaches a clear resolution.",
+          "addresses": [
+            "P7"
+          ],
+          "rationale": "Iterative back-and-forth with unfamiliar maintainers over a real change is the closest available portfolio proxy for the close, collaborative pairing dynamic the listing says the team values."
+        },
+        {
+          "id": "C3",
+          "name": "Unscoped adjacent work",
+          "description": "While working the fix, take on related but out-of-scope tasks that surface along the way, such as repairing broken CI, improving the benchmark harness, or fixing documentation gaps that blocked the original work.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "Voluntarily fixing problems outside the original ticket's scope during a real contribution directly demonstrates the flexibility to 'pick up slack outside your job description' the listing asks for."
+        },
+        {
+          "id": "C4",
+          "name": "Public write-up with ML research framing",
+          "description": "Publish a write-up explaining the performance problem and why it matters in terms of the underlying transformer serving or training characteristics, not just the code change.",
+          "addresses": [
+            "P5",
+            "P9"
+          ],
+          "rationale": "Explaining a systems fix through the lens of transformer workload characteristics for a public audience shows both the specific ML-workload knowledge and the cross-domain communication the listing values."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Identified and documented an un-ticketed performance issue",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Merged or resolved pull request through review",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Completed adjacent unscoped fixes uncovered during the work",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Published write-up with ML research framing",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    }
+  ]
+}

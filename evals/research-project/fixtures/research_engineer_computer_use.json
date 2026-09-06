@@ -1,0 +1,275 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Claude's models are not yet reliable or safe enough at perceiving and operating real software interfaces autonomously",
+      "evidence": [
+        "Design and run experiments to improve Claude's perception and agentic capabilities",
+        "you'll work on advancing our models' ability to reliably and safely operate real software"
+      ],
+      "rationale": "The need to run experiments to improve perception and agentic capabilities, and to advance reliable/safe operation, implies current model performance on computer use is insufficient."
+    },
+    {
+      "id": "P2",
+      "problem": "The company lacks robust ways to measure whether models can actually complete complex computer tasks",
+      "evidence": [
+        "Develop robust, reliable evaluation frameworks for measuring our models' ability to complete complex computer tasks"
+      ],
+      "rationale": "Explicitly needing to 'develop' such frameworks indicates existing evaluation methods for agentic computer tasks are inadequate or missing."
+    },
+    {
+      "id": "P3",
+      "problem": "Existing reinforcement learning training environments for computer use and vision tasks are insufficient or need improvement",
+      "evidence": [
+        "Build and improve computer use and vision reinforcement learning training environments"
+      ],
+      "rationale": "The instruction to 'build and improve' these environments shows current RL training environments for this domain are lacking or immature."
+    },
+    {
+      "id": "P4",
+      "problem": "The company cannot yet reliably validate whether complex RL environments behave correctly before using them for training",
+      "evidence": [
+        "Create pipelines and tools to test and validate complex RL environments"
+      ],
+      "rationale": "Needing new pipelines/tools to test and validate RL environments implies no adequate validation infrastructure currently exists."
+    },
+    {
+      "id": "P5",
+      "problem": "Coordination gaps exist between research teams and the production training/infrastructure stack, slowing improvements",
+      "evidence": [
+        "Collaborate with teams across the model training and infrastructure stack to improve our production training setup"
+      ],
+      "rationale": "The explicit call to collaborate across teams to improve the production training setup suggests the current setup and cross-team coordination need work."
+    },
+    {
+      "id": "P6",
+      "problem": "Research advances in computer use are not translating quickly or smoothly into shipped product features",
+      "evidence": [
+        "Partner with product teams to bring research advances into production",
+        "Your work will translate directly into model improvements in our own and our customers' products."
+      ],
+      "rationale": "The emphasis on partnering with product teams to bring research into production implies a gap between research output and product deployment that needs closing."
+    },
+    {
+      "id": "P7",
+      "problem": "The company needs engineers skilled in long-horizon, sparse-reward RL and multimodal training, a specialized and scarce skill set, to advance agentic computer use",
+      "evidence": [
+        "Experience with reinforcement learning, particularly in long-horizon or sparse-reward settings",
+        "Familiarity with multimodal model training"
+      ],
+      "rationale": "Listing these as preferred qualifications shows the team lacks sufficient specialized RL/multimodal expertise needed to solve its hardest technical challenges."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Computer-Use Agent Evaluation Suite",
+      "summary": "A benchmark and scoring framework for GUI/computer-use agents: a corpus of real-world multi-step tasks across web and desktop-like apps, an automated harness that runs a vision-capable agent against them, environment sanity checks, and a dashboard that tracks reliability and failure modes over time. This is the strongest single piece of evidence for the role's core ask \u2014 building rigorous, reusable evaluation infrastructure for agentic computer tasks.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "GUI task benchmark corpus",
+          "description": "A curated set of tasks (form filling, navigation, data lookup/transfer across apps, multi-step workflows) each with ground-truth success criteria, run inside a sandboxed browser or containerized desktop environment so tasks are reproducible.",
+          "addresses": [
+            "P2",
+            "P1"
+          ],
+          "rationale": "A well-scoped, reproducible task corpus with objective success criteria is direct evidence of the ability to define what 'reliable computer use' means and measure perception/agentic performance against it."
+        },
+        {
+          "id": "C2",
+          "name": "Automated scoring harness",
+          "description": "A runner that drives an agent (built on a vision-language model API) through each task, captures screenshots and action traces, scores pass/fail automatically, and repeats trials to quantify variance and reliability rather than a single pass/fail number.",
+          "addresses": [
+            "P2",
+            "P1"
+          ],
+          "rationale": "Turning single-shot task outcomes into a statistically meaningful reliability measurement is exactly the kind of 'robust, reliable evaluation framework' the role calls for."
+        },
+        {
+          "id": "C3",
+          "name": "Environment validation checks",
+          "description": "Tooling that verifies each sandboxed task environment resets to a clean, deterministic state, that automated success labels actually match true task completion, and that flags flaky or mislabeled tasks before they're trusted for evaluation.",
+          "addresses": [
+            "P4",
+            "P3"
+          ],
+          "rationale": "Independently validating that the environment and its reward/success signal are trustworthy directly demonstrates the 'test and validate complex environments' skill called out in the listing."
+        },
+        {
+          "id": "C4",
+          "name": "Reliability regression dashboard",
+          "description": "A dashboard/report that tracks success rate, failure-mode categories (perception error vs. planning error vs. execution error), and variance across agent versions or prompt/model changes over time.",
+          "addresses": [
+            "P1",
+            "P2"
+          ],
+          "rationale": "Categorizing failures by cause and tracking them over versions shows the kind of diagnostic rigor needed to actually improve perception and agentic reliability, not just report a score."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Define and implement a small but diverse benchmark of GUI tasks with ground-truth success criteria",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Build the automated multi-trial scoring harness against a vision-capable agent",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add environment determinism and label-accuracy validation checks",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build the failure-mode regression dashboard across agent/model versions",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sparse-Reward RL Environments for GUI Agents",
+      "summary": "A small suite of sandboxed, reward-bearing task environments for computer use (e.g., spreadsheet edits, multi-step form workflows) paired with a validation pipeline that certifies the environments before use, and a sparse-reward RL training loop that fine-tunes a vision-capable policy against them. This project is the strongest demonstration of the RL environment-building and long-horizon/multimodal training skills the listing flags as scarce.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Sandboxed reward-bearing task environments",
+          "description": "A handful of containerized or browser-based mini-applications instrumented with programmatic state inspection so task completion can be verified and converted into a reward signal, covering multi-step, long-horizon workflows.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "Hand-building reward-instrumented environments from scratch is direct, concrete evidence of the 'build and improve RL training environments' responsibility."
+        },
+        {
+          "id": "C2",
+          "name": "Environment validation pipeline",
+          "description": "A test suite that checks each environment resets deterministically, that the reward function correlates with genuine task success rather than exploitable proxies, and that surfaces reward-hacking opportunities before they contaminate training.",
+          "addresses": [
+            "P4"
+          ],
+          "rationale": "Proactively hunting for reward hacking and non-determinism is exactly the kind of validation work the role needs before any RL environment can be trusted for training."
+        },
+        {
+          "id": "C3",
+          "name": "Sparse-reward RL training loop",
+          "description": "A policy-gradient or PPO-style training loop that learns from end-of-episode task-completion rewards rather than dense per-step feedback, with logging of sample efficiency, reward curve stability, and credit-assignment challenges over long action sequences.",
+          "addresses": [
+            "P7",
+            "P1"
+          ],
+          "rationale": "Implementing and diagnosing a working long-horizon, sparse-reward training loop is direct, hands-on evidence of the specialized RL expertise the listing says is scarce."
+        },
+        {
+          "id": "C4",
+          "name": "Multimodal observation pipeline",
+          "description": "The input pipeline that feeds screenshots/visual state alongside structured action history into the policy, handling the vision-plus-action multimodal representation the agent trains on.",
+          "addresses": [
+            "P7"
+          ],
+          "rationale": "Building the vision+action input pipeline is concrete proof of familiarity with multimodal model training, not just text-only RL."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the initial set of reward-instrumented task environments",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add the environment validation pipeline and fix any discovered reward-hacking or non-determinism issues",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Build the multimodal observation pipeline feeding screenshots and action history to the policy",
+          "components": [
+            "C4"
+          ]
+        },
+        {
+          "milestone": "Implement and tune the sparse-reward RL training loop, logging stability and sample efficiency",
+          "components": [
+            "C3"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "From Prototype to Product: A Packaged Computer-Use Agent",
+      "summary": "An end-to-end computer-use agent \u2014 perception loop, safety guardrails, and a real product wrapper (e.g., a browser extension or CLI tool) \u2014 plus a feedback mechanism that turns real usage failures into structured eval cases. This project emphasizes product engineering and safety-conscious shipping over pure research, showing the applicant can carry a research capability all the way into something a user could actually run.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Vision-driven agent core",
+          "description": "A perception-action loop that takes screenshots of a real application or webpage, reasons about the next action via a vision-capable model, and executes it through browser/OS automation, iterating until task completion or failure.",
+          "addresses": [
+            "P1"
+          ],
+          "rationale": "A working end-to-end perceive-act loop on a real interface is direct evidence of the ability to advance agentic, screen-grounded task completion, the core research problem in the listing."
+        },
+        {
+          "id": "C3",
+          "name": "Safety guardrails",
+          "description": "Action classification that flags irreversible or high-risk actions (purchases, deletions, submissions) and requires explicit confirmation, plus full action/decision logging for auditability.",
+          "addresses": [
+            "P1"
+          ],
+          "rationale": "Building guardrails against unsafe autonomous actions is concrete evidence of the 'reliably and safely operate real software' half of the role, not just raw capability."
+        },
+        {
+          "id": "C2",
+          "name": "Product packaging",
+          "description": "Wrapping the agent core behind a clean, documented interface as an actual usable tool (browser extension or CLI/desktop app) with configuration, setup instructions, and a straightforward UX rather than a research script.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "Turning a research prototype into something installable and usable by someone else is a direct, self-contained demonstration of translating research into a product artifact."
+        },
+        {
+          "id": "C4",
+          "name": "Usage feedback loop",
+          "description": "Instrumentation that captures failed or low-confidence task runs during real usage and converts them into structured, labeled eval cases (and optionally fine-tuning examples) that feed back into improving the agent.",
+          "addresses": [
+            "P6",
+            "P2"
+          ],
+          "rationale": "Closing the loop from real-world failures back into structured evaluation/training data is exactly the research-to-production feedback mechanism the listing wants, applied at project scale."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the core perceive-act agent loop against a real application or website",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add safety guardrails and action logging before any autonomous execution",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Package the agent as an installable, documented product artifact",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add the feedback loop that converts real usage failures into structured eval cases",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    }
+  ]
+}

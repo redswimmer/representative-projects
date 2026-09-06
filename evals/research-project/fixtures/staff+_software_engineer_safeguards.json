@@ -1,0 +1,388 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Trust & safety teams cannot investigate abuse, calibrate detection systems, and enforce actions fast enough compared to the speed of model capability growth",
+      "evidence": [
+        "Builds the agentic systems that let Anthropic's trust & safety teams work at the speed of the models they're protecting."
+      ],
+      "rationale": "This states directly that the safety team's operational speed lags behind model speed, and that agentic systems are needed to close that gap."
+    },
+    {
+      "id": "P2",
+      "problem": "Existing AI agents are not safe enough to be trusted with sensitive abuse-investigation and enforcement data",
+      "evidence": [
+        "Our flagship project extends Claude Tag, Anthropic's agentic AI collaborator, so it can safely operate on the sensitive data at the heart of Safeguards work: investigating abuse, calibrating detection systems, and closing the loop from signal to enforcement.",
+        "The hard part isn't making the agent capable, it's making it safe."
+      ],
+      "rationale": "The explicit call-out that capability isn't the hard part but safety is implies current agent architectures lack the safeguards needed to handle sensitive data responsibly."
+    },
+    {
+      "id": "P3",
+      "problem": "There is no mechanism to keep human oversight and control over agentic systems as they gain more capability and data access",
+      "evidence": [
+        "We develop sandboxed agent architectures, brokered and audited data access, and provenance guarantees that keep humans firmly in control as model capabilities grow."
+      ],
+      "rationale": "The need to build sandboxing, brokered/audited access, and provenance guarantees implies these controls don't yet adequately exist to keep humans in control."
+    },
+    {
+      "id": "P4",
+      "problem": "Once a safety classifier or probe fires, there is no unified, scalable set of intervention mechanisms to act on it across all of Anthropic's surfaces (1P products, API, third-party clouds)",
+      "evidence": [
+        "Responsible for what happens when a safety system fires.",
+        "You'll own the composable arsenal of intervention options that sit between our detection stack (classifiers and probes) and the user, across every Anthropic surface: 1P products, the API, and third-party clouds."
+      ],
+      "rationale": "The need to 'own' and build a 'composable arsenal' of interventions implies this connective tissue between detection and enforcement is currently missing or fragmented."
+    },
+    {
+      "id": "P5",
+      "problem": "Harm categories like bio, cyber, acceptable usage, child safety, and copyright each need inline and downstream interventions that don't yet operate reliably at Anthropic's request-level scale",
+      "evidence": [
+        "This includes inline interventions for areas like harmful bio, cyber, and acceptable usage as well as downstream areas like child safety and copyright.",
+        "You'll build sync and async systems that operate at Anthropic scale, touching every request, and ensuring that we evolve and drive the quality, scale and systems of our interventions to enable our products to grow safely."
+      ],
+      "rationale": "The requirement to build systems touching every request and to 'evolve and drive the quality, scale' of interventions indicates current intervention infrastructure cannot yet keep pace with product growth."
+    },
+    {
+      "id": "P6",
+      "problem": "Manual or small-team review cannot cover the full surface of billions of stored interactions to detect serious threats like cyberattacks, weapons development, and influence operations",
+      "evidence": [
+        "Our Claude Investigation tool, an autonomous Claude-powered agent that reasons across tens of billions of stored interactions to surface cyberattacks, weapons development, and state-sponsored influence operations; thousands of copies run in parallel, which is how a small team covers the whole surface."
+      ],
+      "rationale": "Running thousands of parallel agent copies to let 'a small team cover the whole surface' implies human/manual review alone cannot scale to the volume of interactions needing analysis."
+    },
+    {
+      "id": "P7",
+      "problem": "Threat detection must operate under real deadlines against adversaries who actively adapt their behavior to evade detection",
+      "evidence": [
+        "The hard part isn't finding signal, it's finding it at this scale, under real deadlines, on threats that are actively adapting to us."
+      ],
+      "rationale": "This explicitly frames the challenge as scale, time pressure, and adversarial adaptation rather than simple signal detection, implying current systems struggle with these constraints."
+    },
+    {
+      "id": "P8",
+      "problem": "Lack of infrastructure to run agent fleets and perform batch inference, summarization, and search across multiple cloud environments for investigations",
+      "evidence": [
+        "You'll do serious distributed-systems and data-infrastructure work \u2014 running an agent fleet across three clouds, building batch inference, summarization, and search infrastructure \u2014 against threats that are happening today, not hypotheticals."
+      ],
+      "rationale": "The need to 'build' this infrastructure against real, ongoing threats indicates it does not yet exist or is insufficient at the required scale."
+    },
+    {
+      "id": "P9",
+      "problem": "Unwanted model behaviors and disallowed use by API partners are not being adequately monitored, flagged, or enforced against automatically",
+      "evidence": [
+        "Develop monitoring systems to detect unwanted behaviors from our API partners and potentially take automated enforcement actions; surface these in internal dashboards to analysts for manual review"
+      ],
+      "rationale": "This responsibility directly states the need to build detection, automated enforcement, and analyst-facing dashboards, implying these capabilities are currently insufficient or missing."
+    },
+    {
+      "id": "P10",
+      "problem": "Abuse detection signals are not being fed back to research teams to improve model training and harden models against misuse",
+      "evidence": [
+        "Surface abuse patterns to our research teams to harden models at the training stage"
+      ],
+      "rationale": "This responsibility implies a current gap in the feedback loop between observed abuse and model training improvements."
+    },
+    {
+      "id": "P11",
+      "problem": "Difficulty hiring engineers who combine deep technical skill with the ability to communicate safety and abuse issues to non-technical stakeholders and operational teams",
+      "evidence": [
+        "Strong communication skills and ability to explain complex technical concepts to non-technical stakeholders",
+        "Have worked closely with operational teams to build custom internal tooling"
+      ],
+      "rationale": "Explicitly listing these as desired qualities suggests the company struggles to find engineers who can bridge technical safety work with non-technical operational stakeholders."
+    },
+    {
+      "id": "P12",
+      "problem": "Need for engineers experienced in adversarial attacks (jailbreaks, prompt engineering exploits) since current defenses may not withstand such adversarial inputs",
+      "evidence": [
+        "Have experience with prompt engineering, jailbreak attacks, and other adversarial inputs"
+      ],
+      "rationale": "Seeking candidates with this specific adversarial expertise implies existing defenses need strengthening against jailbreaks and adversarial prompts."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Sandboxed Investigation Agent for Abuse Response",
+      "summary": "A scaled-down analog of Claude Tag / Claude Investigation: an agent that operates over a large synthetic corpus of 'abuse cases' through a locked-down, audited data-access layer, with a fleet of parallel instances doing the surfacing work a small human team can't do manually. The centerpiece is demonstrating that the agent is safe to point at sensitive data \u2014 every action is brokered, logged, reversible, and reviewable by a human \u2014 not just that it's capable of finding things.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Brokered Data Access Layer",
+          "description": "A proxy service that mediates every read/write the agent makes against a synthetic dataset of user reports, flagged conversations, and case notes, requiring a stated justification per access and refusing anything outside the agent's granted scope.",
+          "addresses": [
+            "P2",
+            "P3"
+          ],
+          "rationale": "A working access-broker with per-call justification and scope enforcement is concrete evidence the applicant can make an agent safe to touch sensitive data, not just capable."
+        },
+        {
+          "id": "C2",
+          "name": "Sandboxed Agent Runtime with Approval Gates",
+          "description": "The investigation agent runs inside an isolated execution environment with an allowlist of tools, a kill switch, and mandatory human-approval checkpoints before any action classified as sensitive (e.g., flagging an account) is taken.",
+          "addresses": [
+            "P2",
+            "P3",
+            "P1"
+          ],
+          "rationale": "Sandboxing plus mandatory human checkpoints is a direct, demonstrable answer to 'keep humans in control as capability grows' and shows the agent can move at speed without removing oversight."
+        },
+        {
+          "id": "C3",
+          "name": "Parallel Investigation Fleet",
+          "description": "An orchestration layer that runs many concurrent instances of the agent over a multi-million-row synthetic interaction corpus, each instance covering a shard and reporting candidate findings to a merge/triage step.",
+          "addresses": [
+            "P6",
+            "P1"
+          ],
+          "rationale": "Demonstrating that a handful of orchestrated agents can cover a corpus far beyond manual review capacity is a direct, measurable proof of the 'small team covers the whole surface' claim."
+        },
+        {
+          "id": "C4",
+          "name": "Provenance and Audit Trail",
+          "description": "Every finding the agent surfaces is attached to a full chain of evidence \u2014 inputs consulted, tool calls made, and intermediate reasoning steps \u2014 exportable as a reviewable record for a human investigator.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "A concrete, inspectable provenance record is exactly the kind of guarantee the listing says is needed to keep humans firmly in control, and it's independently verifiable by a reviewer."
+        },
+        {
+          "id": "C5",
+          "name": "Adversarial Containment Test Suite",
+          "description": "A set of prompt-injection and jailbreak attempts fed to the agent (embedded in the synthetic case data itself) to verify the sandbox and access broker hold even when the agent's own inputs are adversarial.",
+          "addresses": [
+            "P12",
+            "P2"
+          ],
+          "rationale": "Actively trying to break the agent's own containment and documenting the results demonstrates hands-on jailbreak/adversarial-input experience applied specifically to agent safety."
+        },
+        {
+          "id": "C6",
+          "name": "Non-Technical Findings Report",
+          "description": "A short written case summary that translates the agent's technical findings and audit trail into plain-language conclusions and recommended actions for a hypothetical non-engineer trust-and-safety lead.",
+          "addresses": [
+            "P11"
+          ],
+          "rationale": "A polished, non-technical writeup is direct evidence of the communication skill the listing calls out as necessary to work with operational stakeholders."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the brokered access layer and sandboxed runtime with approval gates",
+          "components": [
+            "C1",
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Scale out to a parallel investigation fleet over a large synthetic corpus",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Add provenance/audit export for every finding",
+          "components": [
+            "C4"
+          ]
+        },
+        {
+          "milestone": "Red-team the sandbox with adversarial and injected inputs",
+          "components": [
+            "C5"
+          ]
+        },
+        {
+          "milestone": "Produce a non-technical investigation report",
+          "components": [
+            "C6"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Composable Real-Time Intervention Framework",
+      "summary": "A middleware layer that sits between mock detection classifiers and several mock 'surfaces' (an API, a chat front-end, a partner webhook), offering a unified, pluggable set of enforcement actions per harm category, with automated partner-behavior monitoring, a feedback pipeline back to 'training,' and an analyst dashboard. This demonstrates the intervention-infrastructure and abuse-detection-mechanism side of the role rather than the agentic-safety side.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Pluggable Intervention Engine",
+          "description": "A common interface (block, warn, rate-limit, redirect, escalate) that any detector can call and any surface can consume, with adapters for a REST API, a mock chat UI, and a mock third-party webhook, so the same policy logic works everywhere.",
+          "addresses": [
+            "P4"
+          ],
+          "rationale": "A single composable interface reused across three distinct surface types is direct evidence of building the 'connective tissue' the listing says is currently missing between detection and enforcement."
+        },
+        {
+          "id": "C2",
+          "name": "Harm-Category Policy Modules",
+          "description": "Separate, independently configurable policy modules for categories like harmful content, acceptable-use, and a slower downstream review queue for categories like copyright, each with its own latency and severity handling rules.",
+          "addresses": [
+            "P5"
+          ],
+          "rationale": "Modeling inline versus downstream handling per harm category shows understanding that different categories need structurally different intervention paths, not one-size-fits-all logic."
+        },
+        {
+          "id": "C3",
+          "name": "Partner Behavior Monitor and Auto-Enforcement",
+          "description": "A stream-processing component watching simulated API partner traffic for policy-violation patterns, taking automated actions like throttling on clear violations, and queuing ambiguous cases into an analyst review list.",
+          "addresses": [
+            "P9"
+          ],
+          "rationale": "This directly mirrors the stated responsibility of detecting unwanted partner behavior, auto-enforcing where confident, and surfacing the rest for manual review."
+        },
+        {
+          "id": "C4",
+          "name": "Abuse-to-Training Feedback Exporter",
+          "description": "A pipeline that converts flagged abuse events into a structured, labeled dataset formatted to a spec a model-training team could consume, closing the loop from detection back to training-time hardening.",
+          "addresses": [
+            "P10"
+          ],
+          "rationale": "A working export pipeline into a training-ready format is concrete evidence of closing the abuse-signal-to-training feedback gap the listing identifies."
+        },
+        {
+          "id": "C5",
+          "name": "Load and Latency Benchmark",
+          "description": "A load-testing harness proving inline interventions complete within a strict per-request latency budget under high simulated request volume, with results reported for each harm-category policy module.",
+          "addresses": [
+            "P5",
+            "P7"
+          ],
+          "rationale": "Demonstrating the system holds a latency SLA under volume is direct evidence interventions can operate under the 'real deadlines, at scale' constraint called out in the listing."
+        },
+        {
+          "id": "C6",
+          "name": "Analyst Dashboard and Plain-Language Runbook",
+          "description": "A dashboard surfacing queued enforcement decisions for analyst review, paired with a runbook document explaining the intervention logic and escalation paths in plain language for non-engineer operators.",
+          "addresses": [
+            "P11",
+            "P9"
+          ],
+          "rationale": "Pairing a working analyst-facing tool with a plain-language runbook shows both the internal-tooling and cross-stakeholder-communication skills the listing asks for."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the pluggable intervention engine with multi-surface adapters",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add per-harm-category policy modules with inline/downstream handling",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Build partner monitoring with automated enforcement and analyst queue",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build the abuse-to-training feedback export pipeline",
+          "components": [
+            "C4"
+          ]
+        },
+        {
+          "milestone": "Benchmark latency and throughput at simulated scale",
+          "components": [
+            "C5"
+          ]
+        },
+        {
+          "milestone": "Ship the analyst dashboard and runbook",
+          "components": [
+            "C6"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Adversarial Detection Calibration Harness",
+      "summary": "A red-team-versus-blue-team loop: an automated jailbreak/prompt-injection generator that adapts against a target classifier under a fixed time budget per round, feeding a calibration dashboard that tracks detection drift and triggers corpus-wide re-scans. This project leans hardest into adversarial expertise and the scale/deadline pressure of the Data Intelligence track.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Jailbreak and Adversarial Prompt Generator",
+          "description": "An automated tool that mutates and iterates prompt-engineering and jailbreak attempts against a target model or classifier, logging every technique that achieves a bypass.",
+          "addresses": [
+            "P12"
+          ],
+          "rationale": "Building a working jailbreak-generation tool and cataloguing successful bypasses is direct, hands-on evidence of the adversarial-input expertise the listing asks for."
+        },
+        {
+          "id": "C2",
+          "name": "Adaptive Adversary Simulation Loop",
+          "description": "A closed loop where the generator adapts its next attempt based on the classifier's response, run in fixed-length timed rounds to simulate an adversary evolving under real operational deadlines rather than unlimited offline analysis.",
+          "addresses": [
+            "P7"
+          ],
+          "rationale": "Running the adversary loop under an explicit time budget is a direct simulation of finding signal 'under real deadlines, on threats that are actively adapting.'"
+        },
+        {
+          "id": "C3",
+          "name": "Detection Calibration Dashboard",
+          "description": "A dashboard tracking the classifier's precision/recall as new bypass techniques are discovered, flagging drift and triggering a recalibration step, giving an operator a live view of detection health.",
+          "addresses": [
+            "P1"
+          ],
+          "rationale": "A live calibration view that reacts to newly discovered evasions is concrete evidence of tooling that lets a safety team keep pace with adapting threats."
+        },
+        {
+          "id": "C4",
+          "name": "Distributed Batch Re-Scan Infrastructure",
+          "description": "A batch pipeline that, whenever calibration changes, re-scans a large synthetic historical corpus using multiple parallel worker pools (modeling separate cloud/compute environments) with search and summarization over the results.",
+          "addresses": [
+            "P8",
+            "P6"
+          ],
+          "rationale": "A distributed batch inference/search pipeline that re-processes a large historical corpus on every calibration update is a direct analog of the multi-cloud, agent-fleet infrastructure work described."
+        },
+        {
+          "id": "C5",
+          "name": "Non-Technical Threat Briefing",
+          "description": "A concise, plain-language summary of the round's discovered adversarial trends and their business impact, written for a policy or operations audience rather than engineers.",
+          "addresses": [
+            "P11"
+          ],
+          "rationale": "Translating adversarial-testing results into a briefing a non-technical stakeholder can act on directly demonstrates the required cross-audience communication skill."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the jailbreak/adversarial prompt generator against a target classifier",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Wrap it in an adaptive, time-boxed adversary loop",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add the calibration dashboard tracking detection drift",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Build distributed batch re-scan infrastructure triggered by calibration changes",
+          "components": [
+            "C4"
+          ]
+        },
+        {
+          "milestone": "Write the non-technical threat briefing",
+          "components": [
+            "C5"
+          ]
+        }
+      ]
+    }
+  ]
+}

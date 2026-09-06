@@ -1,0 +1,270 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "No one has a unified, cross-layer view of the inference stack, so performance-affecting interactions between layers go unnoticed",
+      "evidence": [
+        "The stack that makes this possible is deep and tightly coupled: accelerator kernels, model servers, distributed routing, autoscaling, capacity management. Every layer affects the others, often in ways that are hard to see in isolation."
+      ],
+      "rationale": "Describing the stack as tightly coupled with effects hard to see in isolation implies a gap in cross-layer visibility that the role must fill."
+    },
+    {
+      "id": "P2",
+      "problem": "The fleet's actual performance is not being systematically measured against its theoretical maximum, leaving unknown gaps and untraced root causes",
+      "evidence": [
+        "We measure how the fleet performs against its theoretical performance frontier, run cross-layer investigations to explain the gaps",
+        "sizing the gap between actual fleet performance and theoretical rooflines, identifying root causes, and quantifying the value of closing them"
+      ],
+      "rationale": "The explicit need to measure against a 'theoretical performance frontier' and 'explain the gaps' shows this analysis isn't currently happening in a rigorous, ongoing way."
+    },
+    {
+      "id": "P3",
+      "problem": "There is no dedicated ownership of correctness verification, so output-quality regressions (e.g. from quantization or hardware/config changes) risk slipping through undetected",
+      "evidence": [
+        "own the correctness checks that make sure Claude's outputs are right, not just fast, across hardware platforms and serving configurations",
+        "Own and improve the correctness evaluation pipeline that validates model output quality across hardware platforms, numerics, and serving configurations, and lead the investigation when it catches a regression",
+        "tightening a correctness eval so it catches an output regression introduced by a quantization change"
+      ],
+      "rationale": "The need to 'own and improve' the correctness pipeline and catch regressions implies existing correctness checks are insufficient or unowned."
+    },
+    {
+      "id": "P4",
+      "problem": "Throughput, latency, cost, reliability, and correctness data are not currently legible or observable in a unified way across the stack",
+      "evidence": [
+        "Build the observability, dashboards, and modeling tools that make throughput, latency, cost, reliability, correctness, and their interactions legible across the stack"
+      ],
+      "rationale": "The explicit ask to 'build' tools that make these metrics 'legible' implies such visibility does not yet adequately exist."
+    },
+    {
+      "id": "P5",
+      "problem": "Performance issues span multiple owning teams (kernel, serving, routing, autoscaling, capacity) with no cross-cutting role to prioritize and coordinate fixes across them",
+      "evidence": [
+        "We don't own the individual components. We instrument and model them, find the highest-leverage opportunities across them, and partner with the owning teams to land the wins.",
+        "Partner with kernel, serving, routing, autoscaling, and capacity teams to prioritize and land the highest-impact optimizations your analysis surfaces"
+      ],
+      "rationale": "The need for a role that partners across many owning teams to land wins implies these teams lack a mechanism to identify and coordinate the highest-leverage cross-team optimizations themselves."
+    },
+    {
+      "id": "P6",
+      "problem": "With a large surface area of potential performance opportunities, the organization lacks a disciplined process to prioritize effort and avoid wasted work on low-impact fixes",
+      "evidence": [
+        "Ruthlessly stack-rank a large surface area of opportunities by impact and effort, and say no to the ones that don't make the cut"
+      ],
+      "rationale": "The instruction to 'ruthlessly stack-rank' and 'say no' implies too many candidate opportunities exist without a systematic filter to focus resources."
+    },
+    {
+      "id": "P7",
+      "problem": "Tail-latency and other regressions are difficult to trace because they require cross-stack investigation from request timing through routing, batching, and kernel overhead",
+      "evidence": [
+        "One week that might mean tracing a tail-latency regression from request timing down through routing and batching into a kernel overhead"
+      ],
+      "rationale": "Citing this as a representative task implies such regressions currently require difficult, manual cross-layer tracing that isn't otherwise handled."
+    },
+    {
+      "id": "P8",
+      "problem": "Engineers need to influence and change systems owned by other teams without formal authority, requiring strong evidence-based persuasion",
+      "evidence": [
+        "Ability to communicate quantitative results clearly in writing to influence priorities on teams you don't manage",
+        "Comfortable having impact through influence and evidence rather than direct ownership"
+      ],
+      "rationale": "Requiring influence skills over teams the hire doesn't manage implies the company needs someone who can drive change across organizational boundaries without direct control."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Inference Fleet Roofline & Observability Bench",
+      "summary": "Stand up a local LLM serving stack (e.g. vLLM or TGI on a rented GPU), build a roofline model for the hardware, and benchmark real throughput/latency against that theoretical ceiling across a matrix of configs. Wrap the results in a unified dashboard, force a stack-ranked prioritization decision, and finish with a deep tail-latency root-cause investigation written up as a technical memo. This is the closest analogue to the Inference System Dynamics team's day-to-day: measure against a frontier, make cross-layer behavior legible, and trace a regression end to end.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Roofline model + benchmark harness",
+          "description": "Derive theoretical max throughput and latency for a chosen model/hardware pair from memory-bandwidth and FLOP limits, then run controlled serving benchmarks (varying batch size, sequence length, tensor-parallel degree) and plot measured performance against that computed ceiling.",
+          "addresses": [
+            "P1",
+            "P2"
+          ],
+          "rationale": "Producing an explicit theoretical frontier and measuring real gaps against it is direct evidence of the exact roofline-gap-sizing skill the listing says is currently missing."
+        },
+        {
+          "id": "C2",
+          "name": "Cross-layer observability dashboard",
+          "description": "Instrument the serving stack to emit request-level latency percentiles, throughput, GPU utilization/memory-bandwidth utilization, queue depth, and batching statistics into one dashboard (e.g. Prometheus/Grafana or a lightweight Plotly/Dash app) so all layers are visible together rather than in separate logs.",
+          "addresses": [
+            "P1",
+            "P4"
+          ],
+          "rationale": "A single view correlating scheduler, batching, and kernel-level metrics is concrete proof of building the 'legible across the stack' observability the role calls for."
+        },
+        {
+          "id": "C3",
+          "name": "Impact/effort opportunity stack-rank",
+          "description": "After sweeping configs (batch size, continuous batching on/off, quantization, parallelism degree), compile every discovered optimization opportunity into a table scored by estimated impact and implementation effort, and explicitly write down which ones are pursued versus rejected and why.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "Explicitly scoring and rejecting low-value opportunities demonstrates the disciplined prioritization process the listing says is currently missing."
+        },
+        {
+          "id": "C4",
+          "name": "Tail-latency root-cause writeup",
+          "description": "Deliberately induce a tail-latency regression (e.g. a bad batching or scheduling configuration), then trace it from client-observed p99 latency down through the request scheduler and batcher into GPU kernel timelines using a profiler, and document the full causal chain in a clear written report.",
+          "addresses": [
+            "P7",
+            "P8"
+          ],
+          "rationale": "A concrete, documented trace from request timing to kernel overhead mirrors the listing's representative task and shows the ability to communicate quantitative findings persuasively in writing."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Stand up serving stack and roofline/benchmark harness",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Build unified cross-layer observability dashboard",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Run full config sweep and produce stack-ranked opportunity list",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Induce and investigate a tail-latency regression, publish writeup",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Correctness-Aware Quantization Eval Pipeline",
+      "summary": "Build an automated correctness-evaluation pipeline that runs a model across multiple numerics and serving configurations (fp16, int8, int4 quantization, varying batch sizes/kernels) and flags output-quality regressions, then pair it with performance measurements to show the speed-versus-correctness tradeoff space explicitly. This emphasizes the 'correctness as part of performance' framing that is distinct from a pure speed-optimization project.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Automated correctness eval suite",
+          "description": "Assemble a benchmark set (task accuracy, perplexity, exact-match, or semantic-similarity metrics) and run it automatically against a model served under different quantization schemes and serving configurations, producing a repeatable pass/fail and drift score per config.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "A running, owned pipeline that validates output quality across numerics and serving configurations is direct evidence of the correctness-ownership gap the listing describes."
+        },
+        {
+          "id": "C2",
+          "name": "Speed-vs-correctness tradeoff analysis",
+          "description": "For each quantization/config combination, measure throughput and latency against a computed theoretical roofline and plot it alongside the correctness score, making the tradeoff between speed gains and quality loss explicit and quantified.",
+          "addresses": [
+            "P2"
+          ],
+          "rationale": "Quantifying the gap to theoretical performance for each config, not just raw speed, demonstrates the same roofline-gap-sizing discipline the listing asks for, applied in a correctness-relevant context."
+        },
+        {
+          "id": "C3",
+          "name": "Regression bisection case study and dashboard",
+          "description": "Intentionally introduce a quality-degrading change (e.g. a more aggressive quantization scheme or a kernel swap), use the eval pipeline to catch the resulting regression, bisect which config change caused it, and present the correctness and performance metrics together in one dashboard view with a written root-cause summary.",
+          "addresses": [
+            "P3",
+            "P4"
+          ],
+          "rationale": "Catching and root-causing a deliberately injected regression, then presenting it alongside performance data, mirrors 'lead the investigation when it catches a regression' and the unified-legibility ask."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build eval suite and run it across a config matrix",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add performance/roofline measurement and tradeoff analysis",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Inject a regression, bisect it, and build combined dashboard with writeup",
+          "components": [
+            "C3"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cross-Stack Tail-Latency RFC on an Open-Source Inference Engine",
+      "summary": "Using an open-source serving engine plus a simulated multi-replica routing/autoscaling layer, find a real cross-layer bottleneck, rank it against other discovered issues, and write a data-driven RFC proposing a fix as if pitching to a team that owns the affected component. This project emphasizes the influence-without-authority and cross-team-coordination dimension of the role rather than pure benchmarking depth.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "End-to-end cross-layer profiling investigation",
+          "description": "Profile a realistic workload on an open-source inference server (e.g. vLLM or SGLang) across request ingestion, scheduling/continuous batching, and kernel execution to locate a genuine cross-layer bottleneck or latency cliff.",
+          "addresses": [
+            "P1",
+            "P7"
+          ],
+          "rationale": "Tracing a bottleneck through multiple owning-team layers in one investigation is direct evidence against the claim that such cross-layer visibility and tracing don't currently happen."
+        },
+        {
+          "id": "C2",
+          "name": "Routing/autoscaling sensitivity study",
+          "description": "Add a simulated multi-replica setup with a load balancer and a simple autoscaling policy, then measure how routing decisions and scale-up/down timing affect tail latency and utilization, explicitly analyzing the interaction between routing, autoscaling, and capacity.",
+          "addresses": [
+            "P5",
+            "P7"
+          ],
+          "rationale": "Explicitly quantifying how decisions in one layer (autoscaling) affect outcomes owned by another (routing/latency) demonstrates the cross-team-interaction analysis the listing says nobody currently owns."
+        },
+        {
+          "id": "C3",
+          "name": "Impact/effort prioritization matrix",
+          "description": "Given multiple bottlenecks surfaced across kernel, batching, routing, and autoscaling, score each by estimated impact and implementation effort and state clearly which ones make the cut for the RFC and which are explicitly deprioritized.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "A visible, justified stack-rank of competing fixes across layers is direct evidence of the prioritization discipline the listing calls out as necessary."
+        },
+        {
+          "id": "C4",
+          "name": "Data-driven RFC to a hypothetical owning team",
+          "description": "Write a concise, quantitative RFC proposing the highest-leverage fix, framed for an audience that owns the component but doesn't report to the author, including the measured impact, the cost of inaction, and the tradeoffs considered.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "A persuasive, evidence-based document aimed at driving change in someone else's system is exactly the influence-without-authority skill the listing requires."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Profile the engine end-to-end and identify a cross-layer bottleneck",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Build routing/autoscaling simulation and measure cross-layer sensitivity",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Compile and score the full opportunity list",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Write and publish the RFC",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    }
+  ]
+}

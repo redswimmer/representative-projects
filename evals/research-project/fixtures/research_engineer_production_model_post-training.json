@@ -1,0 +1,297 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "problem": "Post-training techniques (Constitutional AI, RLHF, etc.) need to be scaled from research prototypes to reliable, efficient production pipelines for frontier models",
+      "evidence": [
+        "implementing, scaling, and improving post-training techniques like Constitutional AI, RLHF, and other alignment methodologies",
+        "Design, build, and run robust, efficient pipelines for model fine-tuning and evaluation"
+      ],
+      "rationale": "Explicitly calling for someone to implement, scale, and build pipelines for post-training methods shows these processes aren't yet robust or efficient enough for production."
+    },
+    {
+      "id": "P2",
+      "problem": "There is a gap between emerging research techniques and production-ready implementations that needs to be bridged",
+      "evidence": [
+        "Collaborate with research teams to translate emerging techniques into production-ready implementations"
+      ],
+      "rationale": "The need for someone to 'translate' research into production implies research results are not currently deployable without dedicated engineering effort."
+    },
+    {
+      "id": "P3",
+      "problem": "Training pipelines and model behavior have complex bugs/issues that require dedicated debugging expertise",
+      "evidence": [
+        "Debug complex issues in training pipelines and model behavior",
+        "Maintain clarity when debugging complex, time-sensitive issues",
+        "Are adept at analyzing and debugging model training processes"
+      ],
+      "rationale": "Repeated emphasis on debugging complex, time-sensitive training issues indicates recurring, hard-to-diagnose failures in the pipeline that need specialized skill to resolve."
+    },
+    {
+      "id": "P4",
+      "problem": "Model quality across multiple performance dimensions is not adequately measured or optimized, requiring new tooling",
+      "evidence": [
+        "Develop tools to measure and improve model performance across various dimensions"
+      ],
+      "rationale": "The explicit ask to develop new measurement tools implies existing evaluation capabilities are insufficient to track and improve model performance."
+    },
+    {
+      "id": "P5",
+      "problem": "Post-training work lacks standardized, reproducible practices, causing inconsistency or unreliability",
+      "evidence": [
+        "Help establish best practices for reliable, reproducible model post-training"
+      ],
+      "rationale": "Needing to 'establish' best practices implies current post-training processes are not yet reliable or reproducible."
+    },
+    {
+      "id": "P6",
+      "problem": "The team faces urgent, unpredictable operational incidents that require rapid response, including outside normal working hours",
+      "evidence": [
+        "This role may require responding to incidents on short-notice, including on weekends.",
+        "Thrive in controlled chaos and are energised, rather than overwhelmed, when juggling multiple urgent priorities"
+      ],
+      "rationale": "The explicit mention of short-notice incident response and thriving in 'controlled chaos' signals frequent unplanned operational fires that the current team struggles to cover."
+    },
+    {
+      "id": "P7",
+      "problem": "Priorities in this fast-moving research environment shift frequently, requiring engineers who can adapt without losing productivity",
+      "evidence": [
+        "Adapt quickly to changing priorities",
+        "Can navigate ambiguity and make progress in fast-moving research environments"
+      ],
+      "rationale": "The requirement to adapt to changing priorities and navigate ambiguity suggests the current roadmap is unstable and existing staff need reinforcement to keep pace."
+    },
+    {
+      "id": "P8",
+      "problem": "Post-training must operate at large scale on distributed, high-performance computing infrastructure, requiring specialized systems expertise",
+      "evidence": [
+        "Are comfortable working with large-scale distributed systems and high-performance computing",
+        "Implement and optimize post-training techniques at scale on frontier models"
+      ],
+      "rationale": "Requiring comfort with large-scale distributed systems and optimization 'at scale' implies current infrastructure/processes struggle to efficiently handle frontier-model-scale training."
+    },
+    {
+      "id": "P9",
+      "problem": "Balancing rigorous engineering/operational reliability with fast research exploration is a persistent tension needing skilled staff",
+      "evidence": [
+        "Can balance research exploration with engineering rigor and operational reliability"
+      ],
+      "rationale": "Calling out the need to balance exploration with rigor suggests the team currently struggles to reconcile fast research iteration with production-grade reliability."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Scalable Constitutional AI + RLHF Fine-Tuning Pipeline",
+      "summary": "Build an end-to-end post-training pipeline on a small open-source base model that implements supervised fine-tuning, a reward model, RLHF (PPO or DPO), and a Constitutional AI-style critique-and-revision loop, then scale it to multi-GPU distributed training with reproducibility tooling. This is the most direct evidence you can implement, scale, and productionize the exact alignment techniques the role centers on.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "RLHF + Constitutional AI core pipeline",
+          "description": "A pipeline that takes a base model through SFT, trains a reward model on preference data, runs RLHF (PPO or DPO), and adds a constitutional critique-revision self-improvement stage where the model critiques and rewrites its own outputs against a written 'constitution' before further preference training.",
+          "addresses": [
+            "P1",
+            "P2"
+          ],
+          "rationale": "Implementing the full CAI+RLHF stack end-to-end, including translating the CAI critique-revision idea into working training code, directly demonstrates the ability to scale and productionize these specific research techniques."
+        },
+        {
+          "id": "C2",
+          "name": "Distributed multi-GPU scale-up",
+          "description": "Port the single-GPU pipeline to multi-GPU (and ideally multi-node) execution using FSDP or DeepSpeed, with measured throughput/memory benchmarks showing the scaling behavior and bottlenecks as GPU count increases.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "Concrete before/after scaling numbers on real distributed hardware are direct evidence of comfort with large-scale distributed training infrastructure."
+        },
+        {
+          "id": "C3",
+          "name": "Reproducibility layer",
+          "description": "Versioned experiment configs, fixed seeds and data manifests, and structured experiment tracking (e.g., via a logging tool) so that any run can be exactly reproduced and compared against prior runs.",
+          "addresses": [
+            "P5"
+          ],
+          "rationale": "A working system where any historical run can be re-executed to identical results is direct proof of establishing reproducible practices, not just a claim of caring about them."
+        },
+        {
+          "id": "C4",
+          "name": "Research-to-production playbook",
+          "description": "A written record documenting the messy exploratory phase (failed hyperparameters, unstable reward signals, ablations) alongside the final hardened, tested pipeline, showing the decision points where exploration was cut off in favor of engineering rigor.",
+          "addresses": [
+            "P9"
+          ],
+          "rationale": "Showing the actual before/after of turning exploratory experiments into a disciplined pipeline is concrete evidence of balancing research freedom with engineering rigor, rather than an assertion of the skill."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Baseline SFT + reward model + RLHF/DPO loop on a small open model, single GPU",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add Constitutional AI critique-revision stage on top of the RLHF loop",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Scale to multi-GPU/multi-node with FSDP or DeepSpeed and benchmark throughput/memory",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Add versioned configs, seed/data manifests, and experiment tracking",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Write the research-to-production playbook documenting the exploration-to-rigor transition",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Post-Training Evaluation and Debugging Toolkit",
+      "summary": "Build a suite of evaluation and diagnostic tools that sit alongside any fine-tuning pipeline: a multi-dimension eval harness, automated anomaly detection for common training pathologies, and a bisection tool that pinpoints which data, hyperparameter, or checkpoint change caused a behavioral regression. This project emphasizes measurement and debugging depth rather than training-technique breadth.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Multi-dimensional eval harness",
+          "description": "An evaluation suite scoring model checkpoints across several axes at once (task capability, instruction-following, refusal/harmlessness behavior on a safety probe set, and output format consistency), producing a single comparable report per checkpoint.",
+          "addresses": [
+            "P4"
+          ],
+          "rationale": "A working harness that quantifies multiple quality dimensions simultaneously is direct evidence of building the kind of measurement tooling the role asks for, rather than relying on a single benchmark score."
+        },
+        {
+          "id": "C2",
+          "name": "Training anomaly detector",
+          "description": "Instrumentation that watches a live training run for known pathologies \u2014 reward hacking signatures, gradient norm spikes, KL-divergence blowups, loss plateaus \u2014 and flags them automatically during or after a run.",
+          "addresses": [
+            "P3"
+          ],
+          "rationale": "An automated detector that catches real pathological training behavior on your own runs is concrete proof of the ability to diagnose complex training issues, not just describe them."
+        },
+        {
+          "id": "C3",
+          "name": "Regression bisection tool",
+          "description": "A tool that takes two checkpoints with different eval results and walks back through the intermediate data batches, hyperparameter changes, or code diffs between them to localize which change caused the behavior shift, packaged so it could plug into any team's existing pipeline.",
+          "addresses": [
+            "P2",
+            "P3"
+          ],
+          "rationale": "Bisection tooling that pinpoints the root cause of a specific regression is strong evidence of debugging skill, and framing it as a pluggable tool shows the translate-research-into-usable-infrastructure mindset."
+        },
+        {
+          "id": "C4",
+          "name": "Per-checkpoint eval dashboard",
+          "description": "A dashboard that plots the multi-dimensional eval results and anomaly flags over the course of training, so quality tradeoffs across checkpoints are visible at a glance.",
+          "addresses": [
+            "P4"
+          ],
+          "rationale": "Turning raw eval numbers into a usable dashboard demonstrates the tooling is built to actually improve model performance decisions, not just log data."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Build the multi-dimensional eval harness and run it against a handful of checkpoints",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add automated anomaly detection instrumentation to a live training run",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Build the bisection tool and demonstrate it localizing a deliberately introduced regression",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Wire eval results and anomaly flags into a per-checkpoint dashboard",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Reliable Fine-Tuning Infrastructure with Incident Drills",
+      "summary": "Build the operational backbone around a fine-tuning job rather than the training technique itself: fault-tolerant multi-node execution, monitoring/alerting, and rehearsed incident response. This project emphasizes the on-call, systems-reliability side of the role for candidates whose strongest signal is infrastructure and operations rather than research technique novelty.",
+      "components": [
+        {
+          "id": "C1",
+          "name": "Fault-tolerant distributed training job",
+          "description": "A multi-GPU (ideally multi-node) fine-tuning job with automatic checkpointing and elastic restart, so that a killed worker or preempted node resumes training without losing significant progress.",
+          "addresses": [
+            "P8"
+          ],
+          "rationale": "Demonstrating a training job that survives real node/worker failure on distributed hardware is direct evidence of large-scale systems competence beyond just launching a multi-GPU job."
+        },
+        {
+          "id": "C2",
+          "name": "Training monitoring and alerting stack",
+          "description": "Metrics and alerting (e.g., via Prometheus/Grafana or a lightweight equivalent) tracking throughput, GPU utilization, loss trajectory, and hardware health, configured to page on the kinds of failures that would need urgent attention.",
+          "addresses": [
+            "P6"
+          ],
+          "rationale": "A working alerting pipeline that pages on real failure conditions is the closest a solo portfolio project can get to demonstrating on-call readiness for urgent operational incidents."
+        },
+        {
+          "id": "C3",
+          "name": "Chaos drills and incident runbooks",
+          "description": "Deliberately injected failures (killed nodes, OOM, corrupted data shards) run against the pipeline, with written runbooks for triage and a postmortem for each drill describing root cause and time-to-resolution.",
+          "addresses": [
+            "P6",
+            "P3"
+          ],
+          "rationale": "Practicing and documenting rapid triage under simulated failure conditions is concrete, verifiable evidence of composure and skill in exactly the short-notice debugging scenarios the role calls out."
+        },
+        {
+          "id": "C4",
+          "name": "Infra-as-code reproducible environment",
+          "description": "The entire training/monitoring stack defined as code (container images, cluster config, environment pinning) so the whole setup can be torn down and rebuilt identically.",
+          "addresses": [
+            "P5"
+          ],
+          "rationale": "An environment that can be rebuilt byte-for-byte from code is evidence of reproducibility at the infrastructure layer, complementing experiment-level reproducibility."
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Stand up a multi-GPU/multi-node fine-tuning job with checkpoint/restart fault tolerance",
+          "components": [
+            "C1"
+          ]
+        },
+        {
+          "milestone": "Add a monitoring and alerting stack around the training job",
+          "components": [
+            "C2"
+          ]
+        },
+        {
+          "milestone": "Run chaos drills against the pipeline and write runbooks/postmortems for each",
+          "components": [
+            "C3"
+          ]
+        },
+        {
+          "milestone": "Package the full stack as infra-as-code for one-command rebuild",
+          "components": [
+            "C4"
+          ]
+        }
+      ]
+    }
+  ]
+}
