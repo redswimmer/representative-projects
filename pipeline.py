@@ -1,11 +1,6 @@
-"""Run the two agents over job listings, the way an applicant would:
+"""Run the two agents over job listings:
 extract the problems a listing encodes, then propose one representative
 project aimed at them. Results land in output/<listing>/.
-
-This runner has no quality machinery on purpose — it just runs the agents
-(one Claude Code call each, using your existing login). Quality control
-lives in the eval suites under evals/; issues found there are fixed in the
-agents' prompt files, which this runner shares.
 """
 
 import subprocess

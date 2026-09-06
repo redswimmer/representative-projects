@@ -1,7 +1,7 @@
 {
   "name": "representative-projects",
   "private": true,
-  "description": "Node-side dependency for promptfoo's anthropic:claude-agent-sdk provider (phase 2)",
+  "description": "Node-side dependency for promptfoo's anthropic:claude-agent-sdk provider",
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "0.3.261"
   }
