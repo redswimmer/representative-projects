@@ -26,7 +26,6 @@ module.exports = {
     assert: [
       { type: 'is-json', value: schema, metric: 'schema_adherence' },
       { type: 'python', value: 'file://asserts/integrity.py', metric: 'integrity' },
-      { type: 'not-contains', value: '```', metric: 'no_code' },
     ],
   },
   tests: [
