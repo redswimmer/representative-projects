@@ -73,8 +73,8 @@ suite and read every trace:
 npm install
 
 # each agent, graded over its committed corpus
-uvx promptfoo eval -c evals/extract-problems/promptfooconfig.yaml --no-cache
-uvx promptfoo eval -c evals/propose-project/promptfooconfig.yaml --no-cache
+uvx promptfoo eval -c evals/extract-problems/promptfooconfig.js --no-cache
+uvx promptfoo eval -c evals/propose-project/promptfooconfig.js --no-cache
 
 # read every analysis in the browser
 uvx promptfoo view
