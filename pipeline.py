@@ -1,8 +1,9 @@
 """Run the two agents over job listings:
-extract the problems a listing encodes, then propose one representative
-project aimed at them. Results land in output/<listing>/.
+extract the problems a listing encodes, then propose ranked representative
+projects aimed at them. Results land in output/<listing>/.
 """
 
+import argparse
 import subprocess
 import sys
 from pathlib import Path
@@ -34,10 +35,15 @@ def run_agent(prompt: str) -> str:
 
 
 def main():
-    requested_stems = set(sys.argv[1:])
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("stems", nargs="*", help="listing stems to run (default: all)")
+    parser.add_argument("--projects", type=int, default=3,
+                        help="how many ranked projects to propose per listing (default: 3)")
+    args = parser.parse_args()
+
     listing_paths = sorted((REPO / "job_listings").glob("*.txt"))
-    if requested_stems:
-        listing_paths = [p for p in listing_paths if p.stem in requested_stems]
+    if args.stems:
+        listing_paths = [p for p in listing_paths if p.stem in set(args.stems)]
     if not listing_paths:
         sys.exit("no matching listings in job_listings/")
 
@@ -59,9 +65,10 @@ def main():
             "listing_id": listing_id,
             "listing": listing,
             "problems": problems,
+            "num_projects": str(args.projects),
         }))
-        (out_dir / "project.json").write_text(proposal + "\n", encoding="utf-8")
-        print(f"   project  → output/{listing_id}/project.json")
+        (out_dir / "projects.json").write_text(proposal + "\n", encoding="utf-8")
+        print(f"   projects → output/{listing_id}/projects.json")
 
     print("\nDone. Quality checks live in the eval suites — see README.")
 

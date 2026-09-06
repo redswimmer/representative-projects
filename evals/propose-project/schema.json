@@ -1,53 +1,104 @@
 {
   "type": "object",
   "properties": {
-    "project": {
-      "type": "object",
-      "properties": {
-        "title": {"type": "string"},
-        "summary": {"type": "string"},
-        "components": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {"type": "string", "pattern": "^C[0-9]+$"},
-              "name": {"type": "string"},
-              "description": {"type": "string"},
-              "addresses": {
-                "type": "array",
-                "minItems": 1,
-                "items": {"type": "string", "pattern": "^P[0-9]+$"}
+    "projects": {
+      "description": "Ranked representative portfolio projects — array order is the ranking, first is the strongest recommendation.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "description": "Short name for the project.",
+            "type": "string"
+          },
+          "summary": {
+            "description": "A few sentences describing the project and what it demonstrates.",
+            "type": "string"
+          },
+          "components": {
+            "description": "The parts of this project, each mapped to the problems it addresses.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "Sequential component identifier within this project: C1, C2, ...",
+                  "type": "string",
+                  "pattern": "^C[0-9]+$"
+                },
+                "name": {
+                  "description": "Short name for the component.",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "What this component is, in prose — no code.",
+                  "type": "string"
+                },
+                "addresses": {
+                  "description": "Ids of the problems this component addresses.",
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "pattern": "^P[0-9]+$"}
+                },
+                "rationale": {
+                  "description": "One sentence: why this component is convincing evidence against those problems.",
+                  "type": "string"
+                }
               },
-              "justification": {"type": "string"}
-            },
-            "required": ["id", "name", "description", "addresses", "justification"],
-            "additionalProperties": false
+              "required": ["id", "name", "description", "addresses", "rationale"],
+              "additionalProperties": false
+            }
+          },
+          "roadmap": {
+            "description": "Ordered milestones for building this project.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "milestone": {
+                  "description": "What this milestone delivers.",
+                  "type": "string"
+                },
+                "components": {
+                  "description": "Ids of this project's components that the milestone delivers.",
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "pattern": "^C[0-9]+$"}
+                }
+              },
+              "required": ["milestone", "components"],
+              "additionalProperties": false
+            }
           }
         },
-        "roadmap": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "properties": {
-              "milestone": {"type": "string"},
-              "components": {
-                "type": "array",
-                "minItems": 1,
-                "items": {"type": "string", "pattern": "^C[0-9]+$"}
-              }
-            },
-            "required": ["milestone", "components"],
-            "additionalProperties": false
+        "required": ["title", "summary", "components", "roadmap"],
+        "additionalProperties": false
+      }
+    },
+    "out_of_scope": {
+      "description": "Problems no proposed project addresses, each with its rationale. May be empty; an empty list means every problem is addressed somewhere. Never silently drop a problem.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Id of the problem left out of scope.",
+            "type": "string",
+            "pattern": "^P[0-9]+$"
+          },
+          "rationale": {
+            "description": "One sentence: why no proposed project addresses it.",
+            "type": "string"
           }
-        }
-      },
-      "required": ["title", "summary", "components", "roadmap"],
-      "additionalProperties": false
+        },
+        "required": ["id", "rationale"],
+        "additionalProperties": false
+      }
     }
   },
-  "required": ["project"],
+  "required": ["projects", "out_of_scope"],
   "additionalProperties": false
 }

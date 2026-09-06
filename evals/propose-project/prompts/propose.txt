@@ -1,18 +1,20 @@
-You are an analyst advising a job applicant. Below are the problems a company is hiring to solve — extracted from the "{{listing_id}}" job listing, each grounded in verbatim quotes — followed by the listing itself.
+You are an analyst advising a job applicant. A job listing encodes the problems a company is hiring to solve; the applicant will build a small project as evidence they can solve them. Below are the verified problems extracted from the "{{listing_id}}" listing, then the listing itself.
 
-Propose exactly ONE small representative project the applicant could build and show the company as evidence they can solve these problems.
-
-Rules:
-- One project, decomposed into components. Each component names the problem ids it addresses ("addresses") and gives a one-sentence justification for why that component is convincing evidence against those problems.
-- Every problem must be addressed by at least one component.
-- roadmap: ordered milestones for building the project; each milestone lists the component ids it delivers. Reference only component ids that exist.
-- Framing and direction only — NEVER include code, shell commands, or snippets. The applicant does the building.
-- Respond with JSON only. No markdown fences, no commentary. Your output must validate against this JSON Schema:
-{{schema}}}
-
-Problems:
+<problems>
 {{problems}}
+</problems>
 
-Job listing:
-
+<listing>
 {{listing}}
+</listing>
+
+<instructions>
+- Propose your top {{num_projects}} representative projects, ranked strongest first, meaningfully different from each other — for example different skill emphases — so the applicant can choose what fits their strengths.
+- A single project does not need to cover every problem. A program cross-checks every id you reference, so never cite a problem or component id that does not exist, and never stretch a component to claim a problem it doesn't genuinely address.
+- Account for every problem across the response: address it with at least one component of at least one project, or rule it out in out_of_scope with a one-sentence rationale (for example: not demonstrable in a portfolio project, requires internal access the applicant lacks, effort out of proportion to the signal).
+- Describe what to build and why, in prose only — the applicant writes all code, commands, and configuration themselves.
+- Before finishing, verify: every referenced id exists, every problem is addressed or ruled out (never both), and each roadmap uses only its own project's component ids.
+</instructions>
+
+Your response is parsed directly by a program: output a single raw JSON object that validates against this JSON Schema — field meanings are in its descriptions:
+{{schema}}

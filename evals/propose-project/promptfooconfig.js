@@ -22,7 +22,10 @@ module.exports = {
     },
   ],
   defaultTest: {
-    vars: { schema: JSON.stringify(schema, null, 2) }, // rendered into the prompt as {{schema}}
+    vars: {
+      schema: JSON.stringify(schema, null, 2), // rendered into the prompt as {{schema}}
+      num_projects: '3', // hard-set for evals; integrity.py enforces the count
+    },
     assert: [
       { type: 'is-json', value: schema, metric: 'schema_adherence' },
       { type: 'python', value: 'file://asserts/integrity.py', metric: 'integrity' },
