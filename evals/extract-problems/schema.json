@@ -1,6 +1,10 @@
 {
   "type": "object",
   "properties": {
+    "company": {
+      "description": "The hiring company's name, exactly as the listing states it; null when the listing never names the company.",
+      "type": ["string", "null"]
+    },
     "problems": {
       "description": "The distinct problems the company is hiring to solve, as evidenced by the listing.",
       "type": "array",
@@ -33,6 +37,6 @@
       }
     }
   },
-  "required": ["problems"],
+  "required": ["company", "problems"],
   "additionalProperties": false
 }

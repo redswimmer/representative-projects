@@ -17,11 +17,19 @@ def generate_tests(config=None):
     tests = []
     for path in fixture_paths:
         fixture = json.loads(path.read_text(encoding="utf-8"))
+        company = fixture.get("company")
+        if not company:
+            # company: null means the listing never names its company — research
+            # scoped to company-published sources is impossible by definition, so
+            # such a listing has no phase 3. A fixture like that is a curation
+            # error; fail loud rather than skip it silently or fabricate a name.
+            raise ValueError(f"{path.name}: fixture has no company name — this listing has no phase 3")
         tests.append(
             {
                 "description": path.stem,
                 "vars": {
                     "listing_id": path.stem,
+                    "company": company,
                     "problems": json.dumps({"problems": fixture["problems"]}, indent=2),
                     "projects": json.dumps({"projects": fixture["projects"]}, indent=2),
                 },

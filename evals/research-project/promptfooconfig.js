@@ -26,7 +26,7 @@ module.exports = {
   defaultTest: {
     vars: {
       schema: JSON.stringify(schema, null, 2), // rendered into the prompt as {{schema}}
-      company: 'Anthropic', // corpus-level fact: every committed listing is an Anthropic listing
+      // company comes per-test from the fixture (extracted by phase 1, not hardcoded)
     },
     assert: [
       { type: 'is-json', value: schema, metric: 'schema_adherence' },
