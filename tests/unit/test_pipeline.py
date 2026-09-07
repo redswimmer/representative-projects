@@ -4,6 +4,8 @@ the same {{name}} slots the eval prompts use."""
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from pipeline import fill_prompt
 
@@ -14,9 +16,9 @@ def test_fills_every_named_slot():
     assert filled == "Listing acme:\nWe hire."
 
 
-def test_unknown_slot_stays_visible_instead_of_vanishing():
-    filled = fill_prompt("Problems: {{problems}}", {"listing": "irrelevant"})
-    assert filled == "Problems: {{problems}}"
+def test_unfilled_slot_is_an_error_not_a_literal():
+    with pytest.raises(KeyError, match="problems"):
+        fill_prompt("Problems: {{problems}}", {"listing": "irrelevant"})
 
 
 def test_value_containing_braces_is_inserted_literally():

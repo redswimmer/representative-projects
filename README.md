@@ -61,9 +61,11 @@ uv run pipeline.py performance_engineer   # or just one
 ```
 
 Each listing gets `output/<listing>/problems.json` (the decoded problems,
-with their evidence quotes) and `output/<listing>/project.json` (the
-proposed project). To analyze your own target listings, drop them into
-`job_listings/` as `.txt` files — one listing per file — and rerun.
+with their evidence quotes), `output/<listing>/projects.json` (the ranked
+proposed projects) and `output/<listing>/citations.json` (what the company
+itself has published that each project builds on — skipped when a listing
+never names its company). To analyze your own target listings, drop them
+into `job_listings/` as `.txt` files — one listing per file — and rerun.
 
 **Evaluate the agents** — the point of this repo — run each agent's graded
 suite and read every trace:
